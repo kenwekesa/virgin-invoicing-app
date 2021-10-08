@@ -25,7 +25,7 @@ admin.site.site_header  =  "Virgin Safaris admin"
 admin.site.site_title  =  "Virgin Safaris admin site"
 admin.site.index_title  =  "Virgin Safaris Admin"
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls, name='admin'),
    
         path("userlogin/", views.login_request, name="login"),
         path("", mainviews.home, name="homepage"),
