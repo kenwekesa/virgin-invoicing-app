@@ -20,13 +20,18 @@ class InvoiceForm(forms.ModelForm):
                         label='Invoice Due',
                         widget=DateInput(attrs={'class': 'form-control'}),)
 
-    helper = FormHelper()
-    helper.layout = Layout(
-        Div(
-            Field('field1', wrapper_class='col-md-3'),
-            Field('field3', wrapper_class='col-md-9'),  
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+             Div(
+            Field('field1', css_class='col-md-3'),
+            Field('field3', css_class='col-md-9'),  
         css_class='form-row') 
-    )
+        )
+    
+       
+    
 
     class Meta:
         model = Invoice
