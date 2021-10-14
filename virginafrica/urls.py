@@ -33,5 +33,15 @@ urlpatterns = [
         path('logout/', auth_views.LogoutView.as_view(template_name = 'forms/logoutpage.html'), name='logout'),
          path("invoicemain/", invoice_views.main, name="invoice-main"),
          path("createinvoice/", invoice_views.create_invoice, name="create-invoice"),
+         path("invoices/", invoice_views.view_invoices, name="view-invoices" ),
+         path('invoices/create-build/<slug:slug>',invoice_views.createBuildInvoice, name='create-build-invoice'),
+         path('invoices/view-pdf/<slug:slug>',invoice_views.viewPDFInvoice, name='view-pdf-invoice'),
+
+
+         path('clients/',invoice_views.view_clients, name='clients'),
+          path('create-client/',invoice_views.clients, name='create-client'),
+        
+
+         
 
 ]
