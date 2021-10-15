@@ -26,10 +26,16 @@ class InvoiceForm(forms.ModelForm):
     ('PAID', 'PAID'),
     ]
 
-    title = forms.CharField(
+    quantity = forms.CharField(
                     required = True,
-                    label='Invoice Name or Title',
-                    widget=forms.TextInput(attrs={'class': 'form-control mb-3', 'placeholder': 'Enter Invoice Title'}),)
+                    label='Quantity(packs)',
+                    widget=forms.TextInput(attrs={'class': 'form-control mb-3', 'placeholder': 'Enter quantity in packs'}),)
+    
+    unit_price = forms.CharField(
+                    required = True,
+                    label='Unit price(Ksh)',
+                    widget=forms.TextInput(attrs={'class': 'form-control mb-3', 'placeholder': 'Enter the unit price in Ksh'}),)
+
     paymentTerms = forms.ChoiceField(
                     choices = THE_OPTIONS,
                     required = True,
@@ -40,9 +46,9 @@ class InvoiceForm(forms.ModelForm):
                     required = True,
                     label='Change Invoice Status',
                     widget=forms.Select(attrs={'class': 'form-control mb-3'}),)
-    notes = forms.CharField(
+    description = forms.CharField(
                     required = True,
-                    label='Enter any notes for the client',
+                    label='Service Description: ',
                     widget=forms.Textarea(attrs={'class': 'form-control mb-3'}))
 
     dueDate = forms.DateField(
@@ -56,20 +62,21 @@ class InvoiceForm(forms.ModelForm):
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Row(
-                Column('title', css_class='form-group col-md-4'),
+                Column('quantity', css_class='form-group col-md-4'),
+                Column('unit-price', css_class='form-group col-md-4'),
                 Column('dueDate', css_class='form-group col-md-6'),
                 css_class='form-row'),
             Row(
                 Column('paymentTerms', css_class='form-group col-md-4'),
                 Column('status', css_class='form-group col-md-6'),
                 css_class='form-row'),
-            'notes',
+            'description',
 
             Submit('submit', ' EDIT INVOICE '))
 
     class Meta:
         model = Invoice
-        fields = ['title', 'dueDate', 'paymentTerms', 'status', 'notes']
+        fields = ['dueDate', 'quantity', 'unit_price', 'paymentTerms', 'status', 'description']
 
 
     
@@ -78,7 +85,7 @@ class InvoiceForm(forms.ModelForm):
 
     class Meta:
         model = Invoice
-        fields = ['title', 'number', 'dueDate', 'paymentTerms', 'status', 'notes', 'client']
+        fields = ['number','quantity','unit_price', 'dueDate', 'paymentTerms', 'status', 'description', 'client']
 
 class ClientForm(forms.ModelForm):
     class Meta:

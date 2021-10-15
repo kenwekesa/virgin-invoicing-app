@@ -57,11 +57,11 @@ class Client(models.Model):
 def increment_invoice_number():
         last_invoice = Invoice.objects.all().order_by('id').last()
         if not last_invoice:
-            return 'VRGA100'
+            return 'VRG100'
         invoice_no = last_invoice.number
-        invoice_int = int(invoice_no.split('VRGA')[-1])
+        invoice_int = int(invoice_no.split('VRG')[-1])
         new_invoice_int = invoice_int + 1
-        new_invoice_no = 'VRGA' + str(new_invoice_int)
+        new_invoice_no = 'VRG' + str(new_invoice_int)
         return new_invoice_no
 
 class Invoice(models.Model):
@@ -78,12 +78,13 @@ class Invoice(models.Model):
     ('PAID', 'PAID'),
     ]
 
-    title = models.CharField(null=True, blank=True, max_length=100)
     number = models.CharField(null=True,default=increment_invoice_number, blank=True, max_length=100)
     dueDate = models.DateField(null=True, blank=True)
+    quantity =models.CharField(blank=False, max_length=200,default=1)
+    unit_price = models.CharField(blank=False,max_length=30, default=0000)
     paymentTerms = models.CharField(choices=TERMS, default='14 days', max_length=100)
     status = models.CharField(choices=STATUS, default='CURRENT', max_length=100)
-    notes = models.TextField(null=True, blank=True)
+    description = models.TextField(null=True, blank=True,max_length=500)
 
     #RELATED fields
     client = models.ForeignKey(Client, blank=True, null=True, on_delete=models.SET_NULL)
