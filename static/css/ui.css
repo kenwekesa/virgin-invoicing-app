@@ -347,7 +347,7 @@ article:after,
 }
 
 .bg-pattern {
-  background-image: url(../images/banners/bg-pattern.svg),
+ 
     linear-gradient(135deg, #3167eb, #545454);
   background-size: cover, auto;
   background-repeat: no-repeat, repeat;
@@ -362,7 +362,7 @@ article:after,
       rgba(49, 103, 235, 0.8),
       rgba(84, 84, 84, 0.9)
     ),
-    url("../images/banners/bg-cpu.jpg");
+ 
   background-position: 0px 0px, 50% 50%;
   background-size: auto cover;
 }
