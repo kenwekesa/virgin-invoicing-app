@@ -1,0 +1,21 @@
+{% extends 'index.html' %} {% load static %} {% load crispy_forms_tags %}
+
+<!--Some comments-->
+{% block content %}
+<!-- This is a comment too-->
+
+<!-- section-header.// -->
+<!--Login-->
+<div class="container py-5 login-form-parent">
+  <h5>Creating invoice</h5>
+  <form method="POST">
+    {% csrf_token %} {{ invoice_create_form|crispy }}
+    <button class="btn btn-info" type="submit">Save</button>
+    <button class="btn btn-danger" type="submit">Reset</button>
+    <button class="btn btn-warning" type="submit">Cancel</button>
+  </form>
+  <br />
+</div>
+
+<!-- ========================= FOOTER END // ========================= -->
+{% endblock content %}
