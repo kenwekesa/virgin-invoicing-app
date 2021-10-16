@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.http.response import HttpResponse
 from django.shortcuts import render, redirect
 
-from virginafrica.invoice.models import Settings
+#from virginafrica.invoice.models import Settings
 from .forms import InvoiceForm, ProductForm, ClientForm,ClientSelectForm
 from django.contrib import messages
 from invoice.models import Invoice,Product,Client
@@ -197,11 +197,11 @@ def viewDocumentInvoice(request, slug):
     filename = '{}.pdf'.format(invoice.uniqueId)
 
     #HTML FIle to be converted to PDF - inside your Django directory
-    template = get_template('invoice/pdf-template.html')
+    #template = get_template('invoice/pdf-template.html')
 
 
     #Render the HTML
-    html = template.render(context)
+    #html = template.render(context)
 
     #Options - Very Important [Don't forget this]
     options = {
@@ -219,21 +219,21 @@ def viewDocumentInvoice(request, slug):
     config = pdfkit.configuration(wkhtmltopdf='/usr/bin/wkhtmltopdf')
 
     #IF you have CSS to add to template
-    css1 = os.path.join(settings.CSS_LOCATION, 'assets', 'css', 'bootstrap.min.css')
-    css2 = os.path.join(settings.CSS_LOCATION, 'assets', 'css', 'dashboard.css')
+    #css1 = os.path.join(settings.CSS_LOCATION, 'assets', 'css', 'bootstrap.min.css')
+    #css2 = os.path.join(settings.CSS_LOCATION, 'assets', 'css', 'dashboard.css')
 
     #Create the file
-    file_content = pdfkit.from_string(html, False, configuration=config, options=options)
+    #file_content = pdfkit.from_string(html, False, configuration=config, options=options)
 
     #Create the HTTP Response
-    response = HttpResponse(file_content, content_type='application/pdf')
-    response['Content-Disposition'] = 'inline; filename = {}'.format(filename)
+    #response = HttpResponse(file_content, content_type='application/pdf')
+    #response['Content-Disposition'] = 'inline; filename = {}'.format(filename)
 
     #Return
-    return response
+    #return response
 
 
-def emailDocumentInvoice(request, slug):
+"""def emailDocumentInvoice(request, slug):
     #fetch that invoice
     try:
         invoice = Invoice.objects.get(slug=slug)
@@ -267,7 +267,7 @@ def emailDocumentInvoice(request, slug):
     filename = '{}.pdf'.format(invoice.uniqueId)
 
     #HTML FIle to be converted to PDF - inside your Django directory
-    template = get_template('invoice/pdf-template.html')
+    #template = get_template('invoice/pdf-template.html')
 
 
     #Render the HTML
@@ -311,3 +311,4 @@ def emailDocumentInvoice(request, slug):
 	#view invoices here
 	
 # Create your views here.
+"""
