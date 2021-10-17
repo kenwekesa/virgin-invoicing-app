@@ -90,7 +90,7 @@ class InvoiceForm(forms.ModelForm):
 class ClientForm(forms.ModelForm):
     class Meta:
         model = Client
-        fields = ['clientName', 'addressLine1', 'city', 'postalCode', 'phoneNumber', 'emailAddress', 'taxNumber']
+        fields = ['clientName', 'addressLine1', 'city', 'postalCode', 'phoneNumber', 'emailAddress']
 
 
 
