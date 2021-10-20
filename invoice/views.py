@@ -1,11 +1,14 @@
 from django.contrib.auth.decorators import login_required
 from django.http.response import HttpResponse
 from django.shortcuts import render, redirect
+from django.template.loader import render_to_string
 
 #from virginafrica.invoice.models import Settings
 from .forms import InvoiceForm, ProductForm, ClientForm,ClientSelectForm
 from django.contrib import messages
 from invoice.models import Invoice,Product,Client
+from Weasyprint import HTML
+import tempfile
 
 
 
@@ -231,7 +234,27 @@ def viewDocumentInvoice(request, slug):
 
     #Return
     #return response
+def generate_pdf(request):
+    """Generate pdf."""
+    # Model data
+    people = Invoice.objects.all()
 
+    # Rendered
+    html_string = render_to_string('invoice/temp.html', {'people': people})
+    html = HTML(string=html_string)
+    result = html.write_pdf()
+
+    # Creating http response
+    response = HttpResponse(content_type='application/pdf;')
+    response['Content-Disposition'] = 'inline; filename=list_people.pdf'
+    response['Content-Transfer-Encoding'] = 'binary'
+    with tempfile.NamedTemporaryFile(delete=True) as output:
+        output.write(result)
+        output.flush()
+        output = open(output.name, 'r')
+        response.write(output.read())
+
+    return response
 
 """def emailDocumentInvoice(request, slug):
     #fetch that invoice
