@@ -171,15 +171,17 @@ def pdfview(request):
     html_string = render_to_string('invoice/pdf.html', {'paragraphs': paragraphs})
 
     html = HTML(string=html_string)
-    html.write_pdf(target='/tmp/mypdf.pdf');
+    doc = html.render()
+    pdf =doc.write_pdf()
+    
 
-    fs = FileSystemStorage('/tmp')
-    with fs.open('mypdf.pdf') as pdf:
-        response = HttpResponse(pdf, content_type='application/pdf')
-        response['Content-Disposition'] = 'attachment; filename="mypdf.pdf"'
-        return response
-
+    
+   
+    response = HttpResponse(pdf, content_type='application/pdf')
+    #response['Content-Disposition'] = 'attachment; filename="mypdf.pdf"'
     return response
+
+    
 
 """
 def viewDocumentInvoice(request, slug):
