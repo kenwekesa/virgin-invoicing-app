@@ -23,7 +23,11 @@ class Client(models.Model):
     postalCode = models.CharField(null=True, blank=True, max_length=10)
     phoneNumber = models.CharField(null=True, blank=True, max_length=100)
     emailAddress = models.CharField(null=True, blank=True, max_length=100)
+<<<<<<< HEAD
     taxNumber = models.CharField(null=True, blank=True, max_length=100)
+=======
+    
+>>>>>>> fa88f705d4ec509b000e7a65be26d168ac1127af
 
 
     #Utility fields
@@ -179,7 +183,11 @@ class Settings(models.Model):
     postalCode = models.CharField(null=True, blank=True, max_length=10)
     phoneNumber = models.CharField(null=True, blank=True, max_length=100)
     emailAddress = models.CharField(null=True, blank=True, max_length=100)
+<<<<<<< HEAD
     taxNumber = models.CharField(null=True, blank=True, max_length=100)
+=======
+ 
+>>>>>>> fa88f705d4ec509b000e7a65be26d168ac1127af
 
 
     #Utility fields

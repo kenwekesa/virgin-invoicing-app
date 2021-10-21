@@ -7,7 +7,11 @@ from .forms import InvoiceForm, ProductForm, ClientForm,ClientSelectForm
 from django.contrib import messages
 from invoice.models import Invoice,Product,Client
 
+<<<<<<< HEAD
 import pdfkit
+=======
+
+>>>>>>> fa88f705d4ec509b000e7a65be26d168ac1127af
 
 
 def main(request):
