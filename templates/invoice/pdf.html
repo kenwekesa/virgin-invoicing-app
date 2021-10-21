@@ -4,7 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>A simple, clean, and responsive HTML invoice template</title>
+    <title>Invoice</title>
 
     <style>
       @page {
@@ -18,7 +18,7 @@
         padding: 30px;
         border: 0px solid #eee;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
-        font-size: 16px;
+        font-size: 12px;
         line-height: 24px;
         font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
         color: #555;
@@ -79,6 +79,13 @@
     .payment_details_table tr td
     {
       align: left !important;
+    }
+
+    .grand_total
+    {
+      border-bottom: 1px double #000;
+      font-weight: bold
+      
     }
 
       @media only screen and (max-width: 600px) {
@@ -218,14 +225,14 @@
         <tr class="total">
           <td></td>
 
-          <td colspan="2">Total:</td>
-          <td>2390000</td>
+          <td colspan="3">Total:</td>
+          <td class = "grand_total">2390000</td>
         </tr>
       </table>
       </tr>
       <br />
       <p><i>Cash/Cheque Payable: VIRGIN AFRICA SAFARIS LTD.</i></p>
-      <table class="pamenty_details_table">
+      <table cellspacing="0" style="border-spacing: 0;" class="payment_details_table">
         <tr>
           <td>ACCOUNT NAME:</td>
           <td>VIRGIN AFRICA SAFARIS LIMITED</td>
