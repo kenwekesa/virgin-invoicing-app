@@ -177,7 +177,7 @@ def pdfview(request):
 
     
    
-    response = HttpResponse(pdf, content_type='application/pdf')
+    response = HttpResponse(pdf, content_type='application/pdf', target="_blank")
     #response['Content-Disposition'] = 'attachment; filename="mypdf.pdf"'
     return response
 
