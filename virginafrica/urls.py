@@ -24,6 +24,9 @@ from django.contrib.auth import views as auth_views
 admin.site.site_header  =  "Virgin Safaris admin"  
 admin.site.site_title  =  "Virgin Safaris admin site"
 admin.site.index_title  =  "Virgin Safaris Admin"
+
+
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 urlpatterns = [
     path('admin/', admin.site.urls, name='admin'),
    
@@ -51,3 +54,6 @@ urlpatterns = [
          
 
 ]
+
+
+urlpatterns += staticfiles_urlpatterns()
