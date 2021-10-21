@@ -38,6 +38,7 @@ urlpatterns = [
 
         #Invoice documents pdf and email
         path('invoices/view-pdf/<slug:slug>',invoice_views.viewPDFInvoice, name='view-pdf-invoice'),
+         path('pdf',invoice_views.pdfview, name='viewpdf'),
         #path('invoices/view-document/<slug:slug>',views.viewDocumentInvoice, name='view-document-invoice'),
        
        #path('invoices/email-document/<slug:slug>',views.emailDocumentInvoice, name='email-document-invoice'),

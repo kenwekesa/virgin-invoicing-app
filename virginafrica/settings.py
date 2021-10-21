@@ -12,11 +12,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
-<<<<<<< HEAD
-=======
 import django_on_heroku
 import dj_database_url
->>>>>>> fa88f705d4ec509b000e7a65be26d168ac1127af
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -34,7 +31,7 @@ ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
 
 
 
-# Application definition
+# Application definitio
 
 INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
@@ -84,10 +81,6 @@ WSGI_APPLICATION = 'virginafrica.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-<<<<<<< HEAD
-=======
-
->>>>>>> fa88f705d4ec509b000e7a65be26d168ac1127af
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -95,12 +88,9 @@ DATABASES = {
     }
 }
 
-<<<<<<< HEAD
-=======
 db_from_env = dj_database_url.config(conn_max_age=600)
 DATABASES['default'].update(db_from_env)
 
->>>>>>> fa88f705d4ec509b000e7a65be26d168ac1127af
 
 
 # Password validation
@@ -163,11 +153,7 @@ LOGIN_URL = 'login'
 
 #  Add configuration for static files storage using whitenoise
 
-<<<<<<< HEAD
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-=======
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Activate Django-Heroku.
 django_on_heroku.settings(locals())
->>>>>>> fa88f705d4ec509b000e7a65be26d168ac1127af

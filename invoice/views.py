@@ -1,17 +1,18 @@
 from django.contrib.auth.decorators import login_required
 from django.http.response import HttpResponse
 from django.shortcuts import render, redirect
+from django.template.loader import render_to_string
 
 #from virginafrica.invoice.models import Settings
 from .forms import InvoiceForm, ProductForm, ClientForm,ClientSelectForm
 from django.contrib import messages
 from invoice.models import Invoice,Product,Client
 
-<<<<<<< HEAD
-import pdfkit
-=======
+from django.core.files.storage import FileSystemStorage
 
->>>>>>> fa88f705d4ec509b000e7a65be26d168ac1127af
+from weasyprint import HTML
+
+
 
 
 def main(request):
@@ -165,8 +166,22 @@ def viewPDFInvoice(request, slug):
 	return render(request, 'invoice/invoice-template.html')
 
 
+def pdfview(request):
+    paragraphs = ['first paragraph', 'second paragraph', 'third paragraph']
+    html_string = render_to_string('invoice/pdf.html', {'paragraphs': paragraphs})
 
+    html = HTML(string=html_string)
+    html.write_pdf(target='/tmp/mypdf.pdf');
 
+    fs = FileSystemStorage('/tmp')
+    with fs.open('mypdf.pdf') as pdf:
+        response = HttpResponse(pdf, content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename="mypdf.pdf"'
+        return response
+
+    return response
+
+"""
 def viewDocumentInvoice(request, slug):
     #fetch that invoice
     try:
@@ -220,7 +235,7 @@ def viewDocumentInvoice(request, slug):
       #Javascript delay is optional
 
     #Remember that location to wkhtmltopdf
-    config = pdfkit.configuration(wkhtmltopdf='/usr/bin/wkhtmltopdf')
+   # config = pdfkit.configuration(wkhtmltopdf='/usr/bin/wkhtmltopdf')
 
     #IF you have CSS to add to template
     #css1 = os.path.join(settings.CSS_LOCATION, 'assets', 'css', 'bootstrap.min.css')
@@ -235,7 +250,7 @@ def viewDocumentInvoice(request, slug):
 
     #Return
     #return response
-
+"""
 
 """def emailDocumentInvoice(request, slug):
     #fetch that invoice
