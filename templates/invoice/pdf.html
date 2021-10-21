@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -5,6 +7,11 @@
     <title>A simple, clean, and responsive HTML invoice template</title>
 
     <style>
+      @page {
+        size: Letter;
+        margin: 0in 0.44in 0.2in 0.44in;
+      }
+
       .invoice-box {
         max-width: 800px;
         margin: auto;
@@ -109,7 +116,7 @@
               <tr>
                 <td class="title">
                   <img
-                    src="https://www.sparksuite.com/images/logo.png"
+                    src="{% static 'logo.png' %}"
                     style="width: 100%; max-width: 300px"
                   />
                 </td>
