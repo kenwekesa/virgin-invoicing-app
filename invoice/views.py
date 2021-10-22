@@ -29,7 +29,7 @@ def create_invoice(request):
 	else:
 		form = InvoiceForm()
 	
-	return render(request=request, template_name="invoice/create_invoice.html", context={"invoice_create_form":form})
+	return render(request=request, template_name="invoice/create_invoice.html", context={"form":form})
 
 @login_required 
 def view_invoices(request):
