@@ -104,10 +104,10 @@ class Invoice(models.Model):
         return reverse('invoice-detail', kwargs={'slug': self.slug})
 
     def total_price(self):
-        return self.unit_price * self.quantity
+        return float(self.unit_price) * float(self.quantity)
 
     def grand_total(self):
-        return self.unit_price * self.quantity
+        return float(self.unit_price) * float(self.quantity)
 
 
     def save(self, *args, **kwargs):
