@@ -35,7 +35,7 @@
                 <td class="title">
                   <img
                     src="{% static 'images/logo.PNG' %}"
-                    style="width: 100%; max-width: 300px"
+                    style="width: 100%; max-width: 200px"
                     alt="Logo"
                   />
                 </td>
@@ -96,7 +96,7 @@
           </td>
 
           <td>{{invoice.unit_price}}</td>
-          <td>{{invoice.unit_price}}*{{invoice.quantity}}</td>
+          <td>{{invoice.total_price}}</td>
         </tr>
 
         <tr class="item">
@@ -127,7 +127,7 @@
           <td></td>
 
           <td colspan="3">Grand Total:</td>
-          <td class = "grand_total">2390000</td>
+          <td class = "grand_total">{{ivoice.grand_total}}</td>
         </tr>
       </table>
       </tr>
@@ -140,6 +140,7 @@
 
 <br/><br/>
           
+          <div class="row">
             <div class="col-lg-4">
               <a href="{% url 'viewpdf'%} " target="_blank"
                 ><button class="btn btn-success text-white">
@@ -154,7 +155,7 @@
                 </button></a
               >
             </div>
-            <div class="row">
+            
             <div class="col-lg-4">
               <a href="{% url 'view-pdf-invoice' invoice.slug %}"
               target="_blank"

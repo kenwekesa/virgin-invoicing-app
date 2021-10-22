@@ -103,6 +103,12 @@ class Invoice(models.Model):
     def get_absolute_url(self):
         return reverse('invoice-detail', kwargs={'slug': self.slug})
 
+    def total_price(self):
+        return self.unit_price * self.quantity
+
+    def grand_total(self):
+        return self.unit_price * self.quantity
+
 
     def save(self, *args, **kwargs):
         if self.date_created is None:
