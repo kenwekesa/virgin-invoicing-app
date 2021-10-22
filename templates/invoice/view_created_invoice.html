@@ -13,9 +13,9 @@
     pb-2
     mb-3
     border-bottom
+    view-invoice-box
   "
 >
-  <h1 class="h2">Create an Invoice</h1>
   <div class="btn-toolbar mb-2 mb-md-0">
     <div class="btn-group me-2">
       <a href="{% url 'view-invoices' %}"
@@ -25,120 +25,126 @@
   </div>
 </div>
 
-<div class="container-fluid">
+<div class="invoice-box">
   <div class="card">
-    <div class="card-header">Virgin Africa Invoicing</div>
+   
+      <table cellpadding="0" cellspacing="0">
+        <tr class="top">
+          <td colspan="2">
+            <table>
+              <tr>
+                <td class="title">
+                  <img
+                    src="{% static 'images/logo.PNG' %}"
+                    style="width: 100%; max-width: 300px"
+                    alt="Logo"
+                  />
+                </td>
 
-    <div class="card-body">
-      <div class="row">
-        <div class="col-lg-12">
-          <h5 class="card-title">
-            Invoice Details
-            
-          </h5>
-
-          {% if products|length > 0 %}
-          <div class="table-responsive">
-            <table class="table table-striped table-sm">
-              <thead>
-                <tr>
-                  <th>Title</th>
-                  <th>Description</th>
-                  <th>Quantity</th>
-                  <th>Price</th>
-                  <th>Related Invoice</th>
-                </tr>
-              </thead>
-              <tbody>
-                {% for product in products %}
-                <tr>
-                  <td>{{product.title}}</td>
-                  <td>{{product.description}}</td>
-                  <td>{{product.quantity}}</td>
-                  <td>{{product.currency}} {{product.price}}</td>
-                  <td>{{product.invoice.number}}</td>
-                </tr>
-                {% endfor %}
-              </tbody>
+                <td>
+                  Invoice #: 123<br />
+                  Created: January 1, 2015<br />
+                  Due: February 1, 2015
+                </td>
+              </tr>
             </table>
-          </div>
-          {% endif %}
-        </div>
-      </div>
+          </td>
+        </tr>
 
+        <tr class="information">
+          <td colspan="2">
+            <table>
+              <tr>
+                <td>
+                  Virgin Africa<br />
+                  12345 Sunny Road<br />
+                  Nairobi, CA 12345
+                </td>
+
+                <td>
+                  Acme Corp.<br />
+                  John Doe<br />
+                  john@example.com
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <tr class="heading">
+          <td>Payment Method</td>
+
+          <td>Check #</td>
+        </tr>
+
+        <tr class="details">
+          <td>Check</td>
+
+          <td>1000</td>
+        </tr>
+
+       <tr>
+       <table>
+        <tr class="heading">
+          <td>#</td>
+          <td>Qty(Pax)</td>
+          <td>Description</td>
+          <td>Unit price</td>
+
+          <td>Line Total(Kshs.)</td>
+        </tr>
+
+        <tr class="item">
+          <td>1</td>
+          <td>23</td>
+          <td>
+            This is the item full description here as a whole. Service offered
+            details put here.
+          </td>
+
+          <td>300.00</td>
+          <td>2312200</td>
+        </tr>
+
+        <tr class="item">
+          <td>2</td>
+          <td>23</td>
+          <td>
+            This is the item full description here as a whole. Service offered
+            details put here.
+          </td>
+
+          <td>300.00</td>
+          <td>2312200</td>
+        </tr>
+
+        <tr class="item last">
+          <td>1</td>
+          <td>23</td>
+          <td>
+            This is the item full description here as a whole. Service offered
+            details put here.
+          </td>
+
+          <td>300.00</td>
+          <td>2312200</td>
+        </tr>
+
+        <tr class="total">
+          <td></td>
+
+          <td colspan="3">Grand Total:</td>
+          <td class = "grand_total">2390000</td>
+        </tr>
+      </table>
+      </tr>
       <br />
-
-      <div class="row">
-     <div class="col-lg-4">
-          <br />
-          <span>
-          <h5 class="card-title">
-            Invoice NO:
-            </h5>
-            <span >{{invoice.number}}</span>
-            </span>
+     </table>
+    </div>
         
-        </div>
+    </div>
 
-        <div class="col-lg-4">
-          <br />
-          <span>
-          <h5 class="card-title">
-            Client:
-            </h5>
-            {{invoice.client}}
-            </span>
-        
-        </div>
-
-         <div class="col-lg-4">
-          <br />
-          <span>
-          <h5 class="card-title">
-            Status:
-            </h5>
-            <span >{{invoice.status}}</span>
-            </span>
-        
-        </div>
-
-        </div>
-
-        <div class="row">
-       <div class="col-lg-4">
-          <br />
-          <span>
-          <h5 class="card-title">
-            Due Date:
-            </h5>
-            <span >{{invoice.dueDate}}</span>
-            </span>
-        
-        </div>
-
-       <div class="col-lg-4">
-          <br />
-          <span>
-          <h5 class="card-title">
-            Payment Terms:
-            </h5>
-            <span >{{invoice.paymentTerms}}</span>
-            </span>
-        
-        </div>
-
-        <div class="col-lg-4">
-          <br />
-          <span>
-          <h5 class="card-title">
-            Client:
-            </h5>
-            <span >{{invoice.client}}</span>
-            </span>
-        
-        </div>
-
-        </div>
+      
 
 <br/><br/>
           <div class="row">
