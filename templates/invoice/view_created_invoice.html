@@ -70,11 +70,6 @@
           </td>
         </tr>
 
-        <tr class="heading">
-          <td>Payment Method</td>
-
-          <td>Check #</td>
-        </tr>
 
         <tr class="details">
           <td>Check</td>
@@ -95,14 +90,13 @@
 
         <tr class="item">
           <td>1</td>
-          <td>23</td>
+          <td>{{invoice.quantity}}</td>
           <td>
-            This is the item full description here as a whole. Service offered
-            details put here.
+             {{invoice.description}}
           </td>
 
-          <td>300.00</td>
-          <td>2312200</td>
+          <td>{{invoice.unit_price}}</td>
+          <td>{{invoice.unit_price}}*{{invoice.quantity}}</td>
         </tr>
 
         <tr class="item">
@@ -145,19 +139,11 @@
       
 
 <br/><br/>
-          <div class="row">
-            <div class="col-lg-4">
-              <a href="{% url 'view-pdf-invoice' invoice.slug %}"
-              target="_blank"
-                ><button class="btn btn-info text-white">
-                  VIEW CLIENT INVOICE
-                </button></a
-              >
-            </div>
+          
             <div class="col-lg-4">
               <a href="{% url 'viewpdf'%} " target="_blank"
                 ><button class="btn btn-success text-white">
-                  VIEW PDF INVOICE
+                  PRINT
                 </button></a
               >
             </div>
@@ -165,6 +151,15 @@
               <a href="#"
                 ><button class="btn btn-warning text-white">
                   EMAIL CLIENT INVOICE
+                </button></a
+              >
+            </div>
+            <div class="row">
+            <div class="col-lg-4">
+              <a href="{% url 'view-pdf-invoice' invoice.slug %}"
+              target="_blank"
+                ><button class="btn btn-info text-white">
+                  EDIT
                 </button></a
               >
             </div>
