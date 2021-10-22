@@ -6,10 +6,31 @@
 
 <!-- section-header.// -->
 <!--Login-->
-<div class="container py-5 login-form-parent">
+<div class="container py-5 create-form-box">
   <h5>Creating invoice</h5>
   <form method="POST">
-    {% csrf_token %} {{ invoice_create_form|crispy }}
+    {% csrf_token %}
+
+    <div class="form-row">
+      <div class="form-group col-4">{{ form.number|as_crispy_field }}</div>
+      <div class="form-group col-4">{{ form.dueDate|as_crispy_field }}</div>
+      <div class="form-group col-4">{{ form.quantity|as_crispy_field }}</div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-6">{{ form.unit_price|as_crispy_field }}</div>
+      <div class="form-group col-6">
+        {{ form.paymentTerms|as_crispy_field }}
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-4">{{ form.status|as_crispy_field }}</div>
+      <div class="form-group col-8">{{ form.client|as_crispy_field }}</div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-10">
+        {{ form.description|as_crispy_field }}
+      </div>
+    </div>
     <button class="btn btn-info" type="submit">Save</button>
     <button class="btn btn-danger" type="submit">Reset</button>
     <button class="btn btn-warning" type="submit">Cancel</button>
