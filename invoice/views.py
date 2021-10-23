@@ -170,7 +170,7 @@ def pdfview(request):
     paragraphs = ['first paragraph', 'second paragraph', 'third paragraph']
     html_string = render_to_string('invoice/pdf.html', {'paragraphs': paragraphs})
 
-    html = HTML(string=html_string)
+    html = HTML(string=html_string, base_url=request.build_absolute_uri())
     doc = html.render()
     pdf =doc.write_pdf()
     
