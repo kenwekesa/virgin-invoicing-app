@@ -37,6 +37,10 @@ urlpatterns = [
         path("invoicemain/", invoice_views.main, name="invoice-main"),
         path("createinvoice/", invoice_views.create_invoice, name="create-invoice"),
         path("invoices/", invoice_views.view_invoices, name="view-invoices" ),
+
+      
+        path('products',invoice_views.products, name='products'),
+        path('clients',invoice_views.clients, name='clients'),
         path('invoices/create-build/<slug:slug>',invoice_views.createBuildInvoice, name='create-build-invoice'),
 
         #Invoice documents pdf and email

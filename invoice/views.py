@@ -72,6 +72,15 @@ def clients(request):
 
 
     return render(request, 'client/create_client.html', context)
+
+@login_required
+def products(request):
+    context = {}
+    products = Product.objects.all()
+    context['products'] = products
+
+    return render(request, 'invoice/products.html', context)
+
 def createBuildInvoice(request, slug):
 	#fetch that invoice
 	try:

@@ -8,35 +8,60 @@
 <!--Login-->
 <div class="container py-5 create-form-box">
   <h5>Creating invoice</h5>
-  <form method="POST">
-    {% csrf_token %}
+  <div class="row">
+    <form method="POST">
+      {% csrf_token %}
 
-    <div class="form-row">
-      <div class="form-group col-4">{{ form.number|as_crispy_field }}</div>
-      <div class="form-group col-4">{{ form.dueDate|as_crispy_field }}</div>
-      <div class="form-group col-4">{{ form.quantity|as_crispy_field }}</div>
-    </div>
-    <div class="form-row">
-      <div class="form-group col-6">{{ form.unit_price|as_crispy_field }}</div>
-      <div class="form-group col-6">
-        {{ form.paymentTerms|as_crispy_field }}
+      <div class="form-row">
+        <div class="form-group col-4">{{ form.number|as_crispy_field }}</div>
+        <div class="form-group col-4">{{ form.dueDate|as_crispy_field }}</div>
+        <div class="form-group col-4">{{ form.quantity|as_crispy_field }}</div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-6">
+          {{ form.unit_price|as_crispy_field }}
+        </div>
+        <div class="form-group col-6">
+          {{ form.paymentTerms|as_crispy_field }}
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-4">{{ form.status|as_crispy_field }}</div>
+        <div class="form-group col-8">{{ form.client|as_crispy_field }}</div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-10">
+          {{ form.description|as_crispy_field }}
+        </div>
+      </div>
+      <button class="btn btn-info" type="submit">Save</button>
+      <button class="btn btn-danger" type="submit">Reset</button>
+      <button class="btn btn-warning" type="submit">Cancel</button>
+      <button
+        href="#addProductModal"
+        type="button"
+        class="btn btn-link"
+        data-bs-toggle="modal"
+      >
+        ADD PRODUCT
+      </button>
+      <a href="{% url 'products'%}" class="btn btn-primary">Products</a>
+      <a href="{% url 'clients'%}" class="btn btn-primary">Products</a>
+    </form>
+  </div>
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="mb-5">
+        <form class="" action="#" method="post">
+          {% csrf_token %} {{client_form|crispy}}
+
+          <button type="submit" class="btn btn-primary">ADD CLIENT</button>
+        </form>
       </div>
     </div>
-    <div class="form-row">
-      <div class="form-group col-4">{{ form.status|as_crispy_field }}</div>
-      <div class="form-group col-8">{{ form.client|as_crispy_field }}</div>
-    </div>
-    <div class="form-row">
-      <div class="form-group col-10">
-        {{ form.description|as_crispy_field }}
-      </div>
-    </div>
-    <button class="btn btn-info" type="submit">Save</button>
-    <button class="btn btn-danger" type="submit">Reset</button>
-    <button class="btn btn-warning" type="submit">Cancel</button>
-  </form>
-  <br />
+    <br />
+  </div>
+
+  <!-- ========================= FOOTER END // ========================= -->
+  {% endblock content %}
 </div>
-
-<!-- ========================= FOOTER END // ========================= -->
-{% endblock content %}
