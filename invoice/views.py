@@ -79,7 +79,7 @@ def products(request):
     products = Product.objects.all()
     context['products'] = products
 
-    return render(request, 'invoice/products.html', context)
+    return redirect("create-invoice")
 
 def createBuildInvoice(request, slug):
 	#fetch that invoice
