@@ -20,16 +20,16 @@ def main(request):
 
 def create_invoice(request):
 	if request.method == 'POST':
-		inv_form = InvoiceForm(request.POST)
-		if inv_form.is_valid:
-			inv_form.save()
+		form = InvoiceForm(request.POST)
+		if form.is_valid:
+			form.save()
 			messages.success(request, f'Invoice created successfully')
 			return redirect('view-invoices')
 	
 	else:
-		inv_form = InvoiceForm()
+		form = InvoiceForm()
 	
-	return render(request=request, template_name="invoice/create_invoice.html", context={"inv_form":inv_form})
+	return render(request=request, template_name="invoice/create_invoice.html", context={"form":form})
 
 @login_required 
 def view_invoices(request):
