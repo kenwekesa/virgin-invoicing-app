@@ -37,6 +37,31 @@
           {{ form.description|as_crispy_field }}
         </div>
       </div>
+      <div class="form-row">
+        <!-- collapsible form -->
+        <div class="form-group col-10">
+          <p>
+            <a
+              class="btn btn-primary"
+              data-toggle="collapse"
+              href="#collapseExample"
+              role="button"
+              aria-expanded="false"
+              aria-controls="collapseExample"
+            >
+              Add item
+            </a>
+          </p>
+          <div class="collapse" id="collapseExample">
+            <div class="card card-body">
+              Anim pariatur cliche reprehenderit, enim eiusmod high life
+              accusamus terry richardson ad squid. Nihil anim keffiyeh
+              helvetica, craft beer labore wes anderson cred nesciunt sapiente
+              ea proident.
+            </div>
+          </div>
+        </div>
+      </div>
       <button class="btn btn-info" type="submit">Save</button>
       <button class="btn btn-danger" type="submit">Reset</button>
       <button class="btn btn-warning" type="submit">Cancel</button>
