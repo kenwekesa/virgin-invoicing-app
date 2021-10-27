@@ -55,8 +55,7 @@ urlpatterns = [
         path('create-client/',invoice_views.clients, name='create-client'),
         
 
-        url(r'^generate/pdf/$', invoice_views.generate_pdf, name='generate-pdf'),
-
+      
          
 
 ]
