@@ -27,7 +27,7 @@ def create_invoice(request):
 		form = InvoiceForm(request.POST)
 		client_form = ClientForm(request.POST)
 		prod_form = ProductForm(request.POST)
-		if form.is_valid and client_form.is_valid and prod_form.is_valid:
+		if form.is_valid() and client_form.is_valid() and prod_form.is_valid():
 			client=client_form.save()
 			form = form.save(commit=False)
 			product = prod_form.save(commit=False)
