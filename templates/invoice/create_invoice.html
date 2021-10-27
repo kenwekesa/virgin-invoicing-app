@@ -13,29 +13,24 @@
 <div class="container py-5 create-form-box">
   <h5>Creating invoice</h5>
   <div class="row">
-    <form method="POST">
+    <form method="POST" class="col-12">
       {% csrf_token %}
       <div class="form-row">
         <div class="form-group col-4">{{ form.number|as_crispy_field }}</div>
         <div class="form-group col-4">{{ form.dueDate|as_crispy_field }}</div>
-      </div>
-      <div class="form-row">
-        <div class="form-group col-6">
+        <div class="form-group col-4">
           {{ form.paymentTerms|as_crispy_field }}
         </div>
       </div>
+
       <div class="form-row">
         <div class="form-group col-4">{{ form.status|as_crispy_field }}</div>
         <div class="form-group col-8">{{ form.client|as_crispy_field }}</div>
       </div>
-      <div class="form-row">
-        <div class="form-group col-10">
-          {{ form.description|as_crispy_field }}
-        </div>
-      </div>
+
       <div class="form-row">
         <!-- collapsible form -->
-        <div class="col-6">
+        <div class="col-12">
           <p>
             <a
               class="btn btn-primary"
@@ -48,23 +43,33 @@
               Add item
             </a>
           </p>
-          <div class="collapse" id="collapseExample">
+          <div class="collapse col-12" id="collapseExample">
             <div class="card card-body">
-              <div class="form-group col-6">
-                {{ form.unit_price|as_crispy_field }}
+              <div class="form-row">
+                <div class="form-group col-10">
+                  {{ form.description|as_crispy_field }}
+                </div>
               </div>
-              <div class="form-group col-4">
-                {{ form.quantity|as_crispy_field }}
+              <div class="form-row">
+                <div class="form-group col-5">
+                  {{ form.unit_price|as_crispy_field }}
+                </div>
+                <div class="form-group col-4">
+                  {{ form.quantity|as_crispy_field }}
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-6">
+      </div>
+      <br />
+      <div class="form-row">
+        <div class="col-11">
           <p>
             <a
               class="btn btn-primary"
               data-toggle="collapse"
-              href="#collapseExample"
+              href="#collapse_client_form"
               role="button"
               aria-expanded="false"
               aria-controls="collapseExample"
@@ -73,57 +78,41 @@
             </a>
           </p>
 
-          <div class="collapse" id="collapseExample">
+          <div class="collapse" id="collapse_client_form">
             <div class="card card-body">
-              <div class="form-group col-6">
-                {{ client_form.clientName|as_crispy_field }}
+              <div class="form-row">
+                <div class="form-group col-4">
+                  {{ client_form.clientName|as_crispy_field }}
+                </div>
+                <div class="form-group col-4">
+                  {{ client_form.emailAddress|as_crispy_field }}
+                </div>
+                <div class="form-group col-4">
+                  {{ client_form.address|as_crispy_field }}
+                </div>
               </div>
-              <div class="form-group col-4">
-                {{ client_form.emailAddress|as_crispy_field }}
-              </div>
-              <div class="form-group col-6">
-                {{ client_form.address|as_crispy_field }}
-              </div>
-              <div class="form-group col-4">
-                {{ client_form.city|as_crispy_field }}
-              </div>
-              <div class="form-group col-6">
-                {{ client_form.postalCode|as_crispy_field }}
-              </div>
-              <div class="form-group col-4">
-                {{ client_form.phoneNumber|as_crispy_field }}
+              <div class="form-row">
+                <div class="form-group col-4">
+                  {{ client_form.city|as_crispy_field }}
+                </div>
+                <div class="form-group col-4">
+                  {{ client_form.postalCode|as_crispy_field }}
+                </div>
+                <div class="form-group col-4">
+                  {{ client_form.phoneNumber|as_crispy_field }}
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <br />
       <button class="btn btn-info" type="submit">Save</button>
       <button class="btn btn-danger" type="submit">Reset</button>
       <button class="btn btn-warning" type="submit">Cancel</button>
-      <button
-        type="button"
-        class="btn btn-link"
-        data-bs-toggle="modal"
-        data-target="#addClientModal"
-      >
-        ADD PRODUCT
-      </button>
-      <a href="{% url 'products'%}" class="btn btn-primary">Products</a>
-      <a href="{% url 'clients'%}" class="btn btn-primary">Products</a>
     </form>
   </div>
-  <div class="row">
-    <div class="col-lg-6">
-      <div class="mb-5">
-        <form class="" action="#" method="post">
-          {% csrf_token %} {{client_form|crispy}}
-          <button type="submit" class="btn btn-primary">ADD CLIENT</button>
-        </form>
-      </div>
-    </div>
-    <br />
-  </div>
-  MODALS MODALS
+
   <!-- Modals Start Here -->
   <div class="modal modal-sheet py-5" tabindex="-1" id="adroductModal">
     <div class="modal-dialog">

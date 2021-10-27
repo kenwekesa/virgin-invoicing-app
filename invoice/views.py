@@ -23,8 +23,10 @@ def create_invoice(request):
 		form = InvoiceForm(request.POST)
 		client_form = ClientForm(request.POST)
 		if form.is_valid and client_form.is_valid:
+			client=client_form.save()
+			form = form.save(commit=False)
+			form.client = client
 			form.save()
-			client_form.save()
 			messages.success(request, f'Invoice created successfully')
 			return redirect('view-invoices')
 	
