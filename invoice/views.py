@@ -22,10 +22,13 @@ def create_invoice(request):
 	if request.method == 'POST':
 		form = InvoiceForm(request.POST)
 		client_form = ClientForm(request.POST)
-		if form.is_valid and client_form.is_valid:
+		prod_form = ProductForm(request.POST)
+		if form.is_valid and client_form.is_valid and prod_form.is_valid:
 			client=client_form.save()
 			form = form.save(commit=False)
+			product = prod_form.save(commit=False)
 			form.client = client
+			product.invoice =form
 			form.save()
 			messages.success(request, f'Invoice created successfully')
 			return redirect('view-invoices')
@@ -33,8 +36,9 @@ def create_invoice(request):
 	else:
 		form = InvoiceForm()
 		client_form=ClientForm()
+		prod_form= ProductForm()
 	
-	return render(request=request, template_name="invoice/create_invoice.html", context={"form":form, "client_form": client_form})
+	return render(request=request, template_name="invoice/create_invoice.html", context={"form":form, "client_form": client_form,"prod_form":prod_form})
 
 @login_required 
 def view_invoices(request):
