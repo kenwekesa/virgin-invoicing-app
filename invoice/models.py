@@ -16,9 +16,10 @@ class Client(models.Model):
     ('Kitale', 'Kitale'),
     ]
 
+  
     #Basic Fields.
     clientName = models.CharField(null=True, blank=True, max_length=200)
-    addressLine1 = models.CharField(null=True, blank=True, max_length=200)
+    address = models.CharField(null=True, blank=True, max_length=200)
     city = models.CharField(choices=CITIES, blank=True, max_length=100)
     postalCode = models.CharField(null=True, blank=True, max_length=10)
     phoneNumber = models.CharField(null=True, blank=True, max_length=100)
