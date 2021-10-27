@@ -7,7 +7,9 @@ from django.template.loader import render_to_string
 from .forms import InvoiceForm, ProductForm, ClientForm,ClientSelectForm
 from django.contrib import messages
 from invoice.models import Invoice,Product,Client
-from Weasyprint import HTML
+from WeasyPrint import HTML
+
+
 import tempfile
 
 from django.core.files.storage import FileSystemStorage
