@@ -55,6 +55,7 @@
           <div class="collapse col-12" id="collapseExample">
             <div class="card card-body">
               <div class="form-row">
+<<<<<<< HEAD
                 <div class="form-group col-10">
                   {{ prod_form.description|as_crispy_field }}
                 </div>
@@ -62,6 +63,13 @@
               <div class="form-row">
                 <div class="form-group col-5">
                   {{ inv_prod_form.price|as_crispy_field }}
+=======
+                <div class="form-group col-4">
+                  {{ form.description|as_crispy_field }}
+                </div>
+                <div class="form-group col-4">
+                  {{ form.unit_price|as_crispy_field }}
+>>>>>>> 87eaf88a6b698e22fdd4f5e7385ee287a02719a8
                 </div>
                 <div class="form-group col-4">
                   {{ inv_prod_form.quantity|as_crispy_field }}
