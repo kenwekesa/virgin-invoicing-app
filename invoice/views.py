@@ -3,10 +3,12 @@ from django.http.response import HttpResponse
 from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 
+
+
 #from virginafrica.invoice.models import Settings
-from .forms import InvoiceForm, ProductForm, ClientForm,ClientSelectForm
+from .forms import InvoiceForm, InvoiceProductForm, ProductForm, ClientForm,ClientSelectForm
 from django.contrib import messages
-from invoice.models import Invoice,Product,Client
+from invoice.models import Invoice,Product,Client,InvoiceProduct
 
 from django.core.files.storage import FileSystemStorage
 
@@ -22,19 +24,28 @@ def create_invoice(request):
 	if request.method == 'POST':
 		form = InvoiceForm(request.POST)
 		client_form = ClientForm(request.POST)
-		if form.is_valid and client_form.is_valid:
+		invoice_product_form = InvoiceProductForm(request.POST)
+		product_form = ProductForm(request.POST)
+		if form.is_valid() and client_form.is_valid() and product_form.is_valid() and invoice_product_form.is_valid():
 			client=client_form.save()
+			product = product_form.save()
+			quantity = invoice_product_form.save()
 			form = form.save(commit=False)
+			
 			form.client = client
+			product.save()
 			form.save()
+			InvoiceProduct.objects.create(product=product, order=form,quantity=quantity)
 			messages.success(request, f'Invoice created successfully')
 			return redirect('view-invoices')
 	
 	else:
 		form = InvoiceForm()
 		client_form=ClientForm()
+		invoice_product_form = InvoiceProductForm()
+		product_form = ProductForm()
 	
-	return render(request=request, template_name="invoice/create_invoice.html", context={"form":form, "client_form": client_form})
+	return render(request=request, template_name="invoice/create_invoice.html", context={"form":form, "client_form": client_form,"inv_prod_form":invoice_product_form,"prod_form": product_form})
 
 @login_required 
 def view_invoices(request):

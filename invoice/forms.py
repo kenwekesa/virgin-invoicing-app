@@ -31,10 +31,6 @@ class InvoiceForm(forms.ModelForm):
                     label='Quantity(packs)',
                     widget=forms.TextInput(attrs={'class': 'form-control mb-3', 'placeholder': 'Enter quantity in packs'}),)
     
-    unit_price = forms.CharField(
-                    required = True,
-                    label='Unit price(Ksh)',
-                    widget=forms.TextInput(attrs={'class': 'form-control mb-3', 'placeholder': 'Enter the unit price in Ksh'}),)
 
     paymentTerms = forms.ChoiceField(
                     choices = THE_OPTIONS,
@@ -46,10 +42,7 @@ class InvoiceForm(forms.ModelForm):
                     required = True,
                     label='Change Invoice Status',
                     widget=forms.Select(attrs={'class': 'form-control mb-3'}),)
-    description = forms.CharField(
-                    required = True,
-                    label='Service Description: ',
-                    widget=forms.Textarea(attrs={'class': 'form-control mb-3'}))
+
 
     dueDate = forms.DateField(
                         required = True,
@@ -74,30 +67,27 @@ class InvoiceForm(forms.ModelForm):
 
             Submit('submit', ' EDIT INVOICE '))
 
+  
     class Meta:
         model = Invoice
-        fields = ['dueDate', 'quantity', 'unit_price', 'paymentTerms', 'status', 'description']
-
-
-    
-       
-    
-
-    class Meta:
-        model = Invoice
-        fields = ['number','quantity','unit_price', 'dueDate', 'paymentTerms', 'status', 'description', 'client']
+        fields = ['number','quantity', 'dueDate', 'paymentTerms', 'status', 'description', 'client']
 
 class ClientForm(forms.ModelForm):
     class Meta:
         model = Client
         fields = ['clientName', 'address', 'city', 'postalCode', 'phoneNumber', 'emailAddress']
 
+class InvoiceProductForm(forms.ModelForm):
+    class Meta:
+        model = InvoiceProduct
+        fields = ['quantity','price']
+
 
 
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = ['title', 'description', 'quantity', 'price', 'currency']
+        fields = ['description', 'currency']
 
 
 
