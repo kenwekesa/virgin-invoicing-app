@@ -62,11 +62,13 @@
                     alt="Logo"
                   />
                 </td>
-
+                 <td class="mr-3">
+                       <h5>INVOICE</h5>
+                 </td>
                 <td>
-                  Invoice #: {{invoice.number}}<br />
-                  Created: January 1, 2015<br />
-                  Due: February 1, 2015
+                   Invoice #: <strong>{{invoice.number}}</strong><br />
+                Created: {{invoice.date_created|date}}<br />
+                Due: {{invoice.dueDate}}
                 </td>
               </tr>
             </table>
@@ -78,9 +80,14 @@
             <table>
               <tr>
                 <td>
-                  Virgin Africa<br />
-                  12345 Sunny Road<br />
-                  Nairobi, CA 12345
+                 
+                <strong>{{invoice.client.clientName}}</strong> <br />
+                {{invoice.client.address}}<br />
+                {{invoice.client.city}}, {{invoice.client.postalCode}} <br/ >
+               <br/ > {{invoice.client.phoneNumber}}
+                <br />
+                <br />
+                
                 </td>
 
                 <td>
@@ -95,9 +102,9 @@
 
 
         <tr class="details">
-          <td>Check</td>
+          <td>--------------</td>
 
-          <td>1000</td>
+          <td>--------------------</td>
         </tr>
 
        <tr>
@@ -111,40 +118,23 @@
           <td>Line Total(Kshs.)</td>
         </tr>
 
+         {%for prod in invoiceproduct%}
         <tr class="item">
           <td>1</td>
-          <td>{{invoice.quantity}}</td>
+         
+          <td>{{prod.quantity}}</td>
+         
           <td>
              {{invoice.description}}
           </td>
 
-          <td>{{invoice.unit_price}}</td>
+          <td>{{prod.price}}</td>
           <td>{{invoice.total_price}}</td>
         </tr>
+        {%endfor%}
+       
 
-        <tr class="item">
-          <td>2</td>
-          <td>23</td>
-          <td>
-            This is the item full description here as a whole. Service offered
-            details put here.
-          </td>
-
-          <td>300.00</td>
-          <td>2312200</td>
-        </tr>
-
-        <tr class="item last">
-          <td>1</td>
-          <td>23</td>
-          <td>
-            This is the item full description here as a whole. Service offered
-            details put here.
-          </td>
-
-          <td>300.00</td>
-          <td>2312200</td>
-        </tr>
+       
 
         <tr class="total">
           <td></td>

@@ -28,14 +28,22 @@ def create_invoice(request):
 		product_form = ProductForm(request.POST)
 		if form.is_valid() and client_form.is_valid() and product_form.is_valid() and invoice_product_form.is_valid():
 			client=client_form.save()
-			product = product_form.save()
-			quantity = invoice_product_form.save()
+			product = product_form.save(commit=False)
+			inv_prod = invoice_product_form.save(commit=False)
+			#quantity = inv_prod.quantity
 			form = form.save(commit=False)
-			
 			form.client = client
-			product.save()
+			
 			form.save()
-			InvoiceProduct.objects.create(product=product, order=form,quantity=quantity)
+			product.save()
+
+			inv_prod.invoice_id = form.pk
+			inv_prod.product_id = product.pk
+
+			client.save()
+			inv_prod.save()
+			
+			#InvoiceProduct.objects.create(product=product, order=form,quantity=quantity)
 			messages.success(request, f'Invoice created successfully')
 			return redirect('view-invoices')
 	
@@ -108,11 +116,13 @@ def createBuildInvoice(request, slug):
 
 	#fetch all the products - related to this invoice
 	products = Product.objects.filter(invoice=invoice)
+	invoiceproduct  = InvoiceProduct.objects.filter(invoice_id=invoice.id)
 
 
 	context = {}
 	context['invoice'] = invoice
 	context['products'] = products
+	context['invoiceproduct'] = invoiceproduct
 
 	if request.method == 'GET':
 		prod_form  = ProductForm()

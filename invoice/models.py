@@ -79,15 +79,15 @@ class Invoice(models.Model):
 	('PAID', 'PAID'),
 	]
 
-	number = models.CharField(null=True,default=increment_invoice_number, blank=True, max_length=100)
+	number = models.CharField(null=False,default=increment_invoice_number, blank=False, max_length=100, unique=True)
 	dueDate = models.DateField(null=True, blank=True)
-	quantity =models.CharField(blank=False, max_length=200,default=1)
 	paymentTerms = models.CharField(choices=TERMS, default='14 days', max_length=100)
 	status = models.CharField(choices=STATUS, default='CURRENT', max_length=100)
 	description = models.TextField(null=True, blank=True,max_length=500)
 
 	#RELATED fields
 	client = models.ForeignKey(Client, blank=True, null=True, on_delete=models.SET_NULL)
+	
 
 	#Utility fields
 	uniqueId = models.CharField(null=True, blank=True, max_length=100)
@@ -103,11 +103,16 @@ class Invoice(models.Model):
 	def get_absolute_url(self):
 		return reverse('invoice-detail', kwargs={'slug': self.slug})
 
+	#def total_price(self):
+	#	return float(100)
 	def total_price(self):
-		return float(self.unit_price) * float(self.quantity)
+		temp_values = [int(product.price)* int(product.quantity) for product in InvoiceProduct.objects.filter(invoice_id=self.id)]
+		return sum(temp_values)
 
 	def grand_total(self):
-		return float(self.unit_price) * float(self.quantity)
+		temp_values = [int(product.price)* int(product.quantity) for product in InvoiceProduct.objects.filter(invoice_id=self.id)]
+		return sum(temp_values)
+
 
 
 	def save(self, *args, **kwargs):
@@ -136,6 +141,7 @@ class Product(models.Model):
 	currency = models.CharField(blank=True, null=True,default='Kshs', max_length=100)
 
 	#Related Fields
+	invoice = models.ManyToManyField(Invoice, through='InvoiceProduct')
 
 	#Utility fields
 	uniqueId = models.CharField(null=True, blank=True, max_length=100)
@@ -170,6 +176,8 @@ class InvoiceProduct(models.Model):
 	quantity = models.IntegerField(default=1)
 	price = models.CharField(null=True, blank=True, max_length=10)
 
+	class Meta:
+		unique_together = [['invoice','product']]
 
 class Settings(models.Model):
 
