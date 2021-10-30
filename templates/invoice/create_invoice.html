@@ -25,20 +25,48 @@
     <form method="POST" class="col-12">
       {% csrf_token %}
       <div class="form-row">
-        <div class="form-group col-4">{{ form.number|as_crispy_field }}</div>
-        <div class="form-group col-4">{{ form.dueDate|as_crispy_field }}</div>
-        <div class="form-group col-4">
+        <div class="form-group col-3">{{ form.number|as_crispy_field }}</div>
+        <div class="form-group col-3">{{ form.dueDate|as_crispy_field }}</div>
+        <div class="form-group col-3">
           {{ form.paymentTerms|as_crispy_field }}
         </div>
-      </div>
-
-      <div class="form-row">
-        <div class="form-group col-4">{{ form.status|as_crispy_field }}</div>
-        <div class="form-group col-8">{{ form.client|as_crispy_field }}</div>
+        <div class="form-group col-3">{{ form.status|as_crispy_field }}</div>
+        
       </div>
 
       <div class="form-row">
         <!-- collapsible form -->
+        <div class="col-12">
+
+          <div class="container"><h2>Example tab 2 (using standard nav-tabs)</h2></div>
+
+<div id="exTab2" class="container">	
+<ul class="nav nav-tabs">
+			<li class="active">
+        <a  href="#1" data-toggle="tab">Overview</a>
+			</li>
+			<li><a href="#2" data-toggle="tab">Without clearfix</a>
+			</li>
+			<li><a href="#3" data-toggle="tab">Solution</a>
+			</li>
+		</ul>
+
+			<div class="tab-content ">
+			  <div class="tab-pane active" id="1">
+          <h3>Standard tab panel created on bootstrap using nav-tabs</h3>
+				</div>
+				<div class="tab-pane" id="2">
+          <h3>Notice the gap between the content and tab after applying a background color</h3>
+				</div>
+        <div class="tab-pane" id="3">
+          <h3>add clearfix to tab-content (see the css)</h3>
+				</div>
+			</div>
+  </div>
+
+        </div>
+
+        </div>
         <div class="col-12">
           <p>
             <a
@@ -53,20 +81,24 @@
             </a>
           </p>
           <div class="collapse col-12" id="collapseExample">
-            <div class="card card-body">
-              <div class="form-row">
-                <div class="form-group col-10">
-                  {{ prod_form.description|as_crispy_field }}
-                </div>
-              </div>
+            <div class="card card-body roww">
               <div class="form-row">
                 <div class="form-group col-5">
+                  {{ prod_form.description|as_crispy_field }}
+                </div>
+                <div class="form-group col-3">
                   {{ inv_prod_form.price|as_crispy_field }}
                 </div>
-                <div class="form-group col-4">
+                <div class="form-group col-3">
                   {{ inv_prod_form.quantity|as_crispy_field }}
                 </div>
               </div>
+		
+		
+              </div>
+<div class="form-group col-3">
+                   <input type='button' id='add' value='Add item' class="btn btn-success" />
+                </div>
             </div>
           </div>
         </div>
@@ -188,4 +220,19 @@
   <!-- ========================= FOOTER END // ========================= -->
   {% endblock %}
 </div>
+<script>
+   $('#add').click(function () {
+    var n = $('.roww').length + 1;
+    var temp = $('.roww:first').clone();
+    temp.attr('id', temp.attr('id') + n);
+    $('input:first', temp).attr('placeholder', 'Item #' + n)
+    $('.roww:last').after(temp);
+});
+
+$(document).ready(function () {
+    $("#remove").click(function () {
+        $(".row:last").remove();
+    });
+});
+</script>
 {% endblock%}

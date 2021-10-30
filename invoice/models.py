@@ -14,6 +14,7 @@ class Client(models.Model):
 	('Mombasa', 'Mombasa'),
 	('Nairobi', 'Nairobi'),
 	('Kitale', 'Kitale'),
+	('Nakuru', 'Nakuru')
 	]
 
   
@@ -67,6 +68,7 @@ def increment_invoice_number():
 
 class Invoice(models.Model):
 	TERMS = [
+	('Immediate','Immediate'),
 	('14 days', '14 days'),
 	('30 days', '30 days'),
 	('60 days', '60 days'),
@@ -136,8 +138,14 @@ class Product(models.Model):
 	('Ksh', 'KES'),
 	('Ksh', 'KES'),
 	]
-
-	description = models.TextField(null=True, blank=True, max_length=100)
+	PRODUCTS = [
+		('Hotel','Hotel'),
+		('Accommodation','Accommodation'),
+		('Excursions','Excursions'),
+		('Air Ticket',"Air Ticket"),
+		('Others','Others')
+	]
+	description = models.CharField(choices= PRODUCTS,null=True, blank=True, max_length=100)
 	currency = models.CharField(blank=True, null=True,default='Kshs', max_length=100)
 
 	#Related Fields
