@@ -43,45 +43,20 @@
 <div id="exTab2" class="container">	
 <ul class="nav nav-tabs">
 			<li class="active">
-        <a  href="#1" data-toggle="tab">Overview</a>
+        <a  href="#item" data-toggle="tab">Items</a>
 			</li>
-			<li><a href="#2" data-toggle="tab">Without clearfix</a>
+			<li><a href="#clients" data-toggle="tab">Clients</a>
 			</li>
-			<li><a href="#3" data-toggle="tab">Solution</a>
-			</li>
+			
 		</ul>
 
 			<div class="tab-content ">
-			  <div class="tab-pane active" id="1">
-          <h3>Standard tab panel created on bootstrap using nav-tabs</h3>
-				</div>
-				<div class="tab-pane" id="2">
-          <h3>Notice the gap between the content and tab after applying a background color</h3>
-				</div>
-        <div class="tab-pane" id="3">
-          <h3>add clearfix to tab-content (see the css)</h3>
-				</div>
-			</div>
-  </div>
-
-        </div>
-
-        </div>
-        <div class="col-12">
-          <p>
-            <a
-              class="btn btn-primary"
-              data-toggle="collapse"
-              href="#collapseExample"
-              role="button"
-              aria-expanded="false"
-              aria-controls="collapseExample"
-            >
-              Add item
-            </a>
-          </p>
-          <div class="collapse col-12" id="collapseExample">
-            <div class="card card-body roww">
+			  <div id="home" class="tab-pane fade in active">
+      <h3>HOME</h3>
+      <p>Lo te aliqua.</p>
+    </div>
+    <div id="menu1" class="tab-pane fade">
+         <div class="card card-body roww">
               <div class="form-row">
                 <div class="form-group col-5">
                   {{ prod_form.description|as_crispy_field }}
@@ -96,31 +71,9 @@
 		
 		
               </div>
-<div class="form-group col-3">
-                   <input type='button' id='add' value='Add item' class="btn btn-success" />
-                </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <br />
-      <div class="form-row">
-        <div class="col-11">
-          <p>
-            <a
-              class="btn btn-primary"
-              data-toggle="collapse"
-              href="#collapse_client_form"
-              role="button"
-              aria-expanded="false"
-              aria-controls="collapseExample"
-            >
-              Client
-            </a>
-          </p>
-
-          <div class="collapse" id="collapse_client_form">
-            <div class="card card-body">
+    </div>
+    <div id="menu2" class="tab-pane fade">
+       <div class="card card-body">
               <div class="form-row">
                 <div class="form-group col-4">
                   {{ client_form.clientName|as_crispy_field }}
@@ -144,13 +97,22 @@
                 </div>
               </div>
             </div>
-          </div>
+    </div>
+    
+			</div>
+  </div>
+
+        </div>
+
+        </div>
+        
         </div>
       </div>
       <br />
-      <button class="btn btn-info" type="submit">Save</button>
-      <button class="btn btn-danger" type="submit">Reset</button>
-      <button class="btn btn-warning" type="submit">Cancel</button>
+      
+      <button class="btn btn-info col-3" type="submit">Save</button>
+      <button class="btn btn-danger col-3" type="submit">Reset</button>
+      <button class="btn btn-warning col-3" type="submit">Cancel</button>
     </form>
   </div>
 
