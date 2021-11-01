@@ -90,6 +90,9 @@ class ProductForm(forms.ModelForm):
         fields = ['description', 'currency']
 
 
+    
+
+
 
 class ClientSelectForm(forms.ModelForm):
 
