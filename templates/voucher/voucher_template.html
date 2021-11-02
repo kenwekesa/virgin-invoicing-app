@@ -1,0 +1,292 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Invoice</title>
+
+    <style>
+      @page {
+        size: Letter;
+        background: url("/static/images/media/voucherback.png") no-repeat;
+        background-size: cover;
+        margin: 0.1in 0.1in 0.1in 0.1in;
+      }
+
+      .invoice-box {
+        max-width: 800px;
+        margin: auto;
+        padding: 30px;
+        border: 0px solid #eee;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+        font-size: 12px;
+        line-height: 24px;
+        font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+        color: #555;
+      }
+
+      .invoice-box table {
+        width: 100%;
+        line-height: inherit;
+        text-align: left;
+      }
+
+      .invoice-box table td {
+        padding: 5px;
+        vertical-align: top;
+      }
+
+      .invoice-box table tr td:nth-child(2) {
+        text-align: right;
+      }
+
+      .invoice-box table tr.top table td {
+        padding-bottom: 20px;
+      }
+
+      .invoice-box table tr.top table td.title {
+        font-size: 45px;
+        line-height: 45px;
+        color: #333;
+      }
+
+      .invoice-box table tr.information table td {
+        padding-bottom: 40px;
+      }
+
+      .invoice-box table tr.heading td {
+        background: #eee;
+        border-bottom: 1px solid #ddd;
+        font-weight: bold;
+      }
+
+      .invoice-box table tr.details td {
+        padding-bottom: 20px;
+      }
+
+      .invoice-box table tr.item td {
+        border-bottom: 1px solid #eee;
+      }
+
+      .invoice-box table tr.item.last td {
+        border-bottom: none;
+      }
+
+      .invoice-box table tr.total td:nth-child(2) {
+        border-top: 2px solid #eee;
+        font-weight: bold;
+      }
+
+    .payment_details_table tr td
+    {
+      text-align: left !important;
+      padding-top: 0;
+      font-size: 9px;
+    }
+
+    .grand_total
+    {
+      border-bottom: 1px double #000;
+      font-weight: bold
+
+    }
+
+      @media only screen and (max-width: 600px) {
+        .invoice-box table tr.top table td {
+          width: 100%;
+          display: block;
+          text-align: center;
+        }
+
+        .invoice-box table tr.information table td {
+          width: 100%;
+          display: block;
+          text-align: center;
+        }
+      }
+
+      /** RTL **/
+      .invoice-box.rtl {
+        direction: rtl;
+        font-family: Tahoma, "Helvetica Neue", "Helvetica", Helvetica, Arial,
+          sans-serif;
+      }
+
+      .invoice-box.rtl table {
+        text-align: right;
+      }
+
+      .invoice-box.rtl table tr td:nth-child(2) {
+        text-align: left;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="invoice-box">
+      <table cellpadding="0" cellspacing="0">
+        <tr class="top">
+          <td colspan="2">
+            <table>
+              <tr>
+                <td class="title">
+                  <img
+                    src="{% static 'images/logo.PNG' %}"
+                    style="width: 100%; max-width: 200px"
+                    alt="Logo"
+                  />
+                </td>
+
+                <td>
+                  Invoice #: 123<br />
+                  Created: January 1, 2015<br />
+                  Due: February 1, 2015
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <tr class="information">
+          <td colspan="2">
+            <table>
+              <tr>
+                <td>
+                  Virgin Africa<br />
+                  12345 Sunny Road<br />
+                  Nairobi, CA 12345
+                </td>
+
+                <td>
+                  Acme Corp.<br />
+                  John Doe<br />
+                  john@example.com
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <tr class="heading">
+          <td>Payment Method</td>
+
+          <td>Check #</td>
+        </tr>
+
+        <tr class="details">
+          <td>Check</td>
+
+          <td>1000</td>
+        </tr>
+
+       <tr>
+       <table>
+        <tr class="heading">
+          <td>#</td>
+          <td>Qty(Pax)</td>
+          <td>Description</td>
+          <td>Unit price</td>
+
+          <td>Line Total(Kshs.)</td>
+        </tr>
+
+        <tr class="item">
+          <td>1</td>
+          <td>23</td>
+          <td>
+            This is the item full description here as a whole. Service offered
+            details put here.
+          </td>
+
+          <td>300.00</td>
+          <td>2312200</td>
+        </tr>
+
+        <tr class="item">
+          <td>2</td>
+          <td>23</td>
+          <td>
+            This is the item full description here as a whole. Service offered
+            details put here.
+          </td>
+
+          <td>300.00</td>
+          <td>2312200</td>
+        </tr>
+
+        <tr class="item last">
+          <td>1</td>
+          <td>23</td>
+          <td>
+            This is the item full description here as a whole. Service offered
+            details put here.
+          </td>
+
+          <td>300.00</td>
+          <td>2312200</td>
+        </tr>
+
+        <tr class="total">
+          <td></td>
+
+          <td colspan="3">Grand Total:</td>
+          <td class = "grand_total">2390000</td>
+        </tr>
+      </table>
+      </tr>
+      <br />
+      <p><i>Cash/Cheque Payable: VIRGIN AFRICA SAFARIS LTD.</i></p>
+      <table cellspacing="0" style="border-spacing: 0;" class="payment_details_table">
+        <tr>
+          <td>ACCOUNT NAME:</td>
+          <td>VIRGIN AFRICA SAFARIS LIMITED</td>
+        </tr>
+        <tr>
+          <td>BANK:</td>
+          <td>EQUITY BANK</td>
+        </tr>
+        <tr>
+          <td>BRANCH:</td>
+          <td>MOI AVENUE BRANCH</td>
+        </tr>
+        <tr>
+          <td>ACCOUNT NO:</td>
+          <td>0250260858889</td>
+        </tr>
+        <tr>
+          <td>CURRENCY:</td>
+          <td>KSH</td>
+        </tr>
+        <tr>
+          <td>SWIFT CODE:</td>
+          <td>EQBLKENA</td>
+        </tr>
+        <tr>
+          <td>BANK CODE:</td>
+          <td>068</td>
+        </tr>
+        <tr>
+          <td>BRANCH CODE:</td>
+          <td>025</td>
+        </tr>
+        <tr>
+          <td>IBAN:</td>
+          <td>68025</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>PAYBILL</td>
+          <td>247247</td>
+        </tr>
+        <tr>
+          <td>ACCOUNT NO:</td>
+          <td>0766279956</td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>
