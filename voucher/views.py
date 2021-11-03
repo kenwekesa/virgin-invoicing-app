@@ -17,6 +17,21 @@ from weasyprint import HTML
 
 
 
+def view_voucher(request):
+	
+	#fetch all the products - related to this invoice
+	
+
+
+	context = {}
+	'''context['invoice'] = invoice
+	context['products'] = products
+	context['invoiceproduct'] = invoiceproduct'''
+
+	
+
+	return render(request, 'voucher/created_voucher.html', context)
+
 
 def viewPDFInvoice(request, slug):
 	#fetch that invoice
