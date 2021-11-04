@@ -4,14 +4,14 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Invoice</title>
+    <title>Voucher</title>
 
     <style>
       @page {
         size: Letter;
         background: url('{% static "images/media/voucherback.PNG" %}') no-repeat;
         background-size: cover;
-        margin: 0.1in 0.1in 0.1in 0.1in;
+        margin: 0in 0.44in 0.2in 0.44in;
       }
 
       .invoice-box {
@@ -132,9 +132,7 @@
     background-size: cover;
   "
 >
-  <table cellpadding="0" cellspacing="0">
-    <tr class="top">
-      <td colspan="3">
+
         <table>
           <tr style = "color: #9C640C ">
             <td class="title col-md-4">
@@ -159,12 +157,9 @@
             </td>
           </tr>
         </table>
-      </td>
-   
-    </tr>
+    
 
-    <tr class="information">
-      <td colspan="2">
+    
         <table class="col-md-2" style="height: 30px">
           <tr class="table-bordered">
             <td>
@@ -172,18 +167,15 @@
             </td>
           </tr>
         </table>
-      </td>
-    </tr>
+   
 
-    <tr class="">
-      <td>Please RESERVE the following accommodation for: </td>
+      Please RESERVE the following accommodation for: 
 
-      <td><form>RESIDENT  <input type="checkbox"/></form></td>
-      <td><form>NOT RESIDENT  <input type="checkbox"/></form></td>
-    </tr>
+      RESIDENT  <input type="checkbox"/></form>
+      <form>NOT RESIDENT  <input type="checkbox"/></form>
+  
 
-    <tr class="information">
-      <td colspan="2">
+    
         <table class="col-md-5" style="height: 30px">
           <tr>
             <td>
@@ -191,13 +183,10 @@
             </td>
           </tr>
         </table>
-      </td>
-    </tr>
+   
 
 
-    <tr class="">
-
-      <td colspan="3">
+  
       <table class="col-md-12">
       <tr>
          <td colspan="3"><h6>Group/Client</h6></td>
@@ -214,11 +203,9 @@
     </tr>
     </table>
        
-    </tr>
+ 
 
-    <tr class="">
-
-      <td colspan="3">
+   
       <table class="col-md-12">
       <tr>
          <td colspan="3"><h6>Accomodation</h6></td>
@@ -250,14 +237,10 @@
        </table>
        
     </tr>
-    <tr>
-        
-    </tr>
+    
     </table>
        
-    </tr>
-
-    <tr class="">
+     
     <table>
     <tr>
       <td  colspan="2">Payment will be done by: Virgin Africa Safaris Ltd.</td>
@@ -286,17 +269,15 @@
          <td colspan="2">sentence</td>
       </tr>
       </table>
-    </tr>
+  
 
     
 
-    <tr class="details">
-      <td>the long sentence</td>
+    
+      the long sentence
 
      
-    </tr>
-
-    <tr class="">
+    
       <table>
         <tr>
       		<td>RESERVATION MADE BY: </td>
@@ -314,14 +295,16 @@
 		<td>Date</td>
 	</tr>
       </table>
-    </tr>
 
-    <tr class="details">
-      <td colspan="3">long footer details</td>
-    </tr>
 
-  </table>
+   
+      IMPORTANT: THIS VOUCHER MUST BE QUOTED ON YOUR INVOICE TO ENSURE PROMPT PAYMENT
+      
+  
   <br />
+  <div>
+    THANK YOU FOR YOUR BUSINESS
+  </div>
 </div>
   </body>
 </html>
