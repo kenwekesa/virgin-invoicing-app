@@ -121,12 +121,16 @@
         text-align: left;
       }
     </style>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   </head>
 
   <body>
-    <div
+   <div
   class="invoice-box"
-
+  style="
+    background: url({%static 'images/media/voucherback.png'%});
+    background-size: cover;
+  "
 >
   <table cellpadding="0" cellspacing="0">
     <tr class="top">
@@ -140,16 +144,16 @@
                 alt="Logo"
               />
             </td>
-            <td class="text-center col-md-4">
+            <td class="text-center col-md-5">
               <h5>Virgin Africa Safaris Ltd.</h5>
               <h6 class="mt-0">TSS Towers Nkrumah Road<br />
               P0 BOX 84845 - 80100 GPO,<br />
               Mombasa Kenya.</h6>
-              Email: Admin@virginafricasafaris.com<br />
-              Website: www.virginafricasafaris.com
+              <span class="details">Email: Admin@virginafricasafaris.com<br />
+              Website: www.virginafricasafaris.com</span>
               
             </td>
-            <td class="col-md-4 text-center">
+            <td class="col-md-5 text-center">
               <h6>Date:</h6>
              
             </td>
@@ -253,14 +257,14 @@
        
     </tr>
 
-    <tr colspan="3" class="details">
+    <tr class="">
     <table>
     <tr>
-      <td>Payment will be done by: Virgin Africa Safaris Ltd.</td>
+      <td  colspan="2">Payment will be done by: Virgin Africa Safaris Ltd.</td>
     </tr>
-      <tr>
+      <tr class="col-md-4">
           <td class="col-md-2">Meal Plan</td>
-          <td class="col-md-3">
+          <td class="col-md-2">
               <table class = " table-bordered">
                   <tr> 
                      <th>FB</th>
@@ -275,42 +279,47 @@
               </table>
           </td>
       </tr>
+      <tr>
+	<td  colspan="2">sent</td>
+      </tr>
+       <tr>
+         <td colspan="2">sentence</td>
+      </tr>
       </table>
     </tr>
 
     
 
     <tr class="details">
-      <td>Check</td>
+      <td>the long sentence</td>
 
-      <td>1000</td>
+     
     </tr>
 
-    <tr class="heading">
-      <td>Payment Method</td>
-
-      <td>Check #</td>
+    <tr class="">
+      <table>
+        <tr>
+      		<td>RESERVATION MADE BY: </td>
+      		<td> </td>
+		<th>CONFIRMED NO. OF ROOMS</th>
+	</tr>
+	<tr>
+      		<td>NAME</td>
+      		<td></td>
+		<td>Signed</td>
+	</tr>
+	<tr>
+      		<td>DATE</td>
+      		<td></td>
+		<td>Date</td>
+	</tr>
+      </table>
     </tr>
 
     <tr class="details">
-      <td>Check</td>
-
-      <td>1000</td>
+      <td colspan="3">long footer details</td>
     </tr>
 
-    <tr class="heading">
-      <td>Payment Method</td>
-
-      <td>Check #</td>
-    </tr>
-
-    <tr class="details">
-      <td>Check</td>
-
-      <td>1000</td>
-    </tr>
-
-    <tr></tr>
   </table>
   <br />
 </div>
