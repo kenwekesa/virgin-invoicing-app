@@ -10,8 +10,8 @@
       @page {
         size: Letter;
         background: url('{% static "images/media/voucherback.PNG" %}') no-repeat;
-       
-        margin: 0in 0.01in 0.1in 0.1in;
+        background-size: cover;
+        margin: 0in 0.44in 0.2in 0.44in;
       }
 
       .invoice-box {
@@ -88,10 +88,42 @@
     .grand_total
     {
       border-bottom: 1px double #000;
-      font-weight: bold
+      font-weight: bold;
 
     }
 
+   .logo{
+               width:25%;
+                
+}
+.address
+{ 
+   width: 40%;
+   text-align: center !important;
+  
+}
+.date
+{ 
+    width:20%;
+ 
+}
+	.accomodation-table tr, 
+        .accomodation-table th,
+         .accomodation-table td{
+	border: 1px solid black; 
+	border-collapse: collapse;
+	}
+	.table-meal tr, 
+        .table-meal th,
+         .table-meal td{
+	border: 1px solid black; 
+	border-collapse: collapse;
+	}
+
+         .reservation-table .bordered{
+	border: 1px solid black; 
+	border-collapse: collapse;
+	}
       @media only screen and (max-width: 600px) {
         .invoice-box table tr.top table td {
           width: 100%;
@@ -120,8 +152,9 @@
       .invoice-box.rtl table tr td:nth-child(2) {
         text-align: left;
       }
+   
     </style>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">  </head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
   <body>
    <div
@@ -132,16 +165,16 @@
   "
 >
 
-        <table col-md-12>
+        <table>
           <tr style = "color: #9C640C ">
-            <td class="title col-md-4">
+            <td class="title logo">
               <img
                 src="{% static 'images/logo.PNG' %}"
                 style="width: 100%; max-width: 200px"
                 alt="Logo"
               />
             </td>
-            <td class="text-center col-md-5">
+            <td class="address">
               <h5>Virgin Africa Safaris Ltd.</h5>
               <h6 class="mt-0">TSS Towers Nkrumah Road<br />
               P0 BOX 84845 - 80100 GPO,<br />
@@ -150,7 +183,7 @@
               Website: www.virginafricasafaris.com</span>
               
             </td>
-            <td class="col-md-5 text-center">
+            <td class="date">
               <h6>Date:</h6>
              
             </td>
@@ -159,36 +192,41 @@
     
 
     
-        <table class="col-md-2" style="height: 30px">
-          <tr class="table-bordered">
+        <table  style="height: 30px; width: 140px">
+          <tr style="border: 1px solid black;border-collapse:collapse">
             <td>
             Invoice NO:
             </td>
           </tr>
         </table>
    
+      
+      <br/>
+       <table>
+          <tr>
+     <td> Please RESERVE the following accommodation for:</td> 
 
-      Please RESERVE the following accommodation for: 
-
-      RESIDENT  <input type="checkbox"/></form>
-      <form>NOT RESIDENT  <input type="checkbox"/></form>
+      <td><form>RESIDENT  <input type="checkbox"/></form></td>
+      <td><form>  NOT RESIDENT  <input type="checkbox"/></form></td>
+</tr>
+</table>
   
 
     
-        <table class="col-md-5" style="height: 30px">
+        <table  style="height: 30px">
           <tr>
             <td>
-            NAME OF THE LODGE/HOTEL/CAMP
+            NAME OF THE LODGE/HOTEL/CAMP:
             </td>
           </tr>
         </table>
    
 
 
-  
-      <table class="col-md-12">
+     <br/>
+      <table>
       <tr>
-         <td colspan="3"><h6>Group/Client</h6></td>
+         <th colspan="3"><h6><b>Group/Client</b></h6></th>
     </tr>
     <tr>
         <td><form>NO of Adults: <input class ="input-sm" type="text" size="3"/></form></td>
@@ -204,14 +242,14 @@
        
  
 
-   
-      <table class="col-md-12">
+      <br/>
+      <table>
       <tr>
-         <td colspan="3"><h6>Accomodation</h6></td>
+         <td colspan="3"><h5><b>Accomodation</b></h5></td>
     </tr>
     <tr>
-       <table class="table-bordered ml-3">
-           <tr>
+       <table class="accomodation-table">
+           <tr >
                <th>Single</th>
                 <th>Double</th>
                 <th>Twin</th>
@@ -231,29 +269,28 @@
 
 
            </tr>
-           <tr
-           ></tr>
+           <tr></tr>
        </table>
        
     </tr>
     
     </table>
        
-     
-    <table>
+    <br/> 
+    <table style="width: 50%">
     <tr>
       <td  colspan="2">Payment will be done by: Virgin Africa Safaris Ltd.</td>
     </tr>
-      <tr class="col-md-4">
-          <td class="col-md-2">Meal Plan</td>
-          <td class="col-md-2">
-              <table class = " table-bordered">
+      <tr>
+          <td >Meal Plan</td>
+          <td>
+              <table class="table-meal">
                   <tr> 
                      <th>FB</th>
                      <th>HB</th>
                      <th>BB</th>
                   </tr>
-                  <tr>
+                  <tr style="height:30px;">
                       <td></td>
                       <td></td>
                       <td></td>
@@ -261,47 +298,51 @@
               </table>
           </td>
       </tr>
-      <tr>
-	<td  colspan="2">sent</td>
-      </tr>
-       <tr>
-         <td colspan="2">sentence</td>
-      </tr>
+     
       </table>
   
+         <br/>
+	 <span> Extras to: </span>
+      <br/>
+    <span>Special Instructions</span>
+      <br/>
 
+    <br/>
+      <span>Acknowledge receipt of this order by stating CONFIRMED below and retain the TOP COPY FOR YOUR RECORDS</span>
+
+     <br/>
+     <br/>
     
 
     
-      the long sentence
-
-     
     
-      <table>
+      <table class="reservation-table">
         <tr>
       		<td>RESERVATION MADE BY: </td>
       		<td> </td>
-		<th>CONFIRMED NO. OF ROOMS</th>
+		<th class="bordered">CONFIRMED NO. OF ROOMS</th>
 	</tr>
 	<tr>
       		<td>NAME</td>
       		<td></td>
-		<td>Signed</td>
+		<td class="bordered">Signed</td>
 	</tr>
 	<tr>
       		<td>DATE</td>
       		<td></td>
-		<td>Date</td>
+		<td class="bordered">Date</td>
 	</tr>
       </table>
 
 
-   
-      IMPORTANT: THIS VOUCHER MUST BE QUOTED ON YOUR INVOICE TO ENSURE PROMPT PAYMENT
+   <br />
+      <div style="text-align:center">IMPORTANT: THIS VOUCHER MUST BE QUOTED ON YOUR INVOICE TO ENSURE PROMPT PAYMENT</div>
       
   
   <br />
-  <div>
+
+
+  <div style="text-align:center">
     THANK YOU FOR YOUR BUSINESS
   </div>
 </div>
