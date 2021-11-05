@@ -4,6 +4,29 @@
 {% block content %} {% block css %}
 <link href="{% static 'assets/css/bootstrap.min.css' %}" rel="stylesheet" />
 {% endblock %} {% block main %}
+
+<div
+  class="
+    d-flex
+    justify-content-between
+    flex-wrap flex-md-nowrap
+    align-items-center
+    pt-3
+    pb-2
+    mb-3
+    border-bottom
+    view-invoice-box
+  "
+>
+  <div class="btn-toolbar mb-2 mb-md-0">
+ 
+    <div class="btn-group me-2">
+      <a href="{% url 'generate-voucher' %}"
+        ><button type="button" class="btn btn-primary">Print</button></a
+      >
+    </div>
+  </div>
+</div>
 <div
   class="invoice-box"
   style="
