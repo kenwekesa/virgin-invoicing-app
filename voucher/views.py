@@ -75,7 +75,7 @@ def voucher_template(request):
 
 	html = HTML(string=html_string, base_url=request.build_absolute_uri())
 	doc = html.render()
-	pdf =doc.write_pdf(stylesheets=[css, "https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"])
+	pdf =doc.write_pdf()
 	
 
 	
