@@ -49,7 +49,7 @@ urlpatterns = [
          path('pdf',invoice_views.pdfview, name='viewpdf'),
         #path('invoices/view-document/<slug:slug>',views.viewDocumentInvoice, name='view-document-invoice'),
        
-       #path('invoices/email-document/<slug:slug>',views.emailDocumentInvoice, name='email-document-invoice'),
+        path('invoices/email-document/<slug:slug>',views.emailDocumentInvoice, name='email-document-invoice'),
 
 
         path('clients/',invoice_views.view_clients, name='clients'),

@@ -1,7 +1,12 @@
+from re import template
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.http.response import HttpResponse
 from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
+import weasyprint
+
+from virginafrica.functions import emailInvoiceClient
 
 
 
@@ -13,6 +18,7 @@ from invoice.models import Invoice,Product,Client,InvoiceProduct
 from django.core.files.storage import FileSystemStorage
 
 from weasyprint import HTML
+import os
 
 
 
@@ -273,7 +279,7 @@ def viewDocumentInvoice(request, slug):
 	#return response
 """
 
-"""def emailDocumentInvoice(request, slug):
+def emailDocumentInvoice(request, slug):
 	#fetch that invoice
 	try:
 		invoice = Invoice.objects.get(slug=slug)
@@ -284,7 +290,6 @@ def viewDocumentInvoice(request, slug):
 	#fetch all the products - related to this invoice
 	products = Product.objects.filter(invoice=invoice)
 	#Get Client Settings
-	p_settings = Settings.objects.get(clientName='Skolo Online Learning')
 	#Calculate the Invoice Total
 	invoiceTotal = 0.0
 	if len(products) > 0:
@@ -294,14 +299,13 @@ def viewDocumentInvoice(request, slug):
 	context = {}
 	context['invoice'] = invoice
 	context['products'] = products
-	context['p_settings'] = p_settings
 	context['invoiceTotal'] = "{:.2f}".format(invoiceTotal)
 	#The name of your PDF file
 	filename = '{}.pdf'.format(invoice.uniqueId)
 	#HTML FIle to be converted to PDF - inside your Django directory
 	#template = get_template('invoice/pdf-template.html')
 	#Render the HTML
-	html = template.render(context)
+	#html = template.render(context)
 	#Options - Very Important [Don't forget this]
 	options = {
 		  'encoding': 'UTF-8',
@@ -314,17 +318,25 @@ def viewDocumentInvoice(request, slug):
 	  }
 	  #Javascript delay is optional
 	#Remember that location to wkhtmltopdf
-	config = pdfkit.configuration(wkhtmltopdf='/usr/bin/wkhtmltopdf')
 	#Saving the File
 	filepath = os.path.join(settings.MEDIA_ROOT, 'client_invoices')
 	os.makedirs(filepath, exist_ok=True)
-	pdf_save_path = filepath+filename
+	
 	#Save the PDF
-	pdfkit.from_string(html, pdf_save_path, configuration=config, options=options)
+	paragraphs = ['first paragraph', 'second paragraph', 'third paragraph']
+	html_string = render_to_string('invoice/pdf.html', {'paragraphs': paragraphs})
+
+	html = HTML(string=html_string, base_url=request.build_absolute_uri())
+	doc = html.render()
+	pdf =doc.write_pdf(stylesheets=[weasyprint.CSS(string='body { font-family: serif}')])
+	pdf_save_path = filepath+filename
+
+
+	#pdfkit.from_string(html, pdf_save_path, configuration=config, options=options)
 	#send the emails to client
 	to_email = invoice.client.emailAddress
-	from_client = p_settings.clientName
-	emailInvoiceClient(to_email, from_client, pdf_save_path)
+	from_client = invoice.client.clientName
+	emailInvoiceClient(pdf,to_email, from_client, filename)
 	invoice.status = 'EMAIL_SENT'
 	invoice.save()
 	#Email was send, redirect back to view - invoice
@@ -333,4 +345,3 @@ def viewDocumentInvoice(request, slug):
 	#view invoices here
 	
 # Create your views here.
-"""
