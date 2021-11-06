@@ -291,7 +291,7 @@ def emailDocumentInvoice(request, slug):
 	products = Product.objects.filter(invoice=invoice)
 	#Get Client Settings
 	#Calculate the Invoice Total
-	invoiceTotal = 0.0
+	"""invoiceTotal = 0.0
 	if len(products) > 0:
 		for x in products:
 			y = float(x.quantity) * float(x.price)
@@ -300,6 +300,7 @@ def emailDocumentInvoice(request, slug):
 	context['invoice'] = invoice
 	context['products'] = products
 	context['invoiceTotal'] = "{:.2f}".format(invoiceTotal)
+	"""
 	#The name of your PDF file
 	filename = '{}.pdf'.format(invoice.uniqueId)
 	#HTML FIle to be converted to PDF - inside your Django directory
