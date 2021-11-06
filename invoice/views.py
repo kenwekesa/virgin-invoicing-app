@@ -329,7 +329,7 @@ def emailDocumentInvoice(request, slug):
 
 	html = HTML(string=html_string, base_url=request.build_absolute_uri())
 	doc = html.render()
-	pdf =doc.write_pdf(stylesheets=[weasyprint.CSS(string='body { font-family: serif}')])
+	pdf =doc.write_pdf()
 	pdf_save_path = filepath+filename
 
 
