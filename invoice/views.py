@@ -4,6 +4,8 @@ from django.contrib.auth.decorators import login_required
 from django.http.response import HttpResponse
 from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
+from django.urls.base import reverse_lazy
+from django.views.generic import TemplateView
 import weasyprint
 
 from virginafrica.functions import emailInvoiceClient
@@ -11,7 +13,7 @@ from virginafrica.functions import emailInvoiceClient
 
 
 #from virginafrica.invoice.models import Settings
-from .forms import InvoiceForm, InvoiceProductForm, ProductForm, ClientForm,ClientSelectForm
+from .forms import InvoiceForm, InvoiceProductForm, ProductForm, ClientForm,ClientSelectForm, ProductFormSet
 from django.contrib import messages
 from invoice.models import Invoice,Product,Client,InvoiceProduct
 
@@ -30,36 +32,61 @@ def create_invoice(request):
 	if request.method == 'POST':
 		form = InvoiceForm(request.POST)
 		client_form = ClientForm(request.POST)
-		invoice_product_form = InvoiceProductForm(request.POST)
+		product_formset = ProductFormSet(request.POST)
+		invoice_product_form = InvoiceProductForm()
 		product_form = ProductForm(request.POST)
-		if form.is_valid() and client_form.is_valid() and product_form.is_valid() and invoice_product_form.is_valid():
+		if form.is_valid() and client_form.is_valid() and product_form.is_valid() and product_formset.is_valid():
 			client=client_form.save()
 			product = product_form.save(commit=False)
 			inv_prod = invoice_product_form.save(commit=False)
+			
+			
 			#quantity = inv_prod.quantity
 			form = form.save(commit=False)
 			form.client = client
 			
 			form.save()
 			product.save()
+		
+			client.save()
+			#for inv_prod in invoice_product_form:
 
+			for f in product_formset: 
+				cd = f.cleaned_data
+				quantity = cd.get('quantity')
+				price = cd.get('price')
+				inv_prod.invoice_id = 1
+				f.quantity=quantity
+				f.price = price
+				inv_prod.product_id=2
+				inv_prod.save
+				f.save()
+				"""
+				invoiceproduct = InvoiceProduct(product_id = Product.objects.get(description=cd.get('product')), quantity = quantity, price = price, 
+				invoice_id=form.pk)
+				invoiceproduct.save()"""
+				
+			"""inv_prod = invoice_product_form.save(commit=False)
 			inv_prod.invoice_id = form.pk
 			inv_prod.product_id = product.pk
-
-			client.save()
-			inv_prod.save()
+			inv_prod.save()"""
+			
+			
+		
 			
 			#InvoiceProduct.objects.create(product=product, order=form,quantity=quantity)
 			messages.success(request, f'Invoice created successfully')
 			return redirect('view-invoices')
+		
 	
 	else:
 		form = InvoiceForm()
 		client_form=ClientForm()
-		invoice_product_form = InvoiceProductForm()
+		product_formset = ProductFormSet()
 		product_form = ProductForm()
+
 	
-	return render(request=request, template_name="invoice/create_invoice.html", context={"form":form, "client_form": client_form,"inv_prod_form":invoice_product_form,"prod_form": product_form})
+	return render(request=request, template_name="invoice/create_invoice.html", context={"form":form, "client_form": client_form,"prod_form": product_form,"prod_formset":product_formset})
 
 @login_required 
 def view_invoices(request):
@@ -131,7 +158,7 @@ def createBuildInvoice(request, slug):
 	context['invoiceproduct'] = invoiceproduct
 
 	if request.method == 'GET':
-		prod_form  = ProductForm()
+		prod_form  = ProductFormSet(queryset=Product.objects.none())
 		inv_form = InvoiceForm(instance=invoice)
 		client_form = ClientSelectForm(initial_client=invoice.client)
 		context['prod_form'] = prod_form
@@ -346,3 +373,22 @@ def emailDocumentInvoice(request, slug):
 	#view invoices here
 	
 # Create your views here.
+
+class ProductAddView(TemplateView):
+	template_name = "invoice/create_invoice.html"
+
+	def get(self, *args, **kwargs):
+		formset = ProductFormSet(queryset=InvoiceProduct.objects.none())
+		return self.render_to_response({'product_formset': formset})
+
+	# Define method to handle POST request
+	def post(self, *args, **kwargs):
+
+		formset = ProductFormSet(data=self.request.POST)
+
+		# Check if submitted forms are valid
+		if formset.is_valid():
+			formset.save()
+			return redirect(reverse_lazy("product_list"))
+
+		return self.render_to_response({'product_formset': formset})

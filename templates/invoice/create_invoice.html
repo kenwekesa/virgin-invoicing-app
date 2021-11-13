@@ -40,8 +40,8 @@
 
         
 
-<div id="exTab2" class="container">	
-<ul class="nav nav-tabs">
+ <div id="exTab2" class="container">	
+ <ul class="nav nav-tabs">
 			<li class="active">
         <a class="nav-link font-weight-bold" href="#items" data-toggle="tab">Items</a>
 			</li>
@@ -54,23 +54,32 @@
 		
     <div id="items" class="tab-pane fade">
          <div class="roww">
-              <div class="form-row pt-1">
-                <div class="form-group col-5">
-                  {{ prod_form.description|as_crispy_field }}
-                </div>
-                <div class="form-group col-3">
-                  {{ inv_prod_form.price|as_crispy_field }}
-                </div>
-                <div class="form-group col-3">
-                  {{ inv_prod_form.quantity|as_crispy_field }}
-                </div>
+
+              {{prod_formset.management_form}}
+                
+              {% for prod_form in prod_formset %}
+              <div class="form-row pt-1 product-form">
+                  <div class="form-group col-5">
+                    {{ prod_form.product|as_crispy_field }}
+                  </div>
+                  <div class="form-group col-3">
+                    {{ prod_form.price|as_crispy_field }}
+                  </div>
+                  <div class="form-group col-3">
+                    {{ prod_form.quantity|as_crispy_field }}
+                  </div>
+                
+
               </div>
+              {% endfor%}
 		
-		
+	                 <div class="add-btn-div">
+                   <input type='button' id='add-form' value='Add item' class="btn btn-secondary" />
+                   </div>
+            
             </div>
-            <div class="form-group col-3">
-                   <input type='button' id='add' value='Add item' class="btn btn-secondary" />
-            </div>
+          </div>
+           
     </div>
     <div id="clients" class="tab-pane fade">
        <div class="c">
@@ -102,11 +111,10 @@
 			</div>
   </div>
 
-        </div>
-
-        </div>
+  </div>
+  </div>
         
-        </div>
+    
       
       <br />
       <div class="row justify-content-center">
@@ -122,7 +130,7 @@
   <div class="modal modal-sheet py-5" tabindex="-1" id="adroductModal">
     <div class="modal-dialog">
       <div class="modal-content rounded-6 shadow">
-        <form class="" action="#" method="post" enctype="multipart/form-data">
+        <form class="form-container" action="#" method="post" enctype="multipart/form-data">
           {% csrf_token %}
           <div class="modal-header border-bottom-0">
             <h5 class="modal-title">Add Invoice Product</h5>
@@ -184,6 +192,29 @@
   <!-- ========================= FOOTER END // ========================= -->
   {% endblock %}
 </div>
+<script>
+        let birdForm = document.querySelectorAll(".product-form")
+        let container = document.querySelector(".roww")
+        let addButton = document.querySelector("#add-form")
+        let totalForms = document.querySelector("#id_form-TOTAL_FORMS")
+        let addButtonDiv = document.querySelector(".add-btn-div")
+
+        let formNum = birdForm.length-1
+        addButton.addEventListener('click', addForm)
+
+        function addForm(e){
+            e.preventDefault()
+
+            let newForm = birdForm[0].cloneNode(true)
+            let formRegex = RegExp(`form-(\\d){1}-`,'g')
+
+            formNum++
+            newForm.innerHTML = newForm.innerHTML.replace(formRegex, `form-${formNum}-`)
+            container.insertBefore(newForm, addButtonDiv)
+            
+            totalForms.setAttribute('value', `${formNum+1}`)
+        }
+    </script>
 <script>
    $('#add').click(function () {
     var n = $('.roww').length + 1;

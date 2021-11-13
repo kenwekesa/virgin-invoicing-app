@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
-from django.forms import widgets
+from django.forms import widgets, modelformset_factory
+from django.forms.formsets import formset_factory
 from .models import *
 from crispy_forms.helper import FormHelper
 
@@ -16,7 +17,8 @@ class DateInput(forms.DateInput):
 
 class InvoiceForm(forms.ModelForm):
     THE_OPTIONS = [
-    ('14 days', '14 days'),
+    ('Immediate', 'Immediate'),
+    ('15 days', '15 days'),
     ('30 days', '30 days'),
     ('60 days', '60 days'),
     ]
@@ -26,12 +28,7 @@ class InvoiceForm(forms.ModelForm):
     ('PAID', 'PAID'),
     ]
 
-    quantity = forms.CharField(
-                    required = True,
-                    label='Quantity(packs)',
-                    widget=forms.TextInput(attrs={'class': 'form-control mb-3', 'placeholder': 'Enter quantity in packs'}),)
-    
-
+   
     paymentTerms = forms.ChoiceField(
                     choices = THE_OPTIONS,
                     required = True,
@@ -70,7 +67,20 @@ class InvoiceForm(forms.ModelForm):
   
     class Meta:
         model = Invoice
-        fields = ['number','quantity', 'dueDate', 'paymentTerms', 'status', 'description', 'client']
+        fields = ['number', 'dueDate', 'paymentTerms', 'status', 'description', 'client']
+
+    
+    def clean(self, *args, **kwargs):
+      super(InvoiceForm, self).clean()
+
+      # getting username and password from cleaned_data
+      number = self.cleaned_data.get('number')
+      dueDate = self.cleaned_data.get('password')
+
+       # validating the username and password
+      if 'VRG' not in number:
+         self._errors['number'] = self.error_class(['Invalid invoice number'])
+
 
 class ClientForm(forms.ModelForm):
     class Meta:
@@ -78,12 +88,16 @@ class ClientForm(forms.ModelForm):
         fields = ['clientName', 'address', 'city', 'postalCode', 'phoneNumber', 'emailAddress']
 
 class InvoiceProductForm(forms.ModelForm):
+   
+
     class Meta:
         model = InvoiceProduct
-        fields = ['quantity','price']
+        fields = ['product','quantity','price']
 
 
-
+ProductFormSet = formset_factory(
+    InvoiceProductForm, extra=1
+)
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product

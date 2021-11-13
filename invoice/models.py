@@ -231,7 +231,3 @@ class Settings(models.Model):
 		self.last_updated = timezone.localtime(timezone.now())
 
 		super(Settings, self).save(*args, **kwargs)
-
-	
-
-

@@ -28,7 +28,7 @@ admin.site.index_title  =  "Virgin Safaris Admin"
 
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 urlpatterns = [
-    path('admin/', admin.site.urls, name='admin'),
+ 
    
         
         path("generatevoucher/", voucher_views.voucher_template, name="generate-voucher" ),
