@@ -34,10 +34,8 @@ def create_invoice(request):
 		client_form = ClientForm(request.POST)
 		product_formset = ProductFormSet(request.POST)
 		invoice_product_form = InvoiceProductForm()
-		product_form = ProductForm(request.POST)
-		if form.is_valid() and client_form.is_valid() and product_form.is_valid() and product_formset.is_valid():
+		if form.is_valid() and client_form.is_valid() and product_formset.is_valid():
 			client=client_form.save()
-			product = product_form.save(commit=False)
 			inv_prod = invoice_product_form.save(commit=False)
 			
 			
@@ -45,22 +43,21 @@ def create_invoice(request):
 			form = form.save(commit=False)
 			form.client = client
 			
-			form.save()
-			product.save()
-		
-			client.save()
+			
 			#for inv_prod in invoice_product_form:
-
+			form.save()
+			client.save()
 			for f in product_formset: 
 				cd = f.cleaned_data
 				quantity = cd.get('quantity')
 				price = cd.get('price')
-				inv_prod.invoice_id = 1
-				f.quantity=quantity
-				f.price = price
-				inv_prod.product_id=2
-				inv_prod.save
-				f.save()
+				product= cd.get('product')
+				invoice = form
+				inv_prodd = InvoiceProduct(product=product,invoice = invoice,price=price, quantity=quantity)
+				inv_prodd.save()
+
+			
+				#f.save()
 				"""
 				invoiceproduct = InvoiceProduct(product_id = Product.objects.get(description=cd.get('product')), quantity = quantity, price = price, 
 				invoice_id=form.pk)
@@ -158,10 +155,8 @@ def createBuildInvoice(request, slug):
 	context['invoiceproduct'] = invoiceproduct
 
 	if request.method == 'GET':
-		prod_form  = ProductFormSet(queryset=Product.objects.none())
 		inv_form = InvoiceForm(instance=invoice)
 		client_form = ClientSelectForm(initial_client=invoice.client)
-		context['prod_form'] = prod_form
 		context['inv_form'] = inv_form
 		context['client_form'] = client_form
 		return render(request, 'invoice/view_created_invoice.html', context)
@@ -208,7 +203,7 @@ def viewPDFInvoice(request, slug):
 		return redirect('invoices')
 
 	#fetch all the products - related to this invoice
-	#products = Product.objects.filter(invoice=invoice)
+	products = Product.objects.filter(invoice=invoice)
 
 	#Get Client Settings
    
@@ -231,7 +226,10 @@ def viewPDFInvoice(request, slug):
 	context['invoiceTotal'] = "{:.2f}".format(invoiceTotal)
 	context['invoiceCurrency'] = invoiceCurrency"""
 
-	return render(request, 'invoice/invoice-template.html')
+	context = {}
+	context['product'] = products
+
+	return render(request, 'invoice/invoice-template.html',context)
 
 
 def pdfview(request):
