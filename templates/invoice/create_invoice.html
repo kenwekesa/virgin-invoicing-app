@@ -52,7 +52,25 @@
       <br/>
 			<div class="tab-content ">
 		
+    
     <div id="items" class="tab-pane fade">
+    <div class="table">
+                        <table class="table" id="formtable">
+                            <tr class="tablerow">
+                                <td style="border: 0; padding: 0 0.5em 0 0; width: 80%">
+                                    <label class="form-label" for="invoice_detail_product">Product name</label>
+                                    {form.product}
+                                </td>
+                                <td style="border: 0; padding: 0 0 0 0.5em;">
+                                    <label class="form-label" for="invoice_detail_amount">Amounts</label>
+                                    {form.amount}
+                                </td>
+                            </tr>
+                            <tr class="add-btn-div">
+                              <td><input type='button' id='add-form' value='Add item' class="btn btn-secondary" /></td>
+                            </tr>
+                        </table>
+		</div>
          <div class="roww">
 
               {{prod_formset.management_form}}
@@ -73,9 +91,7 @@
               </div>
               {% endfor%}
 		
-	                 <div class="add-btn-div">
-                   <input type='button' id='add-form' value='Add item' class="btn btn-secondary" />
-                   </div>
+	                 
             
             </div>
           </div>
@@ -193,8 +209,8 @@
   {% endblock %}
 </div>
 <script>
-        let birdForm = document.querySelectorAll(".product-form")
-        let container = document.querySelector(".roww")
+        let birdForm = document.querySelectorAll(".tablerow")
+        let container = document.querySelector("#formtable")
         let addButton = document.querySelector("#add-form")
         let totalForms = document.querySelector("#id_form-TOTAL_FORMS")
         let addButtonDiv = document.querySelector(".add-btn-div")
@@ -210,7 +226,9 @@
 
             formNum++
             newForm.innerHTML = newForm.innerHTML.replace(formRegex, `form-${formNum}-`)
+            let nnn = addButtonDiv
             container.insertBefore(newForm, addButtonDiv)
+           
             
             totalForms.setAttribute('value', `${formNum+1}`)
         }
