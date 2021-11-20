@@ -253,29 +253,28 @@ def viewPDFInvoice(request, slug):
 
 def pdfview(request,slug):
 
-	#fetch that invoice
 	try:
 		invoice = Invoice.objects.get(slug=slug)
 		pass
 	except:
 		messages.error(request, 'Something went wrong')
 		return redirect('invoices')
+
 	#fetch all the products - related to this invoice
-	products = InvoiceProduct.objects.filter(invoice=invoice)
+	products = Product.objects.filter(invoice=invoice)
+	invoiceproduct  = InvoiceProduct.objects.filter(invoice_id=invoice.id)
 
-	#Get Client Settings
-   
-
-	#Calculate the Invoice Total
 	invoiceCurrency = ''
 	invoiceTotal = 0.0
-	productTotals = []
+	itemtotals = []
 	if len(products) > 0:
-		for x in products:
+		for x in invoiceproduct:
 			y = float(x.quantity) * float(x.price)
 			invoiceTotal += y
-			productTotals.append(y)
-			
+			itemtotals.append(y)
+	
+	tax = 0.16*invoiceTotal
+	grand_total = invoiceTotal+tax
 			
 
 
@@ -283,8 +282,12 @@ def pdfview(request,slug):
 	context = {}
 	context['invoice'] = invoice
 	context['products'] = products
+	context['itemtotals']= itemtotals
+	context['invoiceGrandTotal'] = grand_total
 	context['invoiceTotal'] = "{:.2f}".format(invoiceTotal)
-	context['productTotals'] = productTotals
+	context['tax'] =  "{:.2f}".format(tax)
+	context['invoiceCurrency'] = invoiceCurrency
+	context['invoiceproduct'] = invoiceproduct
 	
 
 	paragraphs = ['first paragraph', 'second paragraph', 'third paragraph']
