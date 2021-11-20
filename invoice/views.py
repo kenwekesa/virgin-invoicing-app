@@ -148,10 +148,29 @@ def createBuildInvoice(request, slug):
 	products = Product.objects.filter(invoice=invoice)
 	invoiceproduct  = InvoiceProduct.objects.filter(invoice_id=invoice.id)
 
+	invoiceCurrency = ''
+	invoiceTotal = 0.0
+	itemtotals = []
+	if len(products) > 0:
+		for x in invoiceproduct:
+			y = float(x.quantity) * float(x.price)
+			invoiceTotal += y
+			itemtotals.append(y)
+	
+	tax = 0.16*invoiceTotal
+	grand_total = invoiceTotal+tax
+			
+
+
 
 	context = {}
 	context['invoice'] = invoice
 	context['products'] = products
+	context['itemtotals']= itemtotals
+	context['invoiceGrandTotal'] = grand_total
+	context['invoiceTotal'] = "{:.2f}".format(invoiceTotal)
+	context['tax'] =  "{:.2f}".format(tax)
+	context['invoiceCurrency'] = invoiceCurrency
 	context['invoiceproduct'] = invoiceproduct
 
 	if request.method == 'GET':
@@ -203,7 +222,7 @@ def viewPDFInvoice(request, slug):
 		return redirect('invoices')
 
 	#fetch all the products - related to this invoice
-	products = Product.objects.filter(invoice=invoice)
+	products = InvoiceProduct.objects.filter(invoice=invoice)
 
 	#Get Client Settings
    
@@ -211,34 +230,72 @@ def viewPDFInvoice(request, slug):
 	#Calculate the Invoice Total
 	invoiceCurrency = ''
 	invoiceTotal = 0.0
-	"""if len(products) > 0:
+	if len(products) > 0:
 		for x in products:
 			y = float(x.quantity) * float(x.price)
 			invoiceTotal += y
-			invoiceCurrency = x.currency
-			"""
+	
+	tax = 0.16*invoiceTotal
+			
 
 
 
-	"""context = {}
+	context = {}
 	context['invoice'] = invoice
 	context['products'] = products
 	context['invoiceTotal'] = "{:.2f}".format(invoiceTotal)
-	context['invoiceCurrency'] = invoiceCurrency"""
+	context['tax'] =  "{:.2f}".format(tax)
+	context['invoiceCurrency'] = invoiceCurrency
 
-	context = {}
-	context['product'] = products
 
 	return render(request, 'invoice/invoice-template.html',context)
 
 
-def pdfview(request):
+def pdfview(request,slug):
+
+	#fetch that invoice
+	try:
+		invoice = Invoice.objects.get(slug=slug)
+		pass
+	except:
+		messages.error(request, 'Something went wrong')
+		return redirect('invoices')
+	#fetch all the products - related to this invoice
+	products = InvoiceProduct.objects.filter(invoice=invoice)
+
+	#Get Client Settings
+   
+
+	#Calculate the Invoice Total
+	invoiceCurrency = ''
+	invoiceTotal = 0.0
+	productTotals = []
+	if len(products) > 0:
+		for x in products:
+			y = float(x.quantity) * float(x.price)
+			invoiceTotal += y
+			productTotals.append(y)
+			
+			
+
+
+
+	context = {}
+	context['invoice'] = invoice
+	context['products'] = products
+	context['invoiceTotal'] = "{:.2f}".format(invoiceTotal)
+	context['productTotals'] = productTotals
+	
+
 	paragraphs = ['first paragraph', 'second paragraph', 'third paragraph']
-	html_string = render_to_string('invoice/pdf.html', {'paragraphs': paragraphs})
+	html_string = render_to_string('invoice/pdf.html', context)
 
 	html = HTML(string=html_string, base_url=request.build_absolute_uri())
 	doc = html.render()
 	pdf =doc.write_pdf()
+	
+	
+
 	
 
 	

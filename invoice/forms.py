@@ -28,16 +28,16 @@ class InvoiceForm(forms.ModelForm):
     ('PAID', 'PAID'),
     ]
 
-   
+    istaxable = forms.BooleanField(label="Taxable", required=False)
     paymentTerms = forms.ChoiceField(
                     choices = THE_OPTIONS,
                     required = True,
-                    label='Select Payment Terms',
+                    label='Payment Terms',
                     widget=forms.Select(attrs={'class': 'form-control mb-3'}),)
     status = forms.ChoiceField(
                     choices = STATUS_OPTIONS,
                     required = True,
-                    label='Change Invoice Status',
+                    label='Invoice Status',
                     widget=forms.Select(attrs={'class': 'form-control mb-3'}),)
 
 
@@ -64,10 +64,13 @@ class InvoiceForm(forms.ModelForm):
 
             Submit('submit', ' EDIT INVOICE '))
 
+        
+        self.fields['number'].widget.attrs['readonly'] = True
+
   
     class Meta:
         model = Invoice
-        fields = ['number', 'dueDate', 'paymentTerms', 'status', 'description', 'client']
+        fields = ['number', 'dueDate', 'paymentTerms', 'status', 'description', 'client','istaxable']
 
     
     def clean(self, *args, **kwargs):
@@ -93,6 +96,11 @@ class InvoiceProductForm(forms.ModelForm):
     class Meta:
         model = InvoiceProduct
         fields = ['product','quantity','price']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_show_labels = False
 
 
 ProductFormSet = formset_factory(

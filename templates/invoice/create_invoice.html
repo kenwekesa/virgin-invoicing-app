@@ -25,12 +25,14 @@
     <form method="POST" class="col-12">
       {% csrf_token %}
       <div class="form-row">
-        <div class="form-group col-3">{{ form.number|as_crispy_field }}</div>
+        <div class="form-group col-2">{{ form.number|as_crispy_field }}</div>
         <div class="form-group col-3">{{ form.dueDate|as_crispy_field }}</div>
-        <div class="form-group col-3">
+        <div class="form-group col-2">
           {{ form.paymentTerms|as_crispy_field }}
         </div>
-        <div class="form-group col-3">{{ form.status|as_crispy_field }}</div>
+       
+        <div class="form-group col-2">{{ form.status|as_crispy_field }}</div>
+         <div class="form-group col-2 ml-3">{{ form.istaxable|as_crispy_field }}</div>
         
       </div>
 
@@ -56,44 +58,44 @@
     <div id="items" class="tab-pane fade">
     <div class="table">
                         <table class="table" id="formtable">
-                            <tr class="tablerow">
+			 	{{prod_formset.management_form}}
+                
+             			 {% for prod_form in prod_formset %}
+                            <tr>
                                 <td style="border: 0; padding: 0 0.5em 0 0; width: 80%">
                                     <label class="form-label" for="invoice_detail_product">Product name</label>
-                                    {form.product}
+                                     
                                 </td>
                                 <td style="border: 0; padding: 0 0 0 0.5em;">
                                     <label class="form-label" for="invoice_detail_amount">Amounts</label>
-                                    {form.amount}
+                                   
+                                </td>
+			                        	<td style="border: 0; padding: 0 0 0 0.5em;">
+                                    <label class="form-label" for="invoice_detail_amount">Amounts</label>
+                  
+                                </td>
+                            </tr>
+                            <tr class="tablerow">
+                                <td style="border: 0; padding: 0 0.5em 0 0; width: 80%">
+                                  
+                                     {{ prod_form.product|as_crispy_field }}
+                                </td>
+                                <td style="border: 0; padding: 0 0 0 0.5em;">
+                              
+                                   {{ prod_form.price|as_crispy_field }}
+                                </td>
+			                        	<td style="border: 0; padding: 0 0 0 0.5em;">
+                                  
+                                   {{ prod_form.quantity|as_crispy_field }}
                                 </td>
                             </tr>
                             <tr class="add-btn-div">
                               <td><input type='button' id='add-form' value='Add item' class="btn btn-secondary" /></td>
                             </tr>
+{% endfor %}
                         </table>
 		</div>
-         <div class="roww">
-
-              {{prod_formset.management_form}}
-                
-              {% for prod_form in prod_formset %}
-              <div class="form-row pt-1 product-form">
-                  <div class="form-group col-5 input-sm">
-                    {{ prod_form.product|as_crispy_field }}
-                  </div>
-                  <div class="form-group col-3 input-sm">
-                    {{ prod_form.price|as_crispy_field }}
-                  </div>
-                  <div class="form-group col-3 input-sm">
-                    {{ prod_form.quantity|as_crispy_field }}
-                  </div>
-                
-
-              </div>
-              {% endfor%}
-		
-	                 
-            
-            </div>
+   
           </div>
            
     </div>
@@ -215,6 +217,8 @@
         let totalForms = document.querySelector("#id_form-TOTAL_FORMS")
         let addButtonDiv = document.querySelector(".add-btn-div")
 
+	var parentDiv = addButtonDiv.parentNode;
+
         let formNum = birdForm.length-1
         addButton.addEventListener('click', addForm)
 
@@ -227,7 +231,7 @@
             formNum++
             newForm.innerHTML = newForm.innerHTML.replace(formRegex, `form-${formNum}-`)
             let nnn = addButtonDiv
-            container.insertBefore(newForm, addButtonDiv)
+            parentDiv.insertBefore(newForm, addButtonDiv)
            
             
             totalForms.setAttribute('value', `${formNum+1}`)

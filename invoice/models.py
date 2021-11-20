@@ -80,12 +80,17 @@ class Invoice(models.Model):
 	('OVERDUE', 'OVERDUE'),
 	('PAID', 'PAID'),
 	]
+    
+	
+
+
 
 	number = models.CharField(null=False,default=increment_invoice_number, blank=False, max_length=100, unique=True)
 	dueDate = models.DateField(null=True, blank=True)
 	paymentTerms = models.CharField(choices=TERMS, default='15 days', max_length=100)
 	status = models.CharField(choices=STATUS, default='CURRENT', max_length=100)
 	description = models.TextField(null=True, blank=True,max_length=500)
+	istaxable = models.BooleanField()
 
 	#RELATED fields
 	client = models.ForeignKey(Client, blank=True, null=True, on_delete=models.SET_NULL)
@@ -186,6 +191,12 @@ class InvoiceProduct(models.Model):
 
 	class Meta:
 		unique_together = [['invoice','product']]
+
+
+
+	def total_price(self):
+		total_price = int(self.quantity)*int(self.price)
+		return total_price
 
 class Settings(models.Model):
 

@@ -18,7 +18,7 @@
 >
   <div class="btn-toolbar mb-2 mb-md-0">
     <div class="col-lg-2" >
-              <a href="{% url 'viewpdf'%} " target="_blank"
+              <a href="{% url 'viewpdf' invoice.slug%} " target="_blank"
                 ><button class="btn btn-success text-white">
                   PRINT
                 </button></a
@@ -131,7 +131,11 @@
           </td>
 
           <td>{{prod.price}}</td>
-          <td>{{invoice.total_price}}</td>
+          
+             <td>{{prod.total_price}}</td>
+         
+        
+
         </tr>
         {%endif%}
         {%endfor%}
@@ -140,12 +144,37 @@
 
        
 
+    {%if invoice.istaxable%}
         <tr class="total">
+          <td></td>
+
+          <td colspan="3">Total</td>
+          <td class = "grand_total"><u><u>{{invoiceTotal}}</u><u/></td>
+        </tr>
+        <tr class="total">
+          <td></td>
+
+          <td colspan="3">VAT(16%)</td>
+          <td class = "grand_total"><u><u>{{tax}}</u><u/></td>
+        </tr>
+
+        <tr class="total">
+          <td></td>
+
+          <td colspan="3">Grand Total:</td>
+          <td class = "grand_total"><u><u>{{invoiceGrandTotal}}</u><u/></td>
+        </tr>
+
+        {%else%}
+          <tr class="total">
           <td></td>
 
           <td colspan="3">Grand Total:</td>
           <td class = "grand_total"><u><u>{{invoice.grand_total}}</u><u/></td>
         </tr>
+
+        {%endif%}
+
       </table>
       </tr>
       <br />
