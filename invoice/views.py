@@ -363,6 +363,65 @@ def viewDocumentInvoice(request, slug):
 	#Return
 	#return response
 """
+def edit_invoice(request, slug):
+	invoice = Invoice.objects.filter(slug=slug).first()
+	product = InvoiceProduct.objects.filter(invoice=invoice)
+	clients = Client.objects.filter(invoice=invoice).first()
+	form = InvoiceForm(instance=invoice)
+	client_form = ClientForm(instance=clients)
+	product_formset = ProductFormSet(instance=product)
+	invoice_product_form = InvoiceProductForm()
+	product_form = ProductForm()
+
+	
+
+	if request.method == 'POST':
+		form = InvoiceForm(request.POST, instance=invoice)
+		client_form = ClientForm(request.POST,instance=clients)
+		product_formset = ProductFormSet(request.POST,instance=product)
+		invoice_product_form = InvoiceProductForm()
+		if form.is_valid() and client_form.is_valid() and product_formset.is_valid():
+			client=client_form.save()
+			inv_prod = invoice_product_form.save(commit=False)
+			
+			
+			#quantity = inv_prod.quantity
+			form = form.save(commit=False)
+			form.client = client
+			
+			
+			#for inv_prod in invoice_product_form:
+			form.save()
+			client.save()
+			for f in product_formset: 
+				cd = f.cleaned_data
+				quantity = cd.get('quantity')
+				price = cd.get('price')
+				product= cd.get('product')
+				invoice = form
+				inv_prodd = InvoiceProduct(product=product,invoice = invoice,price=price, quantity=quantity)
+				inv_prodd.save()
+
+			
+				#f.save()
+				"""
+				invoiceproduct = InvoiceProduct(product_id = Product.objects.get(description=cd.get('product')), quantity = quantity, price = price, 
+				invoice_id=form.pk)
+				invoiceproduct.save()"""
+				
+			"""inv_prod = invoice_product_form.save(commit=False)
+			inv_prod.invoice_id = form.pk
+			inv_prod.product_id = product.pk
+			inv_prod.save()"""
+			
+			
+		
+			
+			#InvoiceProduct.objects.create(product=product, order=form,quantity=quantity)
+			messages.success(request, f'Changes saved successfully')
+			return redirect('view-invoices')
+    
+	return render(request=request, template_name="invoice/create_invoice.html", context={"form":form, "client_form": client_form,"prod_form": product_form,"prod_formset":product_formset})
 
 def emailDocumentInvoice(request, slug):
 	#fetch that invoice
