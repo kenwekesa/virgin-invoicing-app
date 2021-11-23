@@ -1,18 +1,26 @@
+from re import template
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.http.response import HttpResponse
 from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
+from django.urls.base import reverse_lazy
+from django.views.generic import TemplateView
+import weasyprint
+
+from virginafrica.functions import emailInvoiceClient
 
 
 
 #from virginafrica.invoice.models import Settings
-from .forms import InvoiceForm, InvoiceProductForm, ProductForm, ClientForm,ClientSelectForm
+from .forms import InvoiceForm, InvoiceProductForm, ProductForm, ClientForm,ClientSelectForm, ProductFormSet
 from django.contrib import messages
 from invoice.models import Invoice,Product,Client,InvoiceProduct
 
 from django.core.files.storage import FileSystemStorage
 
 from weasyprint import HTML
+import os
 
 
 
@@ -24,36 +32,58 @@ def create_invoice(request):
 	if request.method == 'POST':
 		form = InvoiceForm(request.POST)
 		client_form = ClientForm(request.POST)
-		invoice_product_form = InvoiceProductForm(request.POST)
-		product_form = ProductForm(request.POST)
-		if form.is_valid() and client_form.is_valid() and product_form.is_valid() and invoice_product_form.is_valid():
+		product_formset = ProductFormSet(request.POST)
+		invoice_product_form = InvoiceProductForm()
+		if form.is_valid() and client_form.is_valid() and product_formset.is_valid():
 			client=client_form.save()
-			product = product_form.save(commit=False)
 			inv_prod = invoice_product_form.save(commit=False)
+			
+			
 			#quantity = inv_prod.quantity
 			form = form.save(commit=False)
 			form.client = client
 			
+			
+			#for inv_prod in invoice_product_form:
 			form.save()
-			product.save()
+			client.save()
+			for f in product_formset: 
+				cd = f.cleaned_data
+				quantity = cd.get('quantity')
+				price = cd.get('price')
+				product= cd.get('product')
+				invoice = form
+				inv_prodd = InvoiceProduct(product=product,invoice = invoice,price=price, quantity=quantity)
+				inv_prodd.save()
 
+			
+				#f.save()
+				"""
+				invoiceproduct = InvoiceProduct(product_id = Product.objects.get(description=cd.get('product')), quantity = quantity, price = price, 
+				invoice_id=form.pk)
+				invoiceproduct.save()"""
+				
+			"""inv_prod = invoice_product_form.save(commit=False)
 			inv_prod.invoice_id = form.pk
 			inv_prod.product_id = product.pk
-
-			client.save()
-			inv_prod.save()
+			inv_prod.save()"""
+			
+			
+		
 			
 			#InvoiceProduct.objects.create(product=product, order=form,quantity=quantity)
 			messages.success(request, f'Invoice created successfully')
 			return redirect('view-invoices')
+		
 	
 	else:
 		form = InvoiceForm()
 		client_form=ClientForm()
-		invoice_product_form = InvoiceProductForm()
+		product_formset = ProductFormSet()
 		product_form = ProductForm()
+
 	
-	return render(request=request, template_name="invoice/create_invoice.html", context={"form":form, "client_form": client_form,"inv_prod_form":invoice_product_form,"prod_form": product_form})
+	return render(request=request, template_name="invoice/create_invoice.html", context={"form":form, "client_form": client_form,"prod_form": product_form,"prod_formset":product_formset})
 
 @login_required 
 def view_invoices(request):
@@ -118,17 +148,34 @@ def createBuildInvoice(request, slug):
 	products = Product.objects.filter(invoice=invoice)
 	invoiceproduct  = InvoiceProduct.objects.filter(invoice_id=invoice.id)
 
+	invoiceCurrency = ''
+	invoiceTotal = 0.0
+	itemtotals = []
+	if len(products) > 0:
+		for x in invoiceproduct:
+			y = float(x.quantity) * float(x.price)
+			invoiceTotal += y
+			itemtotals.append(y)
+	
+	tax = 0.16*invoiceTotal
+	grand_total = invoiceTotal+tax
+			
+
+
 
 	context = {}
 	context['invoice'] = invoice
 	context['products'] = products
+	context['itemtotals']= itemtotals
+	context['invoiceGrandTotal'] = grand_total
+	context['invoiceTotal'] = "{:.2f}".format(invoiceTotal)
+	context['tax'] =  "{:.2f}".format(tax)
+	context['invoiceCurrency'] = invoiceCurrency
 	context['invoiceproduct'] = invoiceproduct
 
 	if request.method == 'GET':
-		prod_form  = ProductForm()
 		inv_form = InvoiceForm(instance=invoice)
 		client_form = ClientSelectForm(initial_client=invoice.client)
-		context['prod_form'] = prod_form
 		context['inv_form'] = inv_form
 		context['client_form'] = client_form
 		return render(request, 'invoice/view_created_invoice.html', context)
@@ -175,7 +222,7 @@ def viewPDFInvoice(request, slug):
 		return redirect('invoices')
 
 	#fetch all the products - related to this invoice
-	#products = Product.objects.filter(invoice=invoice)
+	products = InvoiceProduct.objects.filter(invoice=invoice)
 
 	#Get Client Settings
    
@@ -183,31 +230,75 @@ def viewPDFInvoice(request, slug):
 	#Calculate the Invoice Total
 	invoiceCurrency = ''
 	invoiceTotal = 0.0
-	"""if len(products) > 0:
+	if len(products) > 0:
 		for x in products:
 			y = float(x.quantity) * float(x.price)
 			invoiceTotal += y
-			invoiceCurrency = x.currency
-			"""
+	
+	tax = 0.16*invoiceTotal
+			
 
 
 
-	"""context = {}
+	context = {}
 	context['invoice'] = invoice
 	context['products'] = products
 	context['invoiceTotal'] = "{:.2f}".format(invoiceTotal)
-	context['invoiceCurrency'] = invoiceCurrency"""
+	context['tax'] =  "{:.2f}".format(tax)
+	context['invoiceCurrency'] = invoiceCurrency
 
-	return render(request, 'invoice/invoice-template.html')
+
+	return render(request, 'invoice/invoice-template.html',context)
 
 
-def pdfview(request):
+def pdfview(request,slug):
+
+	try:
+		invoice = Invoice.objects.get(slug=slug)
+		pass
+	except:
+		messages.error(request, 'Something went wrong')
+		return redirect('invoices')
+
+	#fetch all the products - related to this invoice
+	products = Product.objects.filter(invoice=invoice)
+	invoiceproduct  = InvoiceProduct.objects.filter(invoice_id=invoice.id)
+
+	invoiceCurrency = ''
+	invoiceTotal = 0.0
+	itemtotals = []
+	if len(products) > 0:
+		for x in invoiceproduct:
+			y = float(x.quantity) * float(x.price)
+			invoiceTotal += y
+			itemtotals.append(y)
+	
+	tax = 0.16*invoiceTotal
+	grand_total = invoiceTotal+tax
+			
+
+
+
+	context = {}
+	context['invoice'] = invoice
+	context['products'] = products
+	context['itemtotals']= itemtotals
+	context['invoiceGrandTotal'] = grand_total
+	context['invoiceTotal'] = "{:.2f}".format(invoiceTotal)
+	context['tax'] =  "{:.2f}".format(tax)
+	context['invoiceCurrency'] = invoiceCurrency
+	context['invoiceproduct'] = invoiceproduct
+	
+
 	paragraphs = ['first paragraph', 'second paragraph', 'third paragraph']
-	html_string = render_to_string('invoice/pdf.html', {'paragraphs': paragraphs})
+	html_string = render_to_string('invoice/pdf.html', context)
 
 	html = HTML(string=html_string, base_url=request.build_absolute_uri())
 	doc = html.render()
 	pdf =doc.write_pdf()
+	
+	
+
 	
 
 	
@@ -272,8 +363,67 @@ def viewDocumentInvoice(request, slug):
 	#Return
 	#return response
 """
+def edit_invoice(request, slug):
+	invoice = Invoice.objects.filter(slug=slug).first()
+	product = InvoiceProduct.objects.filter(invoice=invoice)
+	clients = Client.objects.filter(invoice=invoice).first()
+	form = InvoiceForm(instance=invoice)
+	client_form = ClientForm(instance=clients)
+	product_formset = ProductFormSet(instance=product)
+	invoice_product_form = InvoiceProductForm()
+	product_form = ProductForm()
 
-"""def emailDocumentInvoice(request, slug):
+	
+
+	if request.method == 'POST':
+		form = InvoiceForm(request.POST, instance=invoice)
+		client_form = ClientForm(request.POST,instance=clients)
+		product_formset = ProductFormSet(request.POST,instance=product)
+		invoice_product_form = InvoiceProductForm()
+		if form.is_valid() and client_form.is_valid() and product_formset.is_valid():
+			client=client_form.save()
+			inv_prod = invoice_product_form.save(commit=False)
+			
+			
+			#quantity = inv_prod.quantity
+			form = form.save(commit=False)
+			form.client = client
+			
+			
+			#for inv_prod in invoice_product_form:
+			form.save()
+			client.save()
+			for f in product_formset: 
+				cd = f.cleaned_data
+				quantity = cd.get('quantity')
+				price = cd.get('price')
+				product= cd.get('product')
+				invoice = form
+				inv_prodd = InvoiceProduct(product=product,invoice = invoice,price=price, quantity=quantity)
+				inv_prodd.save()
+
+			
+				#f.save()
+				"""
+				invoiceproduct = InvoiceProduct(product_id = Product.objects.get(description=cd.get('product')), quantity = quantity, price = price, 
+				invoice_id=form.pk)
+				invoiceproduct.save()"""
+				
+			"""inv_prod = invoice_product_form.save(commit=False)
+			inv_prod.invoice_id = form.pk
+			inv_prod.product_id = product.pk
+			inv_prod.save()"""
+			
+			
+		
+			
+			#InvoiceProduct.objects.create(product=product, order=form,quantity=quantity)
+			messages.success(request, f'Changes saved successfully')
+			return redirect('view-invoices')
+    
+	return render(request=request, template_name="invoice/create_invoice.html", context={"form":form, "client_form": client_form,"prod_form": product_form,"prod_formset":product_formset})
+
+def emailDocumentInvoice(request, slug):
 	#fetch that invoice
 	try:
 		invoice = Invoice.objects.get(slug=slug)
@@ -284,9 +434,8 @@ def viewDocumentInvoice(request, slug):
 	#fetch all the products - related to this invoice
 	products = Product.objects.filter(invoice=invoice)
 	#Get Client Settings
-	p_settings = Settings.objects.get(clientName='Skolo Online Learning')
 	#Calculate the Invoice Total
-	invoiceTotal = 0.0
+	"""invoiceTotal = 0.0
 	if len(products) > 0:
 		for x in products:
 			y = float(x.quantity) * float(x.price)
@@ -294,14 +443,14 @@ def viewDocumentInvoice(request, slug):
 	context = {}
 	context['invoice'] = invoice
 	context['products'] = products
-	context['p_settings'] = p_settings
 	context['invoiceTotal'] = "{:.2f}".format(invoiceTotal)
+	"""
 	#The name of your PDF file
 	filename = '{}.pdf'.format(invoice.uniqueId)
 	#HTML FIle to be converted to PDF - inside your Django directory
 	#template = get_template('invoice/pdf-template.html')
 	#Render the HTML
-	html = template.render(context)
+	#html = template.render(context)
 	#Options - Very Important [Don't forget this]
 	options = {
 		  'encoding': 'UTF-8',
@@ -314,17 +463,25 @@ def viewDocumentInvoice(request, slug):
 	  }
 	  #Javascript delay is optional
 	#Remember that location to wkhtmltopdf
-	config = pdfkit.configuration(wkhtmltopdf='/usr/bin/wkhtmltopdf')
 	#Saving the File
 	filepath = os.path.join(settings.MEDIA_ROOT, 'client_invoices')
 	os.makedirs(filepath, exist_ok=True)
-	pdf_save_path = filepath+filename
+	
 	#Save the PDF
-	pdfkit.from_string(html, pdf_save_path, configuration=config, options=options)
+	paragraphs = ['first paragraph', 'second paragraph', 'third paragraph']
+	html_string = render_to_string('invoice/pdf.html', {'paragraphs': paragraphs})
+
+	html = HTML(string=html_string, base_url=request.build_absolute_uri())
+	doc = html.render()
+	pdf =doc.write_pdf()
+	pdf_save_path = filepath+filename
+
+
+	#pdfkit.from_string(html, pdf_save_path, configuration=config, options=options)
 	#send the emails to client
 	to_email = invoice.client.emailAddress
-	from_client = p_settings.clientName
-	emailInvoiceClient(to_email, from_client, pdf_save_path)
+	from_client = invoice.client.clientName
+	emailInvoiceClient(pdf,to_email, from_client, filename)
 	invoice.status = 'EMAIL_SENT'
 	invoice.save()
 	#Email was send, redirect back to view - invoice
@@ -333,4 +490,22 @@ def viewDocumentInvoice(request, slug):
 	#view invoices here
 	
 # Create your views here.
-"""
+
+class ProductAddView(TemplateView):
+	template_name = "invoice/create_invoice.html"
+
+	def get(self, *args, **kwargs):
+		formset = ProductFormSet(queryset=InvoiceProduct.objects.none())
+		return self.render_to_response({'product_formset': formset})
+
+	# Define method to handle POST request
+	def post(self, *args, **kwargs):
+
+		formset = ProductFormSet(data=self.request.POST)
+
+		# Check if submitted forms are valid
+		if formset.is_valid():
+			formset.save()
+			return redirect(reverse_lazy("product_list"))
+
+		return self.render_to_response({'product_formset': formset})

@@ -52,9 +52,9 @@
       rel="stylesheet"
       media="only screen and (max-width: 1200px)"
     />
-   
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <!-- custom javascript -->
 
     <script src="{% static 'js/script.js' %}" type="text/javascript"></script>
@@ -68,8 +68,7 @@
       });
       // jquery end
     </script>
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   </head>
   <body class="forms_body">
     <div class="wrapper">
@@ -117,15 +116,13 @@
               data-toggle="collapse"
               aria-expanded="false"
               class="dropdown-toggle"
-              >Client</a
+              >Voucher</a
             >
             <ul class="collapse list-unstyled" id="pageSubmenu">
               <li>
-                <a href="{% url 'create-client'%}">Create client</a>
+                <a href="{% url 'view-voucher'%}">New Voucher</a>
               </li>
-              <li>
-                <a href="{% url 'clients'%}">View clients</a>
-              </li>
+               
             </ul>
           </li>
         </ul>

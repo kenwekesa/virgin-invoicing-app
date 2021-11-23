@@ -13,6 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf.urls import include
 from django.contrib import admin
 from django.urls import path
 from accounts import views
@@ -42,20 +43,22 @@ urlpatterns = [
         path('products',invoice_views.products, name='products'),
         path('clients',invoice_views.clients, name='clients'),
         path('invoices/create-build/<slug:slug>',invoice_views.createBuildInvoice, name='create-build-invoice'),
+        path('invoices/edit-invoice/<slug:slug>',invoice_views.edit_invoice, name='edit-invoice'),
+        
 
         #Invoice documents pdf and email
         path('invoices/view-pdf/<slug:slug>',invoice_views.viewPDFInvoice, name='view-pdf-invoice'),
-         path('pdf',invoice_views.pdfview, name='viewpdf'),
+         path('pdf/<slug:slug>',invoice_views.pdfview, name='viewpdf'),
         #path('invoices/view-document/<slug:slug>',views.viewDocumentInvoice, name='view-document-invoice'),
        
-       #path('invoices/email-document/<slug:slug>',views.emailDocumentInvoice, name='email-document-invoice'),
+        path('invoices/email-document/<slug:slug>',invoice_views.emailDocumentInvoice, name='email-document-invoice'),
 
 
         path('clients/',invoice_views.view_clients, name='clients'),
         path('create-client/',invoice_views.clients, name='create-client'),
         
 
-      
+      path('voucher/', include('voucher.urls')),
          
 
 ]

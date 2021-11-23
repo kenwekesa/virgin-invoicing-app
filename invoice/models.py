@@ -59,19 +59,19 @@ class Client(models.Model):
 def increment_invoice_number():
 		last_invoice = Invoice.objects.all().order_by('id').last()
 		if not last_invoice:
-			return 'VRG100'
+			return 'VRG00001'
 		invoice_no = last_invoice.number
 		invoice_int = int(invoice_no.split('VRG')[-1])
 		new_invoice_int = invoice_int + 1
-		new_invoice_no = 'VRG' + str(new_invoice_int)
+		new_invoice_no = 'VRG' +  "%05d" % ( new_invoice_int, )
 		return new_invoice_no
 
 class Invoice(models.Model):
 	TERMS = [
 	('Immediate','Immediate'),
-	('14 days', '14 days'),
+	('15 days', '15 days'),
 	('30 days', '30 days'),
-	('60 days', '60 days'),
+	
 	]
 
 	STATUS = [
@@ -80,12 +80,17 @@ class Invoice(models.Model):
 	('OVERDUE', 'OVERDUE'),
 	('PAID', 'PAID'),
 	]
+    
+	
+
+
 
 	number = models.CharField(null=False,default=increment_invoice_number, blank=False, max_length=100, unique=True)
 	dueDate = models.DateField(null=True, blank=True)
-	paymentTerms = models.CharField(choices=TERMS, default='14 days', max_length=100)
+	paymentTerms = models.CharField(choices=TERMS, default='15 days', max_length=100)
 	status = models.CharField(choices=STATUS, default='CURRENT', max_length=100)
 	description = models.TextField(null=True, blank=True,max_length=500)
+	istaxable = models.BooleanField()
 
 	#RELATED fields
 	client = models.ForeignKey(Client, blank=True, null=True, on_delete=models.SET_NULL)
@@ -139,13 +144,13 @@ class Product(models.Model):
 	('Ksh', 'KES'),
 	]
 	PRODUCTS = [
-		('Hotel','Hotel'),
-		('Accommodation','Accommodation'),
+		('Accommodation/Hotel','Accommodation/Hotel'),
+                ('Conference', 'Conference'),
 		('Excursions','Excursions'),
 		('Air Ticket',"Air Ticket"),
 		('Others','Others')
 	]
-	description = models.CharField(choices= PRODUCTS,null=True, blank=True, max_length=100)
+	description = models.CharField(null=False, blank=False, max_length=200)
 	currency = models.CharField(blank=True, null=True,default='Kshs', max_length=100)
 
 	#Related Fields
@@ -159,7 +164,7 @@ class Product(models.Model):
 
 
 	def __str__(self):
-		return '{} {}'.format(self.description, self.uniqueId)
+		return '{}'.format(self.description)
 
 
 	def get_absolute_url(self):
@@ -181,11 +186,18 @@ class Product(models.Model):
 class InvoiceProduct(models.Model):
 	invoice = models.ForeignKey(Invoice, on_delete=models.CASCADE)
 	product = models.ForeignKey(Product, on_delete=models.CASCADE)
+	prod_description = models.TextField(null=True, blank=True, max_length=150)
 	quantity = models.IntegerField(default=1)
 	price = models.CharField(null=True, blank=True, max_length=10)
 
 	class Meta:
 		unique_together = [['invoice','product']]
+
+
+
+	def total_price(self):
+		total_price = int(self.quantity)*int(self.price)
+		return total_price
 
 class Settings(models.Model):
 
@@ -231,7 +243,3 @@ class Settings(models.Model):
 		self.last_updated = timezone.localtime(timezone.now())
 
 		super(Settings, self).save(*args, **kwargs)
-
-	
-
-

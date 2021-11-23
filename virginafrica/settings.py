@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'accounts',
     'invoice',
+    'voucher',
 ]
 
 MIDDLEWARE = [

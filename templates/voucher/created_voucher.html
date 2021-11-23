@@ -1,0 +1,213 @@
+{% extends 'index.html' %} {% load static %} {% load crispy_forms_tags %}
+
+<!--Some comments-->
+{% block content %} {% block css %}
+<link href="{% static 'assets/css/bootstrap.min.css' %}" rel="stylesheet" />
+{% endblock %} {% block main %}
+
+<div
+  class="
+    d-flex
+    justify-content-between
+    flex-wrap flex-md-nowrap
+    align-items-center
+    pt-3
+    pb-2
+    mb-3
+    border-bottom
+    view-invoice-box
+  "
+>
+  <div class="btn-toolbar mb-2 mb-md-0">
+ 
+    <div class="btn-group me-2">
+      <a href="{% url 'generate-voucher' %}"
+        ><button type="button" class="btn btn-primary">Print</button></a
+      >
+    </div>
+  </div>
+</div>
+<div
+  class="invoice-box"
+  style="
+    background: url({%static 'images/media/voucherback.png'%});
+    background-size: cover;
+  "
+> 
+
+        <table>
+          <tr style = "color: #9C640C ">
+            <td class="title col-md-4">
+              <img
+                src="{% static 'images/logo.PNG' %}"
+                style="width: 100%; max-width: 200px"
+                alt="Logo"
+              />
+            </td>
+            <td class="text-center col-md-5">
+              <h5>Virgin Africa Safaris Ltd.</h5>
+              <h6 class="mt-0">TSS Towers Nkrumah Road<br />
+              P0 BOX 84845 - 80100 GPO,<br />
+              Mombasa Kenya.</h6>
+              <span class="details">Email: Admin@virginafricasafaris.com<br />
+              Website: www.virginafricasafaris.com</span>
+              
+            </td>
+            <td class="col-md-5 text-center">
+              <h6>Date:</h6>
+             
+            </td>
+          </tr>
+        </table>
+    
+
+    
+        <table class="col-md-2" style="height: 30px">
+          <tr class="table-bordered">
+            <td>
+            Invoice NO:
+            </td>
+          </tr>
+        </table>
+   
+
+      Please RESERVE the following accommodation for: 
+
+      <form class="ml-4"><input type="checkbox"/>  RESIDENT  </form> <form class="ml-4"><input type="checkbox"/> NOT RESIDENT </form>
+  
+
+    
+        <table class="col-md-5" style="height: 30px">
+          <tr>
+            <td>
+            NAME OF THE LODGE/HOTEL/CAMP
+            </td>
+          </tr>
+        </table>
+   
+
+
+  
+      <table class="col-md-12">
+      <tr>
+         <td colspan="3"><h6>Group/Client</h6></td>
+    </tr>
+    <tr>
+        <td><form>NO of Adults: <input class ="input-sm" type="text" size="3"/></form></td>
+        <td><form>NO of children <input class ="input-sm" type="text" size="3"/></form></td>
+        <td><form>Infants <input class ="input-sm" type="text" size="3"/></form></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td><form>Age: <input class ="input-sm" type="text" size="5"/></form></td>
+        <td><form>Baby Cot <input class ="input-sm" type="text" size="3"/></form></td>
+    </tr>
+    </table>
+       
+ 
+
+   
+      <table class="col-md-11 ml-1">
+      <tr>
+         <td colspan="3"><h6>Accomodation</h6></td>
+    </tr>
+    <tr>
+       <table class="table-bordered col-md-10 ml-2">
+           <tr>
+               <th>Single</th>
+                <th>Double</th>
+                <th>Twin</th>
+               <th>Triple</th>
+               <th rowspan="2" style="vertical-align:top">Arrival</th>
+               <th rowspan="2" style="vertical-align:top">Departure</th>
+               <th rowspan="2" style="vertical-align:top">Total Number of nights</th>
+
+
+           </tr>
+           <tr style="height: 30px">
+               <td></td>
+                <td></td>
+                <td></td>
+               <td></td>
+              
+
+
+           </tr>
+           <tr
+           ></tr>
+       </table>
+       
+    </tr>
+    
+    </table>
+       
+            <br/>
+           <div>Payment will be done by: Virgin Africa Safaris Ltd.</div>
+           <br/>
+
+    <table class="col-md-5">
+  
+   
+      <tr class="col-md-4 mt-3">
+          <td class="col-md-2">Meal Plan</td>
+          <td class="col-md-2">
+              <table class = " table-bordered">
+                  <tr> 
+                     <th>FB</th>
+                     <th>HB</th>
+                     <th>BB</th>
+                  </tr>
+                  <tr>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                  </tr>
+              </table>
+          </td>
+      </tr>
+     
+      </table>
+  
+
+    <br/>
+	 <span> Extras to: </span>
+      <br/>
+    <span>Special Instructions</span>
+      <br/>
+
+    <br/>
+      <span>Acknowledge receipt of this order by stating CONFIRMED below and retain the TOP COPY FOR YOUR RECORDS</span>
+
+     <br/>
+     <br/>
+    
+      <table class="reservation-table">
+        <tr>
+      		<td>RESERVATION MADE BY: </td>
+      		<td> </td>
+		<th class="bordered">CONFIRMED NO. OF ROOMS</th>
+	</tr>
+	<tr>
+      		<td>NAME</td>
+      		<td></td>
+		<td class="bordered">Signed</td>
+	</tr>
+	<tr>
+      		<td>DATE</td>
+      		<td></td>
+		<td class="bordered">Date</td>
+	</tr>
+      </table>
+
+
+   <br/><br/>
+      <div class="text-center">IMPORTANT: THIS VOUCHER MUST BE QUOTED ON YOUR INVOICE TO ENSURE PROMPT PAYMENT</div>
+      
+  
+  <br />
+  <div class="text-center">
+    THANK YOU FOR YOUR BUSINESS
+  </div>
+</div>
+
+{% endblock%} {% endblock%}

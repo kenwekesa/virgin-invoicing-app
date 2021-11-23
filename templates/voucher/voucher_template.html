@@ -1,0 +1,370 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Voucher</title>
+
+    <style>
+      @page {
+        size: Letter;
+        background: url('{% static "images/media/voucherback.PNG" %}') no-repeat;
+        background-size: cover;
+        margin: 0in 0.44in 0.2in 0.44in;
+      }
+         table{
+         color: #9C640C;
+         }
+      .invoice-box {
+        max-width: 2400px;
+        margin: auto;
+        padding: 30px;
+        border: 0px solid #eee;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+        font-size: 18px;
+        line-height: 24px;
+        font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+        color: #9C640C;       }
+
+      .invoice-box table {
+        width: 100%;
+        line-height: inherit;
+        text-align: left;
+      }
+
+      .invoice-box table td {
+        padding: 5px;
+        vertical-align: top;
+      }
+
+      .invoice-box table tr td:nth-child(2) {
+        text-align: right;
+      }
+
+      .invoice-box table tr.top table td {
+        padding-bottom: 20px;
+      }
+
+      .invoice-box table tr.top table td.title {
+        font-size: 45px;
+        line-height: 45px;
+        color: #333;
+      }
+
+      .invoice-box table tr.information table td {
+        padding-bottom: 40px;
+      }
+
+      .invoice-box table tr.heading td {
+        background: #eee;
+        border-bottom: 1px solid #ddd;
+        font-weight: bold;
+      }
+
+      .invoice-box table tr.details td {
+        padding-bottom: 20px;
+      }
+
+      .invoice-box table tr.item td {
+        border-bottom: 1px solid #eee;
+      }
+
+      .invoice-box table tr.item.last td {
+        border-bottom: none;
+      }
+
+      .invoice-box table tr.total td:nth-child(2) {
+        border-top: 2px solid #eee;
+        font-weight: bold;
+      }
+
+    .payment_details_table tr td
+    {
+      text-align: left !important;
+      padding-top: 0;
+      font-size: 9px;
+    }
+
+    .grand_total
+    {
+      border-bottom: 1px double #000;
+      font-weight: bold;
+
+    }
+
+   .logo{
+               width:25%;
+                
+}
+.address
+{ 
+   width: 40%;
+   text-align: center !important;
+  
+}
+.date
+{ 
+    width:20%;
+ 
+}
+	.accomodation-table tr, 
+        .accomodation-table th,
+         .accomodation-table td{
+	border: 1px solid #9C640C; 
+	border-collapse: collapse;
+	}
+	.table-meal tr, 
+        .table-meal th,
+         .table-meal td{
+	border: 1px solid #9C640C; 
+	border-collapse: collapse;
+	}
+
+         .reservation-table .bordered{
+	border: 1px solid #9C640C; 
+	border-collapse: collapse;
+	}
+
+  input[type="checkbox"] {
+  height: 2em;
+  width: 2em;
+  display: inline-block;
+  border: #9C640C 2px solid;
+  margin: 0 0.5em;
+}
+
+  input[type="text"] {
+  height: 2em;
+  width: 4em;
+  display: inline-block;
+  border: #9C640C 1px solid;
+  margin: 0 0.5em;
+}
+      @media only screen and (max-width: 600px) {
+        .invoice-box table tr.top table td {
+          width: 100%;
+          display: block;
+          text-align: center;
+        }
+
+        .invoice-box table tr.information table td {
+          width: 100%;
+          display: block;
+          text-align: center;
+        }
+      }
+
+      /** RTL **/
+      .invoice-box.rtl {
+        direction: rtl;
+        font-family: Tahoma, "Helvetica Neue", "Helvetica", Helvetica, Arial,
+          sans-serif;
+      }
+
+      .invoice-box.rtl table {
+        text-align: right;
+      }
+
+      .invoice-box.rtl table tr td:nth-child(2) {
+        text-align: left;
+      }
+   
+    </style>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  <body>
+   <div
+  class="invoice-box"
+  style="
+    background: url({%static 'images/media/voucherback.png'%});
+    background-size: cover;
+  "
+>
+
+        <table>
+          <tr style = "color: #9C640C ">
+            <td class="title logo">
+              <img
+                src="{% static 'images/logo.PNG' %}"
+                style="width: 100%; max-width: 200px"
+                alt="Logo"
+              />
+            </td>
+            <td class="address">
+              <h3>Virgin Africa Safaris Ltd.</h3>
+              <h5 class="mt-0">TSS Towers Nkrumah Road<br />
+              P0 BOX 84845 - 80100 GPO,<br />
+              Mombasa Kenya.</h5>
+              <span class="details">Email: Admin@virginafricasafaris.com<br />
+              Website: www.virginafricasafaris.com</span>
+              
+            </td>
+            <td class="date">
+              <h5>Date:</h5>
+             
+            </td>
+          </tr>
+        </table>
+    
+
+    <br/>    <br/>    <br/>
+        <table  style="height: 30px; width: 140px">
+          <tr style="border: 1px solid black;border-collapse:collapse">
+            <td>
+            Invoice NO:
+            </td>
+          </tr>
+        </table>
+   
+      
+      <br/>
+       <table>
+          <tr>
+     <td> Please RESERVE the following accommodation for:</td> 
+
+      <td><form>RESIDENT  <input type="checkbox"/></form></td>
+      <td><form>  NOT RESIDENT  <input type="checkbox"/></form></td>
+</tr>
+</table>
+  
+
+    
+        <table  style="height: 30px">
+          <tr>
+            <td>
+            NAME OF THE LODGE/HOTEL/CAMP:
+            </td>
+          </tr>
+        </table>
+   
+
+
+     <br/>
+         <br/>
+      <table>
+      <tr>
+         <th colspan="3"><h6><b>Group/Client</b></h6></th>
+    </tr>
+    <tr>
+        <td><form>NO of Adults: <input class ="input-sm" type="text" size="3"/></form></td>
+        <td><form>NO of children <input class ="input-sm" type="text" size="3"/></form></td>
+        <td><form>Infants <input class ="input-sm" type="text" size="3"/></form></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td><form>Age: <input class ="input-sm" type="text" size="5"/></form></td>
+        <td><form>Baby Cot <input class ="input-sm" type="text" size="3"/></form></td>
+    </tr>
+    </table>
+       
+ 
+
+      <br/>
+      <table>
+      <tr>
+         <td colspan="3"><h5><b>Accomodation</b></h5></td>
+    </tr>
+    <tr>
+       <table class="accomodation-table">
+           <tr >
+               <th>Single</th>
+                <th>Double</th>
+                <th>Twin</th>
+               <th>Triple</th>
+               <th rowspan="2" style="vertical-align:top">Arrival</th>
+               <th rowspan="2" style="vertical-align:top">Departure</th>
+               <th rowspan="2" style="vertical-align:top">Total Number of nights</th>
+
+
+           </tr>
+           <tr style="height: 30px">
+               <td></td>
+                <td></td>
+                <td></td>
+               <td></td>
+              
+
+
+           </tr>
+           <tr></tr>
+       </table>
+       
+    </tr>
+    
+    </table>
+       
+    <br/> 
+
+    <div>Payment will be done by: Virgin Africa Safaris Ltd.</div>
+    <br/>
+    <table style="width: 50%">    
+      <tr>
+          <td >Meal Plan:</td>
+          <td>
+              <table class="table-meal">
+                  <tr> 
+                     <th>FB</th>
+                     <th>HB</th>
+                     <th>BB</th>
+                  </tr>
+                  <tr style="height:30px;">
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                  </tr>
+              </table>
+          </td>
+      </tr>
+     
+      </table>
+  
+         <br/>    <br/>
+	 <div> Extras to: </div>
+      <br/>
+    <div>Special Instructions</div>
+      <br/>
+
+    <br/>
+      <p>Acknowledge receipt of this order by stating <b>CONFIRMED</b> below and retain the <b>TOP COPY FOR YOUR RECORDS</b></p>
+
+     <br/>
+     <br/>
+    
+
+    
+    
+      <table class="reservation-table">
+        <tr>
+      		<td>RESERVATION MADE BY: </td>
+      		<td> </td>
+		<th class="bordered">CONFIRMED NO. OF ROOMS</th>
+	</tr>
+	<tr>
+      		<td>NAME</td>
+      		<td></td>
+		<td class="bordered">Signed</td>
+	</tr>
+	<tr>
+      		<td>DATE</td>
+      		<td></td>
+		<td class="bordered">Date</td>
+	</tr>
+      </table>
+
+
+   <br />
+    <br/>
+     <br/>
+      <div style="text-align:center">IMPORTANT: THIS VOUCHER MUST BE QUOTED ON YOUR INVOICE TO ENSURE PROMPT PAYMENT</div>
+      
+  
+  <br />
+
+
+  <div style="text-align:center">
+    THANK YOU FOR YOUR BUSINESS
+  </div>
+</div>
+  </body>
+</html>
