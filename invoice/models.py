@@ -144,7 +144,7 @@ class Product(models.Model):
 		('Air Ticket',"Air Ticket"),
 		('Others','Others')
 	]
-	description = models.CharField(null=False, blank=False, max_length=200)
+	description = models.CharField(null=False, blank=False, max_length=200, default = "Anonimous")
 	currency = models.CharField(blank=True, null=True,default='Kshs', max_length=100)
 
 	#Related Fields
