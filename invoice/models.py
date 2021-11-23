@@ -10,18 +10,12 @@ from django.contrib.auth.models import User
 
 class Client(models.Model):
 
-	CITIES = [
-	('Mombasa', 'Mombasa'),
-	('Nairobi', 'Nairobi'),
-	('Kitale', 'Kitale'),
-	('Nakuru', 'Nakuru')
-	]
+
 
   
 	#Basic Fields.
 	clientName = models.CharField(null=True, blank=True, max_length=200)
 	address = models.CharField(null=True, blank=True, max_length=200)
-	city = models.CharField(choices=CITIES, blank=True, max_length=100)
 	postalCode = models.CharField(null=True, blank=True, max_length=10)
 	phoneNumber = models.CharField(null=True, blank=True, max_length=100)
 	emailAddress = models.CharField(null=True, blank=True, max_length=100)
@@ -36,7 +30,7 @@ class Client(models.Model):
 
 
 	def __str__(self):
-		return '{} {} {}'.format(self.clientName, self.city, self.uniqueId)
+		return '{} {}'.format(self.clientName, self.uniqueId)
 
 
 	def get_absolute_url(self):
