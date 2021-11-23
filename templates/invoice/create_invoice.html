@@ -82,7 +82,7 @@
                                 </td>
                             </tr>
                             <tr class="tablerow">
-                                <td style="border: 0; padding: 0 0.5em 0 0; width: 80%">
+                                <td style="border: 0; padding: 0 0.5em 0 0; width: 15%">
                                   
                                      {{ prod_form.product|as_crispy_field }}
                                 </td>
@@ -94,7 +94,7 @@
                                   
                                    {{ prod_form.quantity|as_crispy_field }}
                                 </td>
-                                <td style="border: 0; padding: 0 0 0 0.5em;">
+                                <td style="border: 0; padding: 0 0 0 0.5em; width: 49">
                                   
                                    {{ prod_form.prod_description|as_crispy_field }}
                                 </td>
@@ -144,8 +144,8 @@
       <br />
       <div class="row justify-content-center">
       <button class="btn btn-info col-3 mr-1" type="submit">Save</button>
-      <button class="btn btn-warning col-3 mr-1" type="submit">Reset</button>
-      <button class="btn btn-danger col-3" type="submit">Cancel</button>
+      <button class="btn btn-warning col-3 mr-1" type="button" onClick="this.form.reset()">Reset</button>
+      <a href="{% url ''%}"><button class="btn btn-danger col-3" type="button">Cancel</button></a>
       </div>
     </form>
   </div>
