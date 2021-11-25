@@ -369,16 +369,29 @@ def edit_invoice(request, slug):
 	clients = Client.objects.filter(invoice=invoice).first()
 	form = InvoiceForm(instance=invoice)
 	client_form = ClientForm(instance=clients)
-	product_formset = ProductFormSet(instance=product)
+	
 	invoice_product_form = InvoiceProductForm()
 	product_form = ProductForm()
 
-	
+
+	lists = InvoiceProduct.objects.filter(invoice_id=invoice.id)
+	data = []
+	for list in lists:
+		lis_dict = {
+			'product_id': list.product_id,
+			'invoice_id': list.invoice_id,
+			'quantity': list.quantity,
+			'price': list.price,
+			'description': list.prod_description
+		}
+		data.append(lis_dict)
+
+	product_formset = ProductFormSet(initial=data)
 
 	if request.method == 'POST':
 		form = InvoiceForm(request.POST, instance=invoice)
 		client_form = ClientForm(request.POST,instance=clients)
-		product_formset = ProductFormSet(request.POST,instance=product)
+		product_formset = ProductFormSet(request.POST,initial=data)
 		invoice_product_form = InvoiceProductForm()
 		if form.is_valid() and client_form.is_valid() and product_formset.is_valid():
 			client=client_form.save()
@@ -420,7 +433,7 @@ def edit_invoice(request, slug):
 			#InvoiceProduct.objects.create(product=product, order=form,quantity=quantity)
 			messages.success(request, f'Changes saved successfully')
 			return redirect('view-invoices')
-    
+	
 	return render(request=request, template_name="invoice/create_invoice.html", context={"form":form, "client_form": client_form,"prod_form": product_form,"prod_formset":product_formset})
 
 def emailDocumentInvoice(request, slug):
