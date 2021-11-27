@@ -113,9 +113,7 @@
 }
 .bottom_row
 {
-    content: "";
-  display: table;
-  clear: both;
+   box-sizing: border-box;
   
 }
 
@@ -154,7 +152,7 @@
     
 
       <div class="invoice-box">
-       <h2 style="align:center">INVOICE</h2>
+       <center><h2 style="align:center">INVOICE</h2></center>
    
       <table cellpadding="0" cellspacing="0">
         <tr class="top">
@@ -252,7 +250,7 @@
           <td></td>
 
           <td colspan="3">VAT(16%)</td>
-          <td class = "grand_total">{{tax}}he</td>
+          <td class = "grand_total">{{tax}}</td>
         </tr>
 
         <tr class="total">
@@ -280,7 +278,7 @@
       <p><i>Cash/Cheque Payable: VIRGIN AFRICA SAFARIS LTD.</i></p>
      
 <div>
-<div class=".bottom_row">
+<div class="bottom_row">
 <div class="payment_main_column" style="width: 50%">
 
   <div class="payment_row">
@@ -331,7 +329,7 @@
   </div>
 </div>
 </div>
-<div class = "payment_main_column" style="width: 50%">
+<div class = "payment_main_column" style="width: 48%">
   <h3>CANCELLATION AFTER CONFIRMATION</h3>
 <ul><li>0 – 15 days – 100% cancellation fee of the full contracted cost.</li>
 <li>16 – 30 days – 50% cancellation fee of the full contracted cost.</li>
