@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.forms import widgets, modelformset_factory
 from django.forms.formsets import formset_factory
+from django.forms.models import inlineformset_factory
 from .models import *
 from crispy_forms.helper import FormHelper
 
@@ -97,14 +98,23 @@ class InvoiceProductForm(forms.ModelForm):
         model = InvoiceProduct
         fields = ['product','quantity','price','prod_description']
 
+       
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_show_labels = False
 
+       
+
+
 
 ProductFormSet = formset_factory(
     InvoiceProductForm, extra=1
+)
+
+ProductEditFormSet = modelformset_factory(
+    InvoiceProduct,form=InvoiceProductForm, extra=0
 )
 class ProductForm(forms.ModelForm):
     class Meta:

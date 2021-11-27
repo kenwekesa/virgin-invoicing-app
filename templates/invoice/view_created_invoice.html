@@ -110,7 +110,7 @@
        <tr>
        <table>
         <tr class="heading">
-          <td>#</td>
+          <td>Item</td>
           <td>Qty(Pax)</td>
           <td class="pl-3">Description</td>
           <td>Unit price</td>
@@ -122,12 +122,12 @@
             {% for product in products %}
             {% if forloop.counter == forloop.parentloop.counter %}
         <tr class="item">
-          <td>1</td>
+          <td>{{product.description}}</td>
          
           <td class="pr-4">{{prod.quantity}}</td>
          
           <td class="pl-3">
-             {{product.description}}
+             {{prod.prod_description}}
           </td>
 
           <td>{{prod.price}}</td>

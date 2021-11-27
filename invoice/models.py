@@ -180,13 +180,13 @@ class Product(models.Model):
 class InvoiceProduct(models.Model):
 	invoice = models.ForeignKey(Invoice, on_delete=models.CASCADE)
 	product = models.ForeignKey(Product, on_delete=models.CASCADE)
-	prod_description = models.TextField(null=True, blank=True, max_length=150)
+	prod_description = models.CharField(null=True, blank=True, max_length=300)
 	quantity = models.IntegerField(default=1)
 	price = models.CharField(null=True, blank=True, max_length=10)
 
 	class Meta:
 		unique_together = [['invoice','product']]
-
+		
 
 
 	def total_price(self):

@@ -94,15 +94,16 @@
                                   
                                    {{ prod_form.quantity|as_crispy_field }}
                                 </td>
-                                <td style="border: 0; padding: 0 0 0 0.5em; width: 49%%">
+                                <td style="border: 0; padding: 0 0 0 0.5em; width: 49%;max-height: 20px">
                                   
                                    {{ prod_form.prod_description|as_crispy_field }}
                                 </td>
                             </tr>
+                             {% endfor %}
                             <tr class="add-btn-div">
                               <td><input type='button' id='add-form' value='Add item' class="btn btn-secondary" /></td>
                             </tr>
-                          {% endfor %}
+                         
                         </table>
 		</div>
    

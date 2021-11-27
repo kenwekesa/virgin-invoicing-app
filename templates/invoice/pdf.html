@@ -90,6 +90,21 @@
 
     }
 
+    .payment_column {
+  float: left;
+  font-size: 8px !important;
+  width: 50%;
+  padding: 10px;
+  height: 300px; /* Should be removed. Only for demonstration */
+}
+
+/* Clear floats after the columns */
+.payment_row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
       @media only screen and (max-width: 600px) {
         .invoice-box table tr.top table td {
           width: 100%;
@@ -307,6 +322,57 @@
       </table>
 
       <div>
+
+
+      <div class="payment_row">
+  <div class="payment_column" style="background-color:#aaa;">
+    <td>ACCOUNT NAME:</td>
+          <td>VIRGIN AFRICA SAFARIS LIMITED</td>
+        </tr>
+        
+          BANK:</br>
+          BRANCH:<br/>
+          ACCOUNT NO:<br/>
+          CURRENCY:<br/>
+          SWIFT CODE:<br/>
+          
+        
+          BANK CODE:<br/>
+        
+          BRANCH CODE:<br/>
+         
+        
+          IBAN:<br/>
+        
+        PAYBILL<br/>
+         
+        ACCOUNT NO:<br/>
+        
+  <div class="payment_column" style="background-color:#bbb;">
+  
+     
+          VIRGIN AFRICA SAFARIS LIMITED<br/>
+        
+          EQUITY BANK<br/>
+         
+          MOI AVENUE BRANCH<br/>
+          0250260858889<br/>
+        
+          KSH<br/>
+          EQBLKENA<br/>
+      
+          068<br/>
+          025<br/>
+        
+         
+          68025<br/>
+          247247<br/>
+     
+         
+          0766279956<br/>
+        
+  </div>
+</div>
          <h3>CANCELLATION AFTER CONFIRMATION</h3>
 <ol><li>0 – 15 days – 100% cancellation fee of the full contracted cost.</li>
 <li>16 – 30 days – 50% cancellation fee of the full contracted cost.</li>

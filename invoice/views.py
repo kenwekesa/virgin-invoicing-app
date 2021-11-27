@@ -13,7 +13,7 @@ from virginafrica.functions import emailInvoiceClient
 
 
 #from virginafrica.invoice.models import Settings
-from .forms import InvoiceForm, InvoiceProductForm, ProductForm, ClientForm,ClientSelectForm, ProductFormSet
+from .forms import InvoiceForm, InvoiceProductForm, ProductEditFormSet, ProductForm, ClientForm,ClientSelectForm, ProductFormSet
 from django.contrib import messages
 from invoice.models import Invoice,Product,Client,InvoiceProduct
 
@@ -32,6 +32,7 @@ def create_invoice(request):
 	if request.method == 'POST':
 		form = InvoiceForm(request.POST)
 		client_form = ClientForm(request.POST)
+		product_form = ProductForm()
 		product_formset = ProductFormSet(request.POST)
 		invoice_product_form = InvoiceProductForm()
 		if form.is_valid() and client_form.is_valid() and product_formset.is_valid():
@@ -47,13 +48,15 @@ def create_invoice(request):
 			#for inv_prod in invoice_product_form:
 			form.save()
 			client.save()
+			
 			for f in product_formset: 
 				cd = f.cleaned_data
 				quantity = cd.get('quantity')
+				description = cd.get('prod_description')
 				price = cd.get('price')
 				product= cd.get('product')
 				invoice = form
-				inv_prodd = InvoiceProduct(product=product,invoice = invoice,price=price, quantity=quantity)
+				inv_prodd = InvoiceProduct(product=product,invoice = invoice,price=price, quantity=quantity,prod_description=description)
 				inv_prodd.save()
 
 			
@@ -385,13 +388,13 @@ def edit_invoice(request, slug):
 			'description': list.prod_description
 		}
 		data.append(lis_dict)
-
-	product_formset = ProductFormSet(initial=data)
+	
+	product_formset = ProductEditFormSet(queryset=product)
 
 	if request.method == 'POST':
 		form = InvoiceForm(request.POST, instance=invoice)
 		client_form = ClientForm(request.POST,instance=clients)
-		product_formset = ProductFormSet(request.POST,initial=data)
+		product_formset = ProductEditFormSet(request.POST,queryset = product)
 		invoice_product_form = InvoiceProductForm()
 		if form.is_valid() and client_form.is_valid() and product_formset.is_valid():
 			client=client_form.save()
@@ -406,18 +409,20 @@ def edit_invoice(request, slug):
 			#for inv_prod in invoice_product_form:
 			form.save()
 			client.save()
-			for f in product_formset: 
+			product_formset.save()
+			""" for f in product_formset: 
 				cd = f.cleaned_data
 				quantity = cd.get('quantity')
 				price = cd.get('price')
 				product= cd.get('product')
+				description = cd.get('prod_description')
 				invoice = form
-				inv_prodd = InvoiceProduct(product=product,invoice = invoice,price=price, quantity=quantity)
+				inv_prodd = InvoiceProduct(product=product,invoice = invoice,price=price, quantity=quantity,prod_description=description)
 				inv_prodd.save()
-
+			 """
 			
 				#f.save()
-				"""
+			"""
 				invoiceproduct = InvoiceProduct(product_id = Product.objects.get(description=cd.get('product')), quantity = quantity, price = price, 
 				invoice_id=form.pk)
 				invoiceproduct.save()"""
