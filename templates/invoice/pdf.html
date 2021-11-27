@@ -85,7 +85,7 @@
 
     .grand_total
     {
-      border-bottom: 1px double #000;
+  
       font-weight: bold
 
     }
@@ -93,7 +93,7 @@
     .payment_column {
   float: left;
   font-size: 8px !important;
-  width: 50%;
+  width: 48%;
   padding: 10px;
   height: 300px; /* Should be removed. Only for demonstration */
 }
@@ -204,12 +204,12 @@
             {% for product in products %}
             {% if forloop.counter == forloop.parentloop.counter %}
         <tr class="item">
-          <td>1</td>
+          <td>{{product.description}}</td>
          
           <td class="pr-4">{{prod.quantity}}</td>
          
           <td class="pl-3">
-             {{product.description}}
+             {{prod.prod_description}}
           </td>
 
           <td>{{prod.price}}</td>
@@ -231,7 +231,7 @@
           <td></td>
 
           <td colspan="3">Total</td>
-          <td class = "grand_total"><u><u>{{invoiceTotal}}</u><u/></td>
+          <td class = "grand_total">{{invoiceTotal}}</td>
         </tr>
         <tr class="total">
           <td></td>
@@ -266,7 +266,7 @@
      
 <div>
 
-      <div class="payment_row">
+  <div class="payment_row">
   <div class="payment_column">
     <td>ACCOUNT NAME:</td>
           <td>VIRGIN AFRICA SAFARIS LIMITED</td>
@@ -315,6 +315,7 @@
         
   </div>
 </div>
+
 <div>
   <h3>CANCELLATION AFTER CONFIRMATION</h3>
 <ul><li>0 – 15 days – 100% cancellation fee of the full contracted cost.</li>
@@ -324,7 +325,8 @@
 </ul>
 </div>
 
-      </div>
+
     </div>
+  </div>
   </body>
 </html>
