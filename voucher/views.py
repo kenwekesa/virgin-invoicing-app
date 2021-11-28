@@ -76,14 +76,12 @@ def voucher_template(request):
 
     context = {}
     if request.method == 'POST':
-        name = request.POST.get('name')
-        if name == 'voucherform':
-            # Do something here.
-            context['no_of_adults']=request.POST.get('no_of_adults')
-            context['no_of_children'] = request.POST.get('no_of_children')
-        elif name == 'other_frm':
-            pass
-            # Do something else here.
+        
+   
+        context['noofadults']=request.POST.get('noofadults')
+        context['noofchildren'] = request.POST.get('noofchildren')
+       
+      
 
     html_string = render_to_string('voucher/voucher_template.html', context)
     html = HTML(string=html_string, base_url=request.build_absolute_uri())
