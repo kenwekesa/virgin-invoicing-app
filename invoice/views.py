@@ -76,7 +76,7 @@ def create_invoice(request):
 			
 			#InvoiceProduct.objects.create(product=product, order=form,quantity=quantity)
 			messages.success(request, f'Invoice created successfully')
-			return redirect('view-invoices')
+			return redirect('create-build-invoice')
 		
 	
 	else:
