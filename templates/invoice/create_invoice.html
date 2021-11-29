@@ -62,7 +62,7 @@
                         <table class="table" id="formtable">
 			 	{{prod_formset.management_form}}
                 
-             			 {% for prod_form in prod_formset %}
+             			 
                             <tr>
                                 <td style="border: 0; padding: 0 0.5em 0 0; width: 15%">
                                     <label class="form-label" for="invoice_detail_product">Product name</label>
@@ -80,7 +80,11 @@
                                     <label class="form-label" for="invoice_detail_amount">Description</label>
                   
                                 </td>
+				<td style="border: 0; padding: 0 0 0 0.5em;">
+					
+				</td>
                             </tr>
+                            {% for prod_form in prod_formset %}
                             <tr class="tablerow">
                                 <td style="border: 0; padding: 0 0.5em 0 0; width: 15%">
                                   
@@ -94,10 +98,17 @@
                                   
                                    {{ prod_form.quantity|as_crispy_field }}
                                 </td>
-                                <td style="border: 0; padding: 0 0 0 0.5em; width: 49%;max-height: 20px">
+                                <td style="border: 0; padding: 0 0 0 0.5em; width: 47%;max-height: 20px">
                                   
                                    {{ prod_form.prod_description|as_crispy_field }}
                                 </td>
+
+				<td style="width: 2%;border: 0; padding: 0 0 0 0.5em;">
+          <button type="button" class="btn btn-default" onclick="deleteRow(this)" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="Remove">
+ <span class="fas fa-times-circle danger" aria-hidden="true"></span>
+ </button>
+					
+				</td>
                             </tr>
                              {% endfor %}
                             <tr class="add-btn-div">
@@ -143,10 +154,10 @@
     
       
       <br />
-      <div class="row justify-content-center">
-      <button class="btn btn-info col-3 mr-1" type="submit">Save</button>
-      <button class="btn btn-warning col-3 mr-1" type="button" onClick="this.form.reset()">Reset</button>
-      <a href="{% url 'homepage'%}"><button class="btn btn-danger col-3" type="button">Cancel</button></a>
+      <div class="row justify-content-center" style = "width: 100%">
+      <button class="btn btn-info col-2 mr-1" type="submit">Save</button>
+      <button class="btn btn-warning col-2 mr-1" type="button" onClick="this.form.reset()">Reset</button>
+      <a class =" col-2" href="{% url 'homepage'%}"><button class="btn btn-danger" type="button">Cancel</button></a>
       </div>
     </form>
   </div>
@@ -218,14 +229,17 @@
   <!-- ========================= FOOTER END // ========================= -->
   {% endblock %}
 </div>
+
+
 <script>
         let birdForm = document.querySelectorAll(".tablerow")
         let container = document.querySelector("#formtable")
         let addButton = document.querySelector("#add-form")
         let totalForms = document.querySelector("#id_form-TOTAL_FORMS")
         let addButtonDiv = document.querySelector(".add-btn-div")
+        let rowCount = document.getElementById('formtable').rows.length-1;
 
-	var parentDiv = addButtonDiv.parentNode;
+	     var parentDiv = addButtonDiv.parentNode;
 
         let formNum = birdForm.length-1
         addButton.addEventListener('click', addForm)
@@ -244,6 +258,17 @@
             
             totalForms.setAttribute('value', `${formNum+1}`)
         }
+
+	function deleteRow(r) {
+
+      var i = r.parentNode.parentNode.rowIndex;
+      var total = parseInt($('#id_form-TOTAL_FORMS').val());
+      if (total > 1) {
+          var i = r.parentNode.parentNode.rowIndex;
+          document.getElementById("formtable").deleteRow(i);
+          totalForms.setAttribute('value', `${rowCount}`)
+        }
+      }
     </script>
 <script>
    $('#add').click(function () {

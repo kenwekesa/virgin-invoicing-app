@@ -6,6 +6,9 @@ from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from django.urls.base import reverse_lazy
 from django.views.generic import TemplateView
+
+from django.forms.formsets import formset_factory
+
 import weasyprint
 
 from virginafrica.functions import emailInvoiceClient
@@ -383,18 +386,26 @@ def edit_invoice(request, slug):
 		lis_dict = {
 			'product_id': list.product_id,
 			'invoice_id': list.invoice_id,
+			'product':Product.objects.get(id=list.product_id),
 			'quantity': list.quantity,
 			'price': list.price,
-			'description': list.prod_description
+			'prod_description': list.prod_description
 		}
 		data.append(lis_dict)
 	
-	product_formset = ProductEditFormSet(queryset=product)
+	
+	DummyFormset = formset_factory(InvoiceProductForm,
+                                     min_num=len(data), validate_min=True,
+                                     max_num=len(data), validate_max=True,
+                                     extra=0,can_delete=True)
+
+	#product_formset = ProductEditFormSet(queryset=product)
+	product_formset = DummyFormset(initial=data)
 
 	if request.method == 'POST':
 		form = InvoiceForm(request.POST, instance=invoice)
 		client_form = ClientForm(request.POST,instance=clients)
-		product_formset = ProductEditFormSet(request.POST,queryset = product)
+		product_formset = DummyFormset(request.POST,initial=data)
 		invoice_product_form = InvoiceProductForm()
 		if form.is_valid() and client_form.is_valid() and product_formset.is_valid():
 			client=client_form.save()
@@ -409,17 +420,17 @@ def edit_invoice(request, slug):
 			#for inv_prod in invoice_product_form:
 			form.save()
 			client.save()
-			product_formset.save()
-			""" for f in product_formset: 
+			
+			for f in product_formset: 
 				cd = f.cleaned_data
 				quantity = cd.get('quantity')
 				price = cd.get('price')
 				product= cd.get('product')
 				description = cd.get('prod_description')
 				invoice = form
-				inv_prodd = InvoiceProduct(product=product,invoice = invoice,price=price, quantity=quantity,prod_description=description)
-				inv_prodd.save()
-			 """
+				InvoiceProduct.objects.update_or_create(product=product,invoice = invoice,defaults={"price":price, "quantity":quantity,"prod_description":description})
+			
+			
 			
 				#f.save()
 			"""
