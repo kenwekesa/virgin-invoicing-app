@@ -33,6 +33,7 @@ def main(request):
 
 def create_invoice(request):
 	if request.method == 'POST':
+		slug = ''
 		form = InvoiceForm(request.POST)
 		client_form = ClientForm(request.POST)
 		product_form = ProductForm()
@@ -51,6 +52,7 @@ def create_invoice(request):
 			#for inv_prod in invoice_product_form:
 			form.save()
 			client.save()
+			slug=form.slug
 			
 			for f in product_formset: 
 				cd = f.cleaned_data
@@ -79,7 +81,7 @@ def create_invoice(request):
 			
 			#InvoiceProduct.objects.create(product=product, order=form,quantity=quantity)
 			messages.success(request, f'Invoice created successfully')
-			return redirect('view-invoices')
+			return redirect('create-build-invoice',slug)
 		
 	
 	else:
@@ -403,6 +405,7 @@ def edit_invoice(request, slug):
 	product_formset = DummyFormset(initial=data)
 
 	if request.method == 'POST':
+		slug = ''
 		form = InvoiceForm(request.POST, instance=invoice)
 		client_form = ClientForm(request.POST,instance=clients)
 		product_formset = DummyFormset(request.POST,initial=data)
@@ -420,6 +423,8 @@ def edit_invoice(request, slug):
 			#for inv_prod in invoice_product_form:
 			form.save()
 			client.save()
+
+			slug = form.slug
 			
 			for f in product_formset: 
 				cd = f.cleaned_data
@@ -451,9 +456,8 @@ def edit_invoice(request, slug):
 		
 			
 			#InvoiceProduct.objects.create(product=product, order=form,quantity=quantity)
-			messages.success(request, f'Changes saved successfully')
-			return redirect('view-invoices')
-	
+			messages.success(request, f'Invoice successfully updated.')
+			return redirect('create-build-invoice',slug)	
 	return render(request=request, template_name="invoice/create_invoice.html", context={"form":form, "client_form": client_form,"prod_form": product_form,"prod_formset":product_formset})
 
 def emailDocumentInvoice(request, slug):
