@@ -427,8 +427,12 @@ def edit_invoice(request, slug):
 				price = cd.get('price')
 				product= cd.get('product')
 				description = cd.get('prod_description')
+				
 				invoice = form
-				InvoiceProduct.objects.update_or_create(product=product,invoice = invoice,defaults={"price":price, "quantity":quantity,"prod_description":description})
+				if product=='':
+					f.delete()
+				else:
+					InvoiceProduct.objects.update_or_create(product=product,invoice = invoice,defaults={"price":price, "quantity":quantity,"prod_description":description})
 			
 			
 			
