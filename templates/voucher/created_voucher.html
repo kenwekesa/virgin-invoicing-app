@@ -18,12 +18,14 @@
     view-invoice-box
   "
 >
+<form method="post" action="{% url 'generate-voucher' %}" name="voucherform">
+{% csrf_token %}
   <div class="btn-toolbar mb-2 mb-md-0">
  
     <div class="btn-group me-2">
-      <a href="{% url 'generate-voucher' %}"
-        ><button type="button" class="btn btn-primary">Print</button></a
-      >
+      
+        ><button type="submit" class="btn btn-primary">Print</button>
+      
     </div>
   </div>
 </div>
@@ -35,16 +37,16 @@
   "
 > 
 
-        <table>
+        <table class = "header_table">
           <tr style = "color: #9C640C ">
-            <td class="title col-md-4">
+            <td class="title col-md-4" style="width: 20%">
               <img
                 src="{% static 'images/logo.PNG' %}"
                 style="width: 100%; max-width: 200px"
                 alt="Logo"
               />
             </td>
-            <td class="text-center col-md-5">
+            <td class="text-center col-md-5" style="width: 55%">
               <h5>Virgin Africa Safaris Ltd.</h5>
               <h6 class="mt-0">TSS Towers Nkrumah Road<br />
               P0 BOX 84845 - 80100 GPO,<br />
@@ -53,7 +55,7 @@
               Website: www.virginafricasafaris.com</span>
               
             </td>
-            <td class="col-md-5 text-center">
+            <td class="col-md-5 text-center" style="width: 10%">
               <h6>Date:</h6>
              
             </td>
@@ -62,18 +64,11 @@
     
 
     
-        <table class="col-md-2" style="height: 30px">
-          <tr class="table-bordered">
-            <td>
-            Invoice NO:
-            </td>
-          </tr>
-        </table>
-   
+    
 
       Please RESERVE the following accommodation for: 
 
-      <form class="ml-4"><input type="checkbox"/>  RESIDENT  </form> <form class="ml-4"><input type="checkbox"/> NOT RESIDENT </form>
+      <input type="checkbox"/ class="ml-4">  RESIDENT   <input type="checkbox" class="ml-4"/> NOT RESIDENT
   
 
     
@@ -93,14 +88,14 @@
          <td colspan="3"><h6>Group/Client</h6></td>
     </tr>
     <tr>
-        <td><form>NO of Adults: <input class ="input-sm" type="text" size="3"/></form></td>
-        <td><form>NO of children <input class ="input-sm" type="text" size="3"/></form></td>
-        <td><form>Infants <input class ="input-sm" type="text" size="3"/></form></td>
+        <td>NO of Adults: <input class ="input-sm" type="text" size="3" name="noofadults"/></td>
+        <td>NO of children <input class ="input-sm" type="text" size="3" name="noofchildren"s/></td>
+        <td>Infants <input class ="input-sm" type="text" size="10"/></td>
     </tr>
     <tr>
         <td></td>
-        <td><form>Age: <input class ="input-sm" type="text" size="5"/></form></td>
-        <td><form>Baby Cot <input class ="input-sm" type="text" size="3"/></form></td>
+        <td><form>Age: <input class ="input-sm" type="text" size="10"/></form></td>
+        <td><form>Baby Cot <input class ="input-sm" type="text" size="10"/></form></td>
     </tr>
     </table>
        
@@ -153,11 +148,13 @@
           <td class="col-md-2">
               <table class = " table-bordered">
                   <tr> 
+                      <th>FB</th>
                      <th>FB</th>
                      <th>HB</th>
                      <th>BB</th>
                   </tr>
-                  <tr>
+                  <tr style="height: 12px">
+                      <td></td>
                       <td></td>
                       <td></td>
                       <td></td>
@@ -188,12 +185,12 @@
 		<th class="bordered">CONFIRMED NO. OF ROOMS</th>
 	</tr>
 	<tr>
-      		<td>NAME</td>
+      		<td>NAME <form><input type="text" size="20"/></form></td>
       		<td></td>
 		<td class="bordered">Signed</td>
 	</tr>
 	<tr>
-      		<td>DATE</td>
+      		<td>DATE <form><input type="date"/></form></td>
       		<td></td>
 		<td class="bordered">Date</td>
 	</tr>
@@ -207,6 +204,7 @@
   <br />
   <div class="text-center">
     THANK YOU FOR YOUR BUSINESS
+  </div>
   </div>
 </div>
 

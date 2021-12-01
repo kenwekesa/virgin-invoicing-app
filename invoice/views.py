@@ -32,6 +32,7 @@ def main(request):
 	return render(request, 'invoice/main.html')
 
 def create_invoice(request):
+	slug=''
 	if request.method == 'POST':
 		slug = ''
 		form = InvoiceForm(request.POST)
@@ -61,6 +62,7 @@ def create_invoice(request):
 				price = cd.get('price')
 				product= cd.get('product')
 				invoice = form
+				slug = invoice.slug
 				inv_prodd = InvoiceProduct(product=product,invoice = invoice,price=price, quantity=quantity,prod_description=description)
 				inv_prodd.save()
 

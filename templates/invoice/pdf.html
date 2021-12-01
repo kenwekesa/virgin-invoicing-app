@@ -8,7 +8,7 @@
 
     <style>
       @page {
-        size: Letter;
+        size: A4;
         margin: 0.1in 0.1in 0.1in 0.1in;
       }
 
@@ -52,7 +52,7 @@
       }
 
       .invoice-box table tr.information table td {
-        padding-bottom: 40px;
+        padding-bottom: 20px;
       }
 
       .invoice-box table tr.heading td {
@@ -195,10 +195,9 @@
                 <td>
                  
                 <strong>{{invoice.client.clientName}}</strong> <br />
-                {{invoice.client.address}}<br />
-                {{invoice.client.city}}, {{invoice.client.postalCode}}
+                {{invoice.client.address}} - {{invoice.client.postalCode}}
                <br/ > {{invoice.client.phoneNumber}}
-                <br />
+              
                 
                 
                 </td>
@@ -215,7 +214,7 @@
        <table style="border-collapse: collapse;">
         <tr class="heading">
           <td>Item</td>
-          <td>Qty(Pax)</td>
+          <td class="pr-2">Qty(Pax)</td>
           <td class="pl-3">Description</td>
           <td>Unit price</td>
 
