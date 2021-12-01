@@ -214,7 +214,7 @@
        <table style="border-collapse: collapse;">
         <tr class="heading">
           <td>Item</td>
-          <td class="pr-2">Qty(Pax)</td>
+          <td style="padding-right: 5px;">Qty(Pax)</td>
           <td class="pl-3">Description</td>
           <td>Unit price</td>
 
@@ -265,7 +265,7 @@
           <td></td>
 
           <td colspan="3">Grand Total:</td>
-          <td class = "grand_total">{{invoiceGrandTotal}}</td>
+          <td class = "grand_total"><u>{{invoiceGrandTotal}}</u></td>
         </tr>
 
         {%else%}
@@ -273,7 +273,7 @@
           <td></td>
 
           <td colspan="3">Grand Total:</td>
-          <td class = "grand_total">{{invoice.grand_total}}</td>
+          <td class = "grand_total"><u>{{invoice.grand_total}}</u></td>
         </tr>
 
         {%endif%}
