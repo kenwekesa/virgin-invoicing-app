@@ -80,6 +80,11 @@ def voucher_template(request):
    
         context['noofadults']=request.POST.get('noofadults')
         context['noofchildren'] = request.POST.get('noofchildren')
+        context['infants']= request.POST.get('infants')
+        context['age']= request.POST.get('age')
+        context['babycot']= request.POST.get('babycot')
+        context['date']= request.POST.get('date')
+        context['name']= request.POST.get('name')
        
       
 
