@@ -3,6 +3,8 @@ from django.http.response import HttpResponse
 from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 
+import dateutil
+
 
 
 #from virginafrica.invoice.models import Settings
@@ -83,7 +85,7 @@ def voucher_template(request):
         context['infants']= request.POST.get('infants')
         context['age']= request.POST.get('age')
         context['babycot']= request.POST.get('babycot')
-        context['date']= request.POST.get('date')
+        context['date']= dateutil.parser.parse(request.POST.get('date'))
         context['name']= request.POST.get('name')
        
       
