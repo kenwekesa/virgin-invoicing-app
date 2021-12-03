@@ -88,7 +88,7 @@ def voucher_template(request):
         context['babycot']= request.POST.get('babycot')
         context['date']= date_parser.parse(request.POST.get('date'))
         context['name']= request.POST.get('name')
-        context['packs']=request.POST.getlist('pack[]')
+        context['packs']=request.POST.getlist('pack').split(',')
        
       
 
