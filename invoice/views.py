@@ -102,6 +102,18 @@ def view_invoices(request):
 	context['invoices'] = invoices
 
 	return render(request, 'invoice/invoices.html', context)
+def search_invoices(request):
+
+    if request.method == "GET":
+        search_text = request.GET['search_text']
+        if search_text is not None and search_text != u"":
+            search_text = request.GET['search_text']
+            invoices = Invoice.objects.filter(number__icontains = search_text)
+        else:
+            invoices = []
+
+        return render(request, 'invoice/invoices.html', {'invoices':invoices})
+
 
 @login_required 
 def view_clients(request):

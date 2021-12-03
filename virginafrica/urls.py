@@ -38,6 +38,7 @@ urlpatterns = [
         path("invoicemain/", invoice_views.main, name="invoice-main"),
         path("createinvoice/", invoice_views.create_invoice, name="create-invoice"),
         path("invoices/", invoice_views.view_invoices, name="view-invoices" ),
+        path("search/", invoice_views.search_invoices, name="search-invoices" ),
 
       
         path('products',invoice_views.products, name='products'),
