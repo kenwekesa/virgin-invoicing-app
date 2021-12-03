@@ -218,8 +218,8 @@
           <tr>
      <td> Please RESERVE the following accommodation for:</td> 
 
-      <td><form>RESIDENT  <input type="checkbox"/></form></td>
-      <td><form>  NOT RESIDENT  <input type="checkbox"/></form></td>
+      <td>{%for pack in packs %} {{pack}},{%endfor%}  </td>
+   
 </tr>
 </table>
   
