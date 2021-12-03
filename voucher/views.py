@@ -89,6 +89,9 @@ def voucher_template(request):
         context['date']= date_parser.parse(request.POST.get('date'))
         context['name']= request.POST.get('name')
         context['packs']=request.POST.getlist('pack')
+        context['lodgename']= request.POST.get('lodgename')
+
+        
        
       
 

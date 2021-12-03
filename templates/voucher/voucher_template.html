@@ -216,9 +216,9 @@
       <br/>
        <table>
           <tr>
-     <td> Please RESERVE the following accommodation for:</td> 
+     <td> Please RESERVE the following accommodation for:  {%for pack in packs %} {{pack}}{%endfor%}</td> 
 
-      <td>{%for pack in packs %} {{pack}}{%endfor%}  </td>
+     
    
 </tr>
 </table>
@@ -228,7 +228,9 @@
         <table  style="height: 30px">
           <tr>
             <td>
-            NAME OF THE LODGE/HOTEL/CAMP:
+            NAME OF THE LODGE/HOTEL/CAMP: {{lodgename}}
+            </td>
+            <td>
             </td>
           </tr>
         </table>

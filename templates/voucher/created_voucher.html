@@ -75,7 +75,7 @@
         <table class="col-md-5" style="height: 30px">
           <tr>
             <td>
-            NAME OF THE LODGE/HOTEL/CAMP
+            NAME OF THE LODGE/HOTEL/CAMP: <input type="text" size="20" name="lodgename"/>
             </td>
           </tr>
         </table>
@@ -207,5 +207,12 @@
   </div>
   </div>
 </div>
-
+<script>
+     $('input[type=checkbox]').on('change', function (e) {
+    if ($('input[type=checkbox]:checked').length > 1) {
+        $(this).prop('checked', false);
+        alert("Only one option to be taken on RESIDENT or NON RESIDENT");
+    }
+});
+</script>
 {% endblock%} {% endblock%}
