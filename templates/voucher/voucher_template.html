@@ -216,10 +216,10 @@
       <br/>
        <table>
           <tr>
-     <td> Please RESERVE the following accommodation for:</td> 
+     <td> Please RESERVE the following accommodation for:  <span style="color: black;">{%for pack in packs %} {{pack}}{%endfor%}</span></td> 
 
-      <td><form>RESIDENT  <input type="checkbox"/></form></td>
-      <td><form>  NOT RESIDENT  <input type="checkbox"/></form></td>
+     
+   
 </tr>
 </table>
   
@@ -227,9 +227,10 @@
     
         <table  style="height: 30px">
           <tr>
-            <td>
-            NAME OF THE LODGE/HOTEL/CAMP:
+            <td colspan="2">
+            NAME OF THE LODGE/HOTEL/CAMP:<span style="color: black"> {{lodgename}}</span>
             </td>
+            
           </tr>
         </table>
    

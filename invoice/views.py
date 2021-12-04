@@ -4,8 +4,10 @@ from django.contrib.auth.decorators import login_required
 from django.http.response import HttpResponse
 from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
-from django.urls.base import reverse_lazy
+from django.urls.base import reverse, reverse_lazy
 from django.views.generic import TemplateView
+import json
+from django.http import HttpResponse, JsonResponse
 
 from django.forms.formsets import formset_factory
 
@@ -102,6 +104,22 @@ def view_invoices(request):
 	context['invoices'] = invoices
 
 	return render(request, 'invoice/invoices.html', context)
+def search_invoices(request):
+
+	if request.method == "GET":
+		search_text = request.GET['search_text']
+		if search_text is not None and search_text != u"":
+			search_text = request.GET['search_text']
+			invoices = Invoice.objects.filter(number__icontains = search_text)
+		else:
+			invoices = []
+
+
+		data = invoices.values()
+	
+
+		return render(request, 'invoice/search_results.html', {"invoices": invoices})
+
 
 @login_required 
 def view_clients(request):
@@ -399,9 +417,9 @@ def edit_invoice(request, slug):
 	
 	
 	DummyFormset = formset_factory(InvoiceProductForm,
-                                     min_num=len(data), validate_min=True,
-                                     max_num=len(data), validate_max=True,
-                                     extra=0,can_delete=True)
+									 min_num=len(data), validate_min=True,
+									 max_num=len(data), validate_max=True,
+									 extra=0,can_delete=True)
 
 	#product_formset = ProductEditFormSet(queryset=product)
 	product_formset = DummyFormset(initial=data)
