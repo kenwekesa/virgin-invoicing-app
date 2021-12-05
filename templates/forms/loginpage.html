@@ -15,15 +15,14 @@
     pt-3
     pb-2
     mb-3
-    pr-5
-    pl-5
+    pr-2
+    pl-2
     border-bottom
     view-invoice-box
   "
 >
 
   <h1>Login</h1>
-  <div class="row">
   <form method="POST">
 
     {% csrf_token %} {{ login_form|crispy }}
