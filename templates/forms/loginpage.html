@@ -6,9 +6,26 @@
 
 <!-- section-header.// -->
 <!--Login-->
-<div class="container py-5 col-md-4 login-form-parent">
+<div
+  class="
+    d-flex
+    justify-content-between
+    flex-wrap flex-md-nowrap
+    align-items-center
+    pt-3
+    pb-2
+    mb-3
+    pr-5
+    pl-5
+    border-bottom
+    view-invoice-box
+  "
+>
+
   <h1>Login</h1>
+  <div class="row">
   <form method="POST">
+
     {% csrf_token %} {{ login_form|crispy }}
     <button class="btn btn-primary" type="submit">Login</button>
   </form>
