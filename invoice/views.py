@@ -110,7 +110,7 @@ def search_invoices(request):
 		search_text = request.GET['search_text']
 		if search_text is not None and search_text != u"":
 			search_text = request.GET['search_text']
-			invoices = Invoice.objects.filter(number__icontains = search_text)
+			invoices = Invoice.objects.filter(number__icontains = search_text|status__icontains = search_text)
 		else:
 			invoices = []
 
