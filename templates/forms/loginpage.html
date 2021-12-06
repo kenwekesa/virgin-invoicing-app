@@ -8,9 +8,9 @@
 <!--Login-->
 <div
   class="
-    d-flex
+    
     justify-content-between
-    flex-wrap flex-md-nowrap
+
     align-items-center
     pt-3
     pb-2
@@ -19,18 +19,33 @@
     pl-2
     border-bottom
     view-invoice-box
+    row
   "
->
 
+  
+>
+<div class="container">
+<div class="row" style>
   <h1>Login</h1>
+  </div>
+  <div class="row">
   <form method="POST">
 
-    {% csrf_token %} {{ login_form|crispy }}
-    <button class="btn btn-primary" type="submit">Login</button>
+    {% csrf_token %} 
+
+	 <div class="form-row">
+        <div class="form-group col-9">{{ login_form.username|as_crispy_field }}</div>
+       </div>
+	<div class="form-row">
+        <div class="form-group col-9">{{ login_form.password|as_crispy_field }}</div>
+       </div>
+	
+    <button class="btn btn-primary shadow-none" type="submit"  style="border-radius:0; background-color:purple">Login</button>
   </form>
+  </div>
   <br />
   <p class="text-center">Forgot your password? Contact the admin for help.</p>
 </div>
-
+</div>
 <!-- ========================= FOOTER END // ========================= -->
 {% endblock content %}

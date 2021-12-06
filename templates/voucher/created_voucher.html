@@ -16,7 +16,9 @@
     mb-3
     border-bottom
     view-invoice-box
+
   "
+  
 >
 <form method="post" action="{% url 'generate-voucher' %}" name="voucherform">
 {% csrf_token %}
