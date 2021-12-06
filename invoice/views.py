@@ -489,20 +489,36 @@ def emailDocumentInvoice(request, slug):
 	except:
 		messages.error(request, 'Something went wrong')
 		return redirect('invoices')
+
 	#fetch all the products - related to this invoice
 	products = Product.objects.filter(invoice=invoice)
-	#Get Client Settings
-	#Calculate the Invoice Total
-	"""invoiceTotal = 0.0
+	invoiceproduct  = InvoiceProduct.objects.filter(invoice_id=invoice.id)
+
+	invoiceCurrency = ''
+	invoiceTotal = 0.0
+	itemtotals = []
 	if len(products) > 0:
-		for x in products:
+		for x in invoiceproduct:
 			y = float(x.quantity) * float(x.price)
 			invoiceTotal += y
+			itemtotals.append(y)
+	
+	tax = 0.16*invoiceTotal
+	grand_total = invoiceTotal+tax
+			
+
+
+
 	context = {}
 	context['invoice'] = invoice
 	context['products'] = products
+	context['itemtotals']= itemtotals
+	context['invoiceGrandTotal'] = grand_total
 	context['invoiceTotal'] = "{:.2f}".format(invoiceTotal)
-	"""
+	context['tax'] =  "{:.2f}".format(tax)
+	context['invoiceCurrency'] = invoiceCurrency
+	context['invoiceproduct'] = invoiceproduct
+	
 	#The name of your PDF file
 	filename = '{}.pdf'.format(invoice.uniqueId)
 	#HTML FIle to be converted to PDF - inside your Django directory
@@ -527,7 +543,7 @@ def emailDocumentInvoice(request, slug):
 	
 	#Save the PDF
 	paragraphs = ['first paragraph', 'second paragraph', 'third paragraph']
-	html_string = render_to_string('invoice/pdf.html', {'paragraphs': paragraphs})
+	html_string = render_to_string('invoice/pdf.html', context)
 
 	html = HTML(string=html_string, base_url=request.build_absolute_uri())
 	doc = html.render()
