@@ -8,6 +8,7 @@ from django.urls.base import reverse, reverse_lazy
 from django.views.generic import TemplateView
 import json
 from django.http import HttpResponse, JsonResponse
+from django.conf import settings
 
 from django.forms.formsets import formset_factory
 
