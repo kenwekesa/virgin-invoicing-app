@@ -446,6 +446,13 @@ def edit_invoice(request, slug):
 			client.save()
 
 			slug = form.slug
+
+			invoice_products = InvoiceProduct.objects.filter(invoice_id = form.id)
+
+			for inv_pro in invoice_products:
+				if inv_pro not in product_formset.save(commit=False):
+					inv_pro.delete()
+
 			
 			for f in product_formset: 
 				cd = f.cleaned_data
@@ -542,7 +549,6 @@ def emailDocumentInvoice(request, slug):
 	os.makedirs(filepath, exist_ok=True)
 	
 	#Save the PDF
-	paragraphs = ['first paragraph', 'second paragraph', 'third paragraph']
 	html_string = render_to_string('invoice/pdf.html', context)
 
 	html = HTML(string=html_string, base_url=request.build_absolute_uri())

@@ -250,14 +250,12 @@
             let newForm = birdForm[0].cloneNode(true)
             let formRegex = RegExp(`form-(\\d){1}-`,'g')
 
-            formNum++
             newForm.innerHTML = newForm.innerHTML.replace(formRegex, `form-${formNum}-`)
             let nnn = addButtonDiv
             parentDiv.insertBefore(newForm, addButtonDiv)
-           
-            
-            totalForms.setAttribute('value', `${formNum+1}`)
+            totalForms.setAttribute('value', `${formNum++}`)
         }
+
 
 	function deleteRow(r) {
 
@@ -266,9 +264,21 @@
       if (total > 1) {
           var i = r.parentNode.parentNode.rowIndex;
           document.getElementById("formtable").deleteRow(i);
-          totalForms.setAttribute('value', `${rowCount}`)
+         totalForms.setAttribute('value', `${formNum--}`)
+         updateForms()
+
         }
       }
+
+
+      function updateForms() {
+    let bForm = document.querySelectorAll(".tablerow")
+    let count = 0;
+    for (let form of bForm) {
+        const formRegex = RegExp(`form-(\\d){1}-`, 'g');
+        form.innerHTML = form.innerHTML.replace(formRegex, `form-${count++}-`)
+    }
+}
     </script>
 <script>
    $('#add').click(function () {
