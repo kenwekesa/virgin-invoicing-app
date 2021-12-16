@@ -103,8 +103,10 @@
                                    {{ prod_form.prod_description|as_crispy_field }}
                                 </td>
 
+                                <div class="hidden">{{ prod_form.DELETE }}</div>
+
 				<td style="width: 2%;border: 0; padding: 0 0 0 0.5em;">
-          <button type="button" class="btn btn-default" onclick="deleteRow(this)" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="Remove">
+          <button type="button" data-formset-delete-button class="btn btn-default" onclick="deleteRow(this)" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="Remove">
  <span class="fas fa-times-circle danger" aria-hidden="true"></span>
  </button>
 					
@@ -259,7 +261,7 @@
 
 	function deleteRow(r) {
 
-      var i = r.parentNode.parentNode.rowIndex;
+     /* var i = r.parentNode.parentNode.rowIndex;
       var total = parseInt($('#id_form-TOTAL_FORMS').val());
       if (total > 1) {
           var i = r.parentNode.parentNode.rowIndex;
@@ -267,7 +269,7 @@
          totalForms.setAttribute('value', `${formNum--}`)
          updateForms()
 
-        }
+        }*/
       }
 
 
