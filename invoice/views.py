@@ -431,9 +431,10 @@ def edit_invoice(request, slug):
 		client_form = ClientForm(request.POST,instance=clients)
 		product_formset = DummyFormset(request.POST,initial=data)
 		invoice_product_form = InvoiceProductForm()
+
+		
 		if form.is_valid() and client_form.is_valid() and product_formset.is_valid():
-			client=client_form.save()
-			inv_prod = invoice_product_form.save(commit=False)
+			client=client_form.save(commit=False)
 			
 			
 			#quantity = inv_prod.quantity
@@ -447,11 +448,7 @@ def edit_invoice(request, slug):
 
 			slug = form.slug
 
-			invoice_products = InvoiceProduct.objects.filter(invoice_id = form.id)
 
-			for inv_pro in invoice_products:
-				if inv_pro not in product_formset.save(commit=False):
-					inv_pro.delete()
 
 			
 			for f in product_formset: 
@@ -462,7 +459,7 @@ def edit_invoice(request, slug):
 				description = cd.get('prod_description')
 				
 				invoice = form
-				if product=='':
+				if f in product_formset.deleted_forms:
 					f.delete()
 				else:
 					InvoiceProduct.objects.update_or_create(product=product,invoice = invoice,defaults={"price":price, "quantity":quantity,"prod_description":description})
