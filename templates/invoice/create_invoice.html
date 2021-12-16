@@ -266,8 +266,8 @@
       if (total > 1) {
           var i = r.parentNode.parentNode.rowIndex;
           //document.getElementById("formtable").deleteRow(i);
-          document.getElementById("formtable")[i].style.display="none"
-          document.getElementById(`id_form-${i}-DELETE`).checked=True
+          document.getElementById("formtable").rows[i].style.display="none"
+          document.getElementById("formtable")rows[i].find('input[type="checkbox"]').checked=True
          totalForms.setAttribute('value', `${formNum}`)
          
 
