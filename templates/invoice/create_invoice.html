@@ -267,8 +267,9 @@
           var i = r.parentNode.parentNode.rowIndex;
           //document.getElementById("formtable").deleteRow(i);
           document.getElementById("formtable").rows[i].style.display="none"
-          //document.getElementById("formtable").rows[i].find('input[type="checkbox"]').checked=True
-          $(this).find(':checkbox').attr('checked', true);
+          checkbox_id = "id_form-"+(i-1)+"-DELETE"
+          //document.getElementById(checkbox_id).checked=true
+          document.getElementById(checkbox_id).click()
          totalForms.setAttribute('value', `${formNum}`)
          
 

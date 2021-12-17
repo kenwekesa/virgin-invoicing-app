@@ -459,10 +459,10 @@ def edit_invoice(request, slug):
 				description = cd.get('prod_description')
 				
 				invoice = form
-				if f in product_formset.deleted_forms:
-					f.delete()
+				if f.cleaned-data["DELETE"]:
+					pass
 				else:
-					InvoiceProduct.objects.update_or_create(product=product,invoice = invoice,defaults={"price":price, "quantity":quantity,"prod_description":description})
+					InvoiceProduct.objects.update_or_create(product=product,inch=product,kenha=invoice,invoice = invoice,defaults={"price":price, "quantity":quantity,"prod_description":description})
 			
 			
 			
