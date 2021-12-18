@@ -1,9 +1,11 @@
+from django.core import validators
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.urls.base import reverse
 from django.utils import timezone
 from uuid import uuid4
 from django.contrib.auth.models import User
+from django.core.validators import MinValueValidator
 
 
 
@@ -74,7 +76,7 @@ class Invoice(models.Model):
 	('OVERDUE', 'OVERDUE'),
 	('PAID', 'PAID'),
 	]
-    
+	
 	
 
 
@@ -111,8 +113,13 @@ class Invoice(models.Model):
 		return sum(temp_values)
 
 	def grand_total(self):
-		temp_values = [int(product.price)* int(product.quantity) for product in InvoiceProduct.objects.filter(invoice_id=self.id)]
-		return sum(temp_values)
+		temp_values = 0.00
+		for product in InvoiceProduct.objects.filter(invoice_id=self.id):
+			if product.price and product.price:
+				temp_values = temp_values+[int(product.price)* int(product.quantity)]
+				return sum(temp_values)
+			
+			return temp_values
 
 
 
@@ -139,7 +146,7 @@ class Product(models.Model):
 	]
 	PRODUCTS = [
 		('Accommodation/Hotel','Accommodation/Hotel'),
-                ('Conference', 'Conference'),
+				('Conference', 'Conference'),
 		('Excursions','Excursions'),
 		('Air Ticket',"Air Ticket"),
 		('Others','Others')
@@ -179,9 +186,9 @@ class Product(models.Model):
 		
 class InvoiceProduct(models.Model):
 	invoice = models.ForeignKey(Invoice, on_delete=models.CASCADE)
-	product = models.ForeignKey(Product, on_delete=models.CASCADE)
+	product = models.ForeignKey(Product, on_delete=models.CASCADE, null = True, blank=True)
 	prod_description = models.CharField(null=True, blank=True, max_length=300)
-	quantity = models.IntegerField(default=1)
+	quantity = models.IntegerField(default=1, validators=[MinValueValidator(1)], null=True, blank=True)
 	price = models.CharField(null=True, blank=True, max_length=10)
 
 	class Meta:

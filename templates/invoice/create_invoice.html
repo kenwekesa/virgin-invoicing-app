@@ -94,7 +94,7 @@
                               
                                    {{ prod_form.price|as_crispy_field }}
                                 </td>
-			                        	<td style="border: 0; padding: 0 0 0 0.5em;">
+			         <td style="border: 0; padding: 0 0 0 0.5em;">
                                   
                                    {{ prod_form.quantity|as_crispy_field }}
                                 </td>
@@ -241,6 +241,8 @@
         let addButtonDiv = document.querySelector(".add-btn-div")
         let rowCount = document.getElementById('formtable').rows.length-1;
 
+        checkbox = document.querySelector(#formtable).find("input[type='checkbox'")
+
 	     var parentDiv = addButtonDiv.parentNode;
 
         let formNum = birdForm.length-1
@@ -270,7 +272,8 @@
           checkbox_id = "id_form-"+(i-1)+"-DELETE"
           //document.getElementById(checkbox_id).checked=true
           document.getElementById(checkbox_id).click()
-         totalForms.setAttribute('value', `${formNum}`)
+          document.getElementById(checkbox_id).value="on"
+         //totalForms.setAttribute('value', `${formNum}`)
          
 
         }
