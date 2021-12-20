@@ -103,7 +103,7 @@
                                    {{ prod_form.prod_description|as_crispy_field }}
                                 </td>
 
-                                <div class="hidden">{{ prod_form.DELETE }}</div>
+                                <div class="hidden-form">{{ prod_form.DELETE }}</div>
 
 				<td style="width: 2%;border: 0; padding: 0 0 0 0.5em;">
           <button type="button" data-formset-delete-button class="btn btn-default" onclick="deleteRow(this)" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="Remove">
@@ -240,8 +240,12 @@
         let totalForms = document.querySelector("#id_form-TOTAL_FORMS")
         let addButtonDiv = document.querySelector(".add-btn-div")
         let rowCount = document.getElementById('formtable').rows.length-1;
+        let del = container.row.find('input:checkbox[id $= "-DELETE"]');
+        
+        
+        del.style.display = "none"
 
-        checkbox = document.querySelector(#formtable).find("input[type='checkbox'")
+
 
 	     var parentDiv = addButtonDiv.parentNode;
 

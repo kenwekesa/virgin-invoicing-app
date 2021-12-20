@@ -115,11 +115,10 @@ class Invoice(models.Model):
 	def grand_total(self):
 		temp_values = 0.00
 		for product in InvoiceProduct.objects.filter(invoice_id=self.id):
-			if product.price and product.price:
-				temp_values = temp_values+[int(product.price)* int(product.quantity)]
-				return sum(temp_values)
+			if product.price and product.quantity:
+				temp_values = temp_values+(int(product.price)* int(product.quantity))
 			
-			return temp_values
+		return temp_values
 
 
 

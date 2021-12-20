@@ -1658,16 +1658,28 @@ a[class*="card"]:hover .title {
     margin: 50px auto;
 }
 
-.invoice_search_icon{
+.invoice_search_icon {
     position: absolute;
     margin-left: 5px;
     height: 25px;
     display: flex;
     align-items: center;
-  }
-  .invoice_search_input{
+}
+
+.invoice_search_input {
     padding-left: 25px;
     height: 20px;
-  }
+}
+
 
 /* End of invoice Search*/
+
+
+/*Invoice Edit style*/
+
+.hidden-form {
+    display: hidden;
+}
+
+
+/*End of invoice Edit style*/
