@@ -1681,5 +1681,9 @@ a[class*="card"]:hover .title {
     display: hidden;
 }
 
+.not_displayed {
+    display: none !important;
+}
+
 
 /*End of invoice Edit style*/

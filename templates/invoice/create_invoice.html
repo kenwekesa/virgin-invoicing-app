@@ -1,4 +1,6 @@
 {% extends 'index.html' %} {% load static %} {% load crispy_forms_tags %}
+{% load widget_tweaks %}
+
 
 <!--Some comments-->
 {% block content %} {% block css %}
@@ -85,6 +87,7 @@
 				</td>
                             </tr>
                             {% for prod_form in prod_formset %}
+				<div class="hidden-form">{{ prod_form.DELETE|add_class:"not_displayed" }}</div>
                             <tr class="tablerow">
                                 <td style="border: 0; padding: 0 0.5em 0 0; width: 15%">
                                   
@@ -103,7 +106,7 @@
                                    {{ prod_form.prod_description|as_crispy_field }}
                                 </td>
 
-                                <div class="hidden-form">{{ prod_form.DELETE }}</div>
+                                
 
 				<td style="width: 2%;border: 0; padding: 0 0 0 0.5em;">
           <button type="button" data-formset-delete-button class="btn btn-default" onclick="deleteRow(this)" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="Remove">

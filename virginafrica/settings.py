@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'accounts',
     'invoice',
     'voucher',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
