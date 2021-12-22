@@ -87,7 +87,7 @@
 				</td>
                             </tr>
                             {% for prod_form in prod_formset %}
-				<div class="hidden-form">{{ prod_form.DELETE|add_class:"not_displayed" }}</div>
+			  {{ prod_form.DELETE|add_class:"not_displayed" }}
                             <tr class="tablerow">
                                 <td style="border: 0; padding: 0 0.5em 0 0; width: 15%">
                                   
@@ -243,10 +243,13 @@
         let totalForms = document.querySelector("#id_form-TOTAL_FORMS")
         let addButtonDiv = document.querySelector(".add-btn-div")
         let rowCount = document.getElementById('formtable').rows.length-1;
-        let del = container.row.find('input:checkbox[id $= "-DELETE"]');
+
+         var elems=document.getElementsByClassName('not_displayed')
+        for (var i=0;i<elems.length;i+=1){
+        elems[i].style.display = 'block';
+}
         
         
-        del.style.display = "none"
 
 
 
@@ -276,6 +279,7 @@
           var i = r.parentNode.parentNode.rowIndex;
           //document.getElementById("formtable").deleteRow(i);
           document.getElementById("formtable").rows[i].style.display="none"
+
           checkbox_id = "id_form-"+(i-1)+"-DELETE"
           //document.getElementById(checkbox_id).checked=true
           document.getElementById(checkbox_id).click()

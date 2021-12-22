@@ -482,7 +482,8 @@ def edit_invoice(request, slug):
 			
 			#InvoiceProduct.objects.create(product=product, order=form,quantity=quantity)
 			messages.success(request, f'Invoice successfully updated.')
-			return redirect('create-build-invoice',slug)	
+			return redirect('create-build-invoice',slug)
+	messages.error(request, f'Failed.')	
 	return render(request=request, template_name="invoice/create_invoice.html", context={"form":form, "client_form": client_form,"prod_form": product_form,"prod_formset":product_formset})
 
 def emailDocumentInvoice(request, slug):
