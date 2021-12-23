@@ -264,7 +264,6 @@ Modal -->
             let formRegex = RegExp(`form-(\\d){1}-`,'g')
 
             newForm.innerHTML = newForm.innerHTML.replace(formRegex, `form-${formNum}-`)
-            let nnn = addButtonDiv
             parentDiv.insertBefore(newForm, addButtonDiv)
             totalForms.setAttribute('value', `${formNum++}`)
         }

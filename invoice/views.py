@@ -56,7 +56,6 @@ def create_invoice(request):
 			#for inv_prod in invoice_product_form:
 	
 			
-			slug=invoice.slug
 			
 			for f in product_formset: 
 				cd = f.cleaned_data
@@ -65,7 +64,6 @@ def create_invoice(request):
 				price = cd.get('price')
 				product= cd.get('product')
 				invoice = form
-				slug = invoice.slug
 				inv_prodd = InvoiceProduct(product=product,invoice = invoice,price=price, quantity=quantity,prod_description=description)
 				inv_prodd.save()
 
@@ -85,8 +83,10 @@ def create_invoice(request):
 		
 			
 			#InvoiceProduct.objects.create(product=product, order=form,quantity=quantity)
-			invoice.save()
+			invv=invoice.save()
 			client.save()
+			slug=invv.slug
+
 			messages.success(request, f'Invoice created successfully')
 			return redirect('create-build-invoice',slug)
 		
