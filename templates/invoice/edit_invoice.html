@@ -87,7 +87,7 @@
 				</td>
                             </tr>
                             {% for prod_form in prod_formset %}
-			                       
+			                       {{ prod_form.DELETE|add_class:"not_displayed" }}
                             <tr class="tablerow">
                                 <td style="border: 0; padding: 0 0.5em 0 0; width: 15%">
                                   
@@ -276,15 +276,14 @@ Modal -->
       var total = parseInt($('#id_form-TOTAL_FORMS').val());
       if (total > 1) {
           var i = r.parentNode.parentNode.rowIndex;
-          document.getElementById("formtable").deleteRow(i);
-          //document.getElementById("formtable").rows[i].style.display="none"
+          //document.getElementById("formtable").deleteRow(i);
+          document.getElementById("formtable").rows[i].style.display="none"
 
-         // checkbox_id = "id_form-"+(i-1)+"-DELETE"
+          checkbox_id = "id_form-"+(i-1)+"-DELETE"
           //document.getElementById(checkbox_id).checked=true
-         // document.getElementById(checkbox_id).click()
-          //document.getElementById(checkbox_id).value="on"
-         updateForms()
-         totalForms.setAttribute('value', `${formNum}`)
+          document.getElementById(checkbox_id).click()
+          document.getElementById(checkbox_id).value="on"
+         //totalForms.setAttribute('value', `${formNum}`)
          
 
         }

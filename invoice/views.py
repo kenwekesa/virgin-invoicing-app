@@ -44,19 +44,19 @@ def create_invoice(request):
 		product_formset = ProductFormSet(request.POST)
 		invoice_product_form = InvoiceProductForm()
 		if form.is_valid() and client_form.is_valid() and product_formset.is_valid():
-			client=client_form.save()
+			client=client_form.save(commit=False)
 			inv_prod = invoice_product_form.save(commit=False)
 			
 			
 			#quantity = inv_prod.quantity
-			form = form.save(commit=False)
+			invoice = form.save(commit=False)
 			form.client = client
 			
 			
 			#for inv_prod in invoice_product_form:
-			form.save()
-			client.save()
-			slug=form.slug
+	
+			
+			slug=invoice.slug
 			
 			for f in product_formset: 
 				cd = f.cleaned_data
@@ -85,6 +85,8 @@ def create_invoice(request):
 		
 			
 			#InvoiceProduct.objects.create(product=product, order=form,quantity=quantity)
+			invoice.save()
+			client.save()
 			messages.success(request, f'Invoice created successfully')
 			return redirect('create-build-invoice',slug)
 		
@@ -171,7 +173,7 @@ def createBuildInvoice(request, slug):
 		pass
 	except:
 		messages.error(request, 'Something went wrong')
-		return redirect('invoices')
+		return redirect('create-build-invoice', slug=slug)
 
 	#fetch all the products - related to this invoice
 	products = Product.objects.filter(invoice=invoice)
@@ -484,7 +486,7 @@ def edit_invoice(request, slug):
 			messages.success(request, f'Invoice successfully updated.')
 			return redirect('create-build-invoice',slug)
 	messages.error(request, f'Failed.')	
-	return render(request=request, template_name="invoice/create_invoice.html", context={"form":form, "client_form": client_form,"prod_form": product_form,"prod_formset":product_formset})
+	return render(request=request, template_name="invoice/edit_invoice.html", context={"form":form, "client_form": client_form,"prod_form": product_form,"prod_formset":product_formset})
 
 def emailDocumentInvoice(request, slug):
 	#fetch that invoice
