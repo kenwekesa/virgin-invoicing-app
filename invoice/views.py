@@ -49,7 +49,7 @@ def create_invoice(request):
 			
 			
 			#quantity = inv_prod.quantity
-			invoice = form.save(commit=False)
+			form = form.save(commit=False)
 			form.client = client
 			
 			
@@ -83,10 +83,10 @@ def create_invoice(request):
 		
 			
 			#InvoiceProduct.objects.create(product=product, order=form,quantity=quantity)
-			invv=invoice.save()
+			
+			form.save()
 			client.save()
-			slug=invv.slug
-
+			slug=form.slug
 			messages.success(request, f'Invoice created successfully')
 			return redirect('create-build-invoice',slug)
 		
