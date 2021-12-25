@@ -1,6 +1,4 @@
 {% extends 'index.html' %} {% load static %} {% load crispy_forms_tags %}
-{% load widget_tweaks %}
-
 
 <!--Some comments-->
 {% block content %} {% block css %}
@@ -87,7 +85,6 @@
 				</td>
                             </tr>
                             {% for prod_form in prod_formset %}
-			                       
                             <tr class="tablerow">
                                 <td style="border: 0; padding: 0 0.5em 0 0; width: 15%">
                                   
@@ -97,7 +94,7 @@
                               
                                    {{ prod_form.price|as_crispy_field }}
                                 </td>
-			         <td style="border: 0; padding: 0 0 0 0.5em;">
+			                        	<td style="border: 0; padding: 0 0 0 0.5em;">
                                   
                                    {{ prod_form.quantity|as_crispy_field }}
                                 </td>
@@ -106,7 +103,7 @@
                                    {{ prod_form.prod_description|as_crispy_field }}
                                 </td>
 
-                                
+                                <div class="hidden">{{ prod_form.DELETE }}</div>
 
 				<td style="width: 2%;border: 0; padding: 0 0 0 0.5em;">
           <button type="button" data-formset-delete-button class="btn btn-default" onclick="deleteRow(this)" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="Remove">
@@ -168,7 +165,7 @@
   </div>
   </div>
 
-  <!-- Modals Start Here 
+  <!-- Modals Start Here -->
   <div class="modal modal-sheet py-5" tabindex="-1" id="adroductModal">
     <div class="modal-dialog">
       <div class="modal-content rounded-6 shadow">
@@ -196,7 +193,7 @@
       </div>
     </div>
   </div>
-Modal -->
+  <!-- Modal -->
   <div
     class="modal fade"
     id="addClientModal"
@@ -207,6 +204,7 @@ Modal -->
   >
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
+        <form class="" action="#" method="post" enctype="multipart/form-data">
           {% csrf_token %}
           <div class="modal-header border-bottom-0">
             <h5 class="modal-title">Add Invoice Product</h5>
@@ -226,7 +224,7 @@ Modal -->
               Save changes
             </button>
           </div>
-        
+        </form>
       </div>
     </div>
   </div>
@@ -243,15 +241,6 @@ Modal -->
         let addButtonDiv = document.querySelector(".add-btn-div")
         let rowCount = document.getElementById('formtable').rows.length-1;
 
-         var elems=document.getElementsByClassName('not_displayed')
-        for (var i=0;i<elems.length;i+=1){
-        elems[i].style.display = 'block';
-}
-        
-        
-
-
-
 	     var parentDiv = addButtonDiv.parentNode;
 
         let formNum = birdForm.length-1
@@ -264,6 +253,7 @@ Modal -->
             let formRegex = RegExp(`form-(\\d){1}-`,'g')
 
             newForm.innerHTML = newForm.innerHTML.replace(formRegex, `form-${formNum}-`)
+            let nnn = addButtonDiv
             parentDiv.insertBefore(newForm, addButtonDiv)
             totalForms.setAttribute('value', `${formNum++}`)
         }
@@ -275,14 +265,10 @@ Modal -->
       var total = parseInt($('#id_form-TOTAL_FORMS').val());
       if (total > 1) {
           var i = r.parentNode.parentNode.rowIndex;
-          document.getElementById("formtable").deleteRow(i);
-          //document.getElementById("formtable").rows[i].style.display="none"
-
-         // checkbox_id = "id_form-"+(i-1)+"-DELETE"
-          //document.getElementById(checkbox_id).checked=true
-         // document.getElementById(checkbox_id).click()
-          //document.getElementById(checkbox_id).value="on"
-         updateForms()
+          //document.getElementById("formtable").deleteRow(i);
+          document.getElementById("formtable").rows[i].style.display="none"
+          //document.getElementById("formtable").rows[i].find('input[type="checkbox"]').checked=True
+          $(this).find(':checkbox').attr('checked', true);
          totalForms.setAttribute('value', `${formNum}`)
          
 
