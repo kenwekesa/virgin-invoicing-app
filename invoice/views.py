@@ -56,8 +56,9 @@ def create_invoice(request):
 			#for inv_prod in invoice_product_form:
 	
 			
-			form.save()
 			client.save()
+			form.save()
+			
 			slug=form.slug
 			for f in product_formset: 
 				cd = f.cleaned_data
