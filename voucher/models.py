@@ -74,7 +74,7 @@ class Voucher(models.Model):
 
     number = models.CharField(
         null=False, default=increment_voucher_number, blank=False, max_length=100, unique=True)
-    facility_name = models.CharField(null=True, blank=True)
+    facility_name = models.CharField(null=True, blank=True, max_length=500)
     number_of_adults = models.CharField(
         default='0', max_length=100)
     number_of_children = models.CharField(
