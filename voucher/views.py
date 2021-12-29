@@ -16,10 +16,28 @@ from django.core.files.storage import FileSystemStorage
 
 from weasyprint import HTML, css
 
+from voucher.forms import VoucherForm
 
 
 
 
+
+def create_voucher(request):
+    
+    #fetch all the products - related to this invoice
+    
+
+
+    context = {}
+    '''context['invoice'] = invoice
+    context['products'] = products
+    context['invoiceproduct'] = invoiceproduct'''
+
+    form = VoucherForm();
+
+    
+
+    return render(request, 'voucher/create_voucher.html',context={"form":form})
 def view_voucher(request):
     
     #fetch all the products - related to this invoice

@@ -1,0 +1,285 @@
+{% extends 'index.html' %} {% load static %} {% load crispy_forms_tags %}
+
+<!--Some comments-->
+{% block content %} {% block css %}
+<link href="{% static 'assets/css/bootstrap.min.css' %}" rel="stylesheet" />
+{% endblock %} {% block main %}
+
+<!-- This is a comment too-->
+
+<!-- section-header.// -->
+<!--Login-->
+
+<div class="container py-5 create-form-box">
+  {% if prod_form.errors %} ddddes: {% for error in prod_form.errors %}
+  <!---->
+  {{ error | escape }} {% endfor %} {% endif %} {% if inv_prod_form.errors %}
+  ddddes: {% for error in inv_prod_form.errors %}
+  <!---->
+  {{ error | escape }} {% endfor %} {% endif %} {% if form.errors %} ddddes:
+  {%for error in form.errors %}
+  <!---->
+  {{ error | escape }} {% endfor %} {% endif %}
+  <h5>Creating Voucher</h5>
+  <div class="row">
+    <form method="POST" class="col-12">
+      {% csrf_token %}
+        
+      </div>
+
+      <div class="form-row">
+        <!-- collapsible form -->
+        <div class="col-12">
+
+        
+
+ <div id="exTab2" class="container">	
+ <ul class="nav nav-tabs">
+			<li class="active">
+        <a class="nav-link font-weight-bold" href="#items" data-toggle="tab">Items</a>
+			</li>
+			<li><a class="nav-link font-weight-bold" href="#clients" data-toggle="tab">Client</a>
+			</li>
+			
+		</ul>
+      <br/>
+
+
+	<div class="tab-content ">
+		
+    
+    <div id="items" class="tab-pane fade">
+      <div class="table">
+                        <table class="table" id="formtable">
+			 	{{prod_formset.management_form}}
+                
+             			 
+                            <tr>
+                                <td style="border: 0; padding: 0 0.5em 0 0; width: 15%">
+                                    <label class="form-label" for="invoice_detail_product">Product name</label>
+                                     
+                                </td>
+                                <td style="border: 0; padding: 0 0 0 0.5em;">
+                                    <label class="form-label" for="invoice_detail_amount">Unit price</label>
+                                   
+                                </td>
+			                        	<td style="border: 0; padding: 0 0 0 0.5em;">
+                                    <label class="form-label" for="invoice_detail_amount">Quantity</label>
+                  
+                                </td>
+                                	<td style="border: 0; padding: 0 0 0 0.5em; width: 49%">
+                                    <label class="form-label" for="invoice_detail_amount">Description</label>
+                  
+                                </td>
+				<td style="border: 0; padding: 0 0 0 0.5em;">
+					
+				</td>
+                            </tr>
+                            {% for prod_form in prod_formset %}
+                            <tr class="tablerow">
+                                <td style="border: 0; padding: 0 0.5em 0 0; width: 15%">
+                                  
+                                     
+                                </td>
+                                <td style="border: 0; padding: 0 0 0 0.5em;">
+                              
+                                </td>
+			                        	<td style="border: 0; padding: 0 0 0 0.5em;">
+                                  
+                                </td>
+                                <td style="border: 0; padding: 0 0 0 0.5em; width: 47%;max-height: 20px">
+                                  
+                                </td>
+
+
+				<td style="width: 2%;border: 0; padding: 0 0 0 0.5em;">
+          <button type="button" data-formset-delete-button class="btn btn-default" onclick="deleteRow(this)" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="Remove">
+ <span class="fas fa-times-circle danger" aria-hidden="true"></span>
+ </button>
+					
+				</td>
+                            </tr>
+                             {% endfor %}
+                            <tr class="add-btn-div">
+                              <td><input type='button' id='add-form' value='Add item' class="btn btn-secondary" /></td>
+                            </tr>
+                         
+                        </table>
+		</div>
+   
+          </div>
+           
+    
+    <div id="clients" class="tab-pane fade">
+       <div class="c">
+              <div class="form-row">
+                <div class="form-group col-4">
+                </div>
+                <div class="form-group col-4">
+                </div>
+                <div class="form-group col-4">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-4">
+                </div>
+                <div class="form-group col-4">
+                </div>
+              </div>
+            </div>
+    </div>
+    
+			</div>
+  </div>
+
+  </div>
+  </div>
+        
+    
+      
+      <br />
+      <div class="row justify-content-center" style = "width: 100%">
+      <button class="btn btn-info col-2 mr-1" type="submit">Save</button>
+      <button class="btn btn-warning col-2 mr-1" type="button" onClick="this.form.reset()">Reset</button>
+      <a class =" col-2" href="{% url 'homepage'%}"><button class="btn btn-danger" type="button">Cancel</button></a>
+      </div>
+    </form>
+  </div>
+  </div>
+
+  <!-- Modals Start Here -->
+  <div class="modal modal-sheet py-5" tabindex="-1" id="adroductModal">
+    <div class="modal-dialog">
+      <div class="modal-content rounded-6 shadow">
+        <form class="form-container" action="#" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="modal-header border-bottom-0">
+            <h5 class="modal-title">Add Invoice Product</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body py-0">{{prod_form.as_p}}</div>
+          <div class="modal-footer flex-column border-top-0">
+            <button
+              type="submit"
+              class="btn btn-lg btn-primary w-100 mx-0 mb-2"
+            >
+              Save changes
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="addClientModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <form class="" action="#" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="modal-header border-bottom-0">
+            <h5 class="modal-title">Add Invoice Product</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body py-0">{{prod_form.as_p}}</div>
+          <div class="modal-footer flex-column border-top-0">
+            <button
+              type="submit"
+              class="btn btn-lg btn-primary w-100 mx-0 mb-2"
+            >
+              Save changes
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- ========================= FOOTER END // ========================= -->
+  {% endblock %}
+</div>
+
+
+<script>
+        let birdForm = document.querySelectorAll(".tablerow")
+        let container = document.querySelector("#formtable")
+        let addButton = document.querySelector("#add-form")
+        let totalForms = document.querySelector("#id_form-TOTAL_FORMS")
+        let addButtonDiv = document.querySelector(".add-btn-div")
+        let rowCount = document.getElementById('formtable').rows.length-1;
+
+	     var parentDiv = addButtonDiv.parentNode;
+
+        let formNum = birdForm.length-1
+        addButton.addEventListener('click', addForm)
+
+        function addForm(e){
+            e.preventDefault()
+
+            let newForm = birdForm[0].cloneNode(true)
+            let formRegex = RegExp(`form-(\\d){1}-`,'g')
+
+            newForm.innerHTML = newForm.innerHTML.replace(formRegex, `form-${formNum}-`)
+            let nnn = addButtonDiv
+            parentDiv.insertBefore(newForm, addButtonDiv)
+            totalForms.setAttribute('value', `${formNum++}`)
+        }
+
+
+	function deleteRow(r) {
+
+      var i = r.parentNode.parentNode.rowIndex;
+      var total = parseInt($('#id_form-TOTAL_FORMS').val());
+      if (total > 1) {
+          var i = r.parentNode.parentNode.rowIndex;
+          //document.getElementById("formtable").deleteRow(i);
+          document.getElementById("formtable").rows[i].style.display="none"
+          //document.getElementById("formtable").rows[i].find('input[type="checkbox"]').checked=True
+          $(this).find(':checkbox').attr('checked', true);
+         totalForms.setAttribute('value', `${formNum}`)
+         
+
+        }
+      }
+
+
+      function updateForms() {
+    let bForm = document.querySelectorAll(".tablerow")
+    let count = 0;
+    for (let form of bForm) {
+        const formRegex = RegExp(`form-(\\d){1}-`, 'g');
+        form.innerHTML = form.innerHTML.replace(formRegex, `form-${count++}-`)
+    }
+}
+    </script>
+<script>
+   $('#add').click(function () {
+    var n = $('.roww').length + 1;
+    var temp = $('.roww:first').clone();
+    temp.attr('name', temp.attr('name') + n);
+    $('input:first', temp).attr('placeholder', 'Item #' + n)
+    $('.roww:last').after(temp);
+});
+
+$(document).ready(function () {
+    $("#remove").click(function () {
+        $(".row:last").remove();
+    });
+});
+</script>
+{% endblock%}
