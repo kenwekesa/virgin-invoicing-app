@@ -67,7 +67,7 @@ class InvoiceForm(forms.ModelForm):
     class Meta:
         model = Invoice
         fields = ['number', 'dueDate', 'paymentTerms', 'status',
-                  'description', 'client', 'istaxable', 'apply_dicount', 'discount']
+                  'description', 'client', 'istaxable', 'apply_discount', 'discount']
 
     def clean(self, *args, **kwargs):
         super(InvoiceForm, self).clean()
