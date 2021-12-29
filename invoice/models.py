@@ -87,6 +87,8 @@ class Invoice(models.Model):
 	status = models.CharField(choices=STATUS, default='CURRENT', max_length=100)
 	description = models.TextField(null=True, blank=True,max_length=500)
 	istaxable = models.BooleanField()
+	apply_discount = models.BooleanField()
+	discount = models.CharField(null=True,default=0, blank=True, max_length=10)
 
 	#RELATED fields
 	client = models.ForeignKey(Client, blank=True, null=True, on_delete=models.SET_NULL)

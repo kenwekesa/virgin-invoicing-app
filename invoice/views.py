@@ -306,7 +306,9 @@ def pdfview(request,slug):
 			itemtotals.append(y)
 	
 	tax = 0.16*invoiceTotal
-	grand_total = invoiceTotal+tax
+	sub_total = invoiceTotal+tax
+	discount=(float(invoice.discount))*0.01*sub_total
+	grand_total = sub_total-tax
 			
 
 
@@ -315,6 +317,8 @@ def pdfview(request,slug):
 	context['invoice'] = invoice
 	context['products'] = products
 	context['itemtotals']= itemtotals
+	context['discount']= discount
+	context['discount_percentage']= invoice.discount
 	context['invoiceGrandTotal'] = grand_total
 	context['invoiceTotal'] = "{:.2f}".format(invoiceTotal)
 	context['tax'] =  "{:.2f}".format(tax)

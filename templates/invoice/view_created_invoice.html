@@ -142,7 +142,7 @@
 
        
 
-    {%if invoice.istaxable%}
+    {%if invoice.istaxable and not invoice.apply_discount%}
         <tr class="total">
           <td></td>
 
@@ -154,6 +154,33 @@
 
           <td colspan="3">VAT(16%)</td>
           <td class = "grand_total"><u><u>{{tax}}</u><u/></td>
+        </tr>
+
+        <tr class="total">
+          <td></td>
+
+          <td colspan="3">Grand Total:</td>
+          <td class = "grand_total"><u><u>{{invoiceGrandTotal}}</u><u/></td>
+        </tr>
+
+        {% else if invoice.istaxable and invoice.apply_discount%}
+        <tr class="total">
+          <td></td>
+
+          <td colspan="3">Total</td>
+          <td class = "grand_total"><u><u>{{invoiceTotal}}</u><u/></td>
+        </tr>
+        <tr class="total">
+          <td></td>
+
+          <td colspan="3">VAT(16%)</td>
+          <td class = "grand_total"><u><u>{{tax}}</u><u/></td>
+        </tr>
+        <tr class="total">
+          <td></td>
+
+          <td colspan="3">Discount({{discount_percentage}})</td>
+          <td class = "grand_total"><u><u>{{discount}}</u><u/></td>
         </tr>
 
         <tr class="total">
