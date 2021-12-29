@@ -2,7 +2,7 @@ from crispy_forms.layout import Column, Layout, Row, Submit
 from django import forms
 from django.forms.widgets import DateInput
 
-from invoice.models import Invoice
+from voucher.models import Voucher
 from crispy_forms.helper import FormHelper
 
 
