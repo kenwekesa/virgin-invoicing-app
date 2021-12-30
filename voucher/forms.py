@@ -31,9 +31,9 @@ class VoucherForm(forms.ModelForm):
         label='Invoice Status',
         widget=forms.Select(attrs={'class': 'form-control mb-3'}),)
 
-    dueDate = forms.DateField(
+    reservation_date = forms.DateField(
         required=True,
-        label='Invoice Due',
+        label='Reservation Date',
         widget=DateInput(attrs={'class': 'form-control mb-3'}),)
 
     def __init__(self, *args, **kwargs):

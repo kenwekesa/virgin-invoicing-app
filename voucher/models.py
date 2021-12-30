@@ -49,11 +49,11 @@ class Client(models.Model):
 def increment_voucher_number():
     last_invoice = Voucher.objects.all().order_by('id').last()
     if not last_invoice:
-        return 'VR00001'
+        return 'VCH00001'
     invoice_no = last_invoice.number
-    invoice_int = int(invoice_no.split('VR')[-1])
+    invoice_int = int(invoice_no.split('VCH')[-1])
     new_invoice_int = invoice_int + 1
-    new_invoice_no = 'VR' + "%05d" % (new_invoice_int, )
+    new_invoice_no = 'VCH' + "%05d" % (new_invoice_int, )
     return new_invoice_no
 
 
@@ -88,7 +88,7 @@ class Voucher(models.Model):
     special_instructions = models.CharField(
         null=True, blank=True, max_length=500)
     reserver_name = models.CharField(null=True, blank=True, max_length=500)
-    reservation_date = models.CharField(null=True, blank=True, max_length=500)
+    reservation_date = models.DateField(null=True, blank=True, max_length=500)
 
     client_name = models.CharField(null=True, blank=True, max_length=500)
     client_email = models.CharField(null=True, blank=True, max_length=500)

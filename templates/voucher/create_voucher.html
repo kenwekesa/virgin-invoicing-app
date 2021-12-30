@@ -31,119 +31,51 @@
        <div class="form-row">
         <div class="form-group col-2">{{ form.number|as_crispy_field }}</div>
         <div class="form-group col-3">{{ form.facility_name|as_crispy_field }}</div>
-        <div class="form-group col-2">
-          {{ form.children_age|as_crispy_field }}
-        </div>
+        
        
         <div class="form-group col-2">{{ form.number_of_adults|as_crispy_field }}</div>
-         <div class="form-group col-2 ml-3">{{ form.number_of_children|as_crispy_field }}</div>
+        
         
       </div>
+      <div class="form-row">
+        <div class="form-group col-2">{{ form.number_of_children|as_crispy_field }}</div>
+        <div class="form-group col-3">{{ form.children_age|as_crispy_field }}</div>
+       
+        
+        <div class="form-group col-2">{{ form.infants|as_crispy_field }}</div>
+        <div class="form-group col-3">{{ form.baby_cot|as_crispy_field }}</div>
+        </div>
+
+        <div class="form-row">
+        <div class="form-group col-2">
+          {{ form.accomodation|as_crispy_field }}
+        </div>
+       
+        <div class="form-group col-2">{{ form.meal_plan|as_crispy_field }}</div>
+         <div class="form-group col-2 ml-3">{{ form.reserver_name|as_crispy_field }}</div>
+         <div class="form-group col-2">{{ form.reservation_date|as_crispy_field }}</div>
+        
+      </div>
+
+      <div class="form-row">
+        
+        <div class="form-group col-3">{{ form.client_name|as_crispy_field }}</div>
+        <div class="form-group col-2">
+          {{ form.client_email|as_crispy_field }}
+        </div>
+       
+        
+        
+      </div>
+
+     
       <div class="form-row">
         <!-- collapsible form -->
         <div class="col-12">
 
         
 
- <div id="exTab2" class="container">	
- <ul class="nav nav-tabs">
-			<li class="active">
-        <a class="nav-link font-weight-bold" href="#items" data-toggle="tab">Items</a>
-			</li>
-			<li><a class="nav-link font-weight-bold" href="#clients" data-toggle="tab">Client</a>
-			</li>
-			
-		</ul>
-      <br/>
-
-
-	<div class="tab-content ">
-		
-    
-    <div id="items" class="tab-pane fade">
-      <div class="table">
-                        <table class="table" id="formtable">
-			 	{{prod_formset.management_form}}
-                
-             			 
-                            <tr>
-                                <td style="border: 0; padding: 0 0.5em 0 0; width: 15%">
-                                    <label class="form-label" for="invoice_detail_product">Product name</label>
-                                     
-                                </td>
-                                <td style="border: 0; padding: 0 0 0 0.5em;">
-                                    <label class="form-label" for="invoice_detail_amount">Unit price</label>
-                                   
-                                </td>
-			                        	<td style="border: 0; padding: 0 0 0 0.5em;">
-                                    <label class="form-label" for="invoice_detail_amount">Quantity</label>
-                  
-                                </td>
-                                	<td style="border: 0; padding: 0 0 0 0.5em; width: 49%">
-                                    <label class="form-label" for="invoice_detail_amount">Description</label>
-                  
-                                </td>
-				<td style="border: 0; padding: 0 0 0 0.5em;">
-					
-				</td>
-                            </tr>
-                            {% for prod_form in prod_formset %}
-                            <tr class="tablerow">
-                                <td style="border: 0; padding: 0 0.5em 0 0; width: 15%">
-                                  
-                                     
-                                </td>
-                                <td style="border: 0; padding: 0 0 0 0.5em;">
-                              
-                                </td>
-			                        	<td style="border: 0; padding: 0 0 0 0.5em;">
-                                  
-                                </td>
-                                <td style="border: 0; padding: 0 0 0 0.5em; width: 47%;max-height: 20px">
-                                  
-                                </td>
-
-
-				<td style="width: 2%;border: 0; padding: 0 0 0 0.5em;">
-          <button type="button" data-formset-delete-button class="btn btn-default" onclick="deleteRow(this)" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="Remove">
- <span class="fas fa-times-circle danger" aria-hidden="true"></span>
- </button>
-					
-				</td>
-                            </tr>
-                             {% endfor %}
-                            <tr class="add-btn-div">
-                              <td><input type='button' id='add-form' value='Add item' class="btn btn-secondary" /></td>
-                            </tr>
-                         
-                        </table>
-		</div>
-   
-          </div>
-           
-    
-    <div id="clients" class="tab-pane fade">
-       <div class="c">
-              <div class="form-row">
-                <div class="form-group col-4">
-                </div>
-                <div class="form-group col-4">
-                </div>
-                <div class="form-group col-4">
-                </div>
-              </div>
-              <div class="form-row">
-                <div class="form-group col-4">
-                </div>
-                <div class="form-group col-4">
-                </div>
-              </div>
-            </div>
-    </div>
-    
-			</div>
-  </div>
-
+ 
   </div>
   </div>
         

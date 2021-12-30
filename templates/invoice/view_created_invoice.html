@@ -163,7 +163,7 @@
           <td class = "grand_total"><u><u>{{invoiceGrandTotal}}</u><u/></td>
         </tr>
 
-        {% else if invoice.istaxable and invoice.apply_discount%}
+        {% elif invoice.istaxable and invoice.apply_discount%}
         <tr class="total">
           <td></td>
 
