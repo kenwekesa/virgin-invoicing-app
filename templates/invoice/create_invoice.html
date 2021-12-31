@@ -1,5 +1,7 @@
 {% extends 'index.html' %} {% load static %} {% load crispy_forms_tags %}
 
+{% load widget_tweaks %}
+
 <!--Some comments-->
 {% block content %} {% block css %}
 <link href="{% static 'assets/css/bootstrap.min.css' %}" rel="stylesheet" />
@@ -36,9 +38,9 @@
         
       </div>
 
-       <div class="form-row">
+       <div class="form-row discount_row">
         <div class="form-group col-2">{{ form.apply_discount|as_crispy_field }}</div>
-        <div class="form-group col-3">{{ form.discount|as_crispy_field }}</div>
+        <div class="form-group col-3">{{ form.discount|as_crispy_field|add_class:"discount_field" }}</div>
    
         
       </div>
@@ -290,6 +292,13 @@ $(document).ready(function () {
     $("#remove").click(function () {
         $(".row:last").remove();
     });
+});
+
+
+$(".discount_row :checkbox").click(function () {
+    var testVar = ".area" + this.value;
+    if (this.checked) $(".discount_field").show();
+    else $(".discount_field").hide();
 });
 </script>
 {% endblock%}
