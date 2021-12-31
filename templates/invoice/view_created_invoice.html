@@ -186,11 +186,11 @@
           <td></td>
 
           <td colspan="3">Grand Total:</td>
-          <td class = "grand_total"><u><u>{{invoiceGrandTotal}}</u><u/></td>
+          <td class = "grand_total"><u><u>{{discounted_grand_total}}</u><u/></td>
         </tr>
 
       
-         {% elif invoice.istaxable and invoice.apply_discount%}
+         {% elif not invoice.istaxable and invoice.apply_discount%}
         <tr class="total">
           <td></td>
 
@@ -214,7 +214,7 @@
           <td></td>
 
           <td colspan="3">Grand Total:</td>
-          <td class = "grand_total"><u><u>{{invoiceGrandTotal}}</u><u/></td>
+          <td class = "grand_total"><u><u>{{discountend_grand_total}}</u><u/></td>
         </tr>
 
         {%else%}
