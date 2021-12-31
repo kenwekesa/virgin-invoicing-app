@@ -35,7 +35,8 @@
          <div class="form-group col-2 ml-3">{{ form.istaxable|as_crispy_field }}</div>
         
       </div>
-      <div class="form-row">
+
+       <div class="form-row">
         <div class="form-group col-2">{{ form.apply_discount|as_crispy_field }}</div>
         <div class="form-group col-3">{{ form.discount|as_crispy_field }}</div>
    
@@ -109,10 +110,8 @@
                                    {{ prod_form.prod_description|as_crispy_field }}
                                 </td>
 
-                                <div class="hidden">{{ prod_form.DELETE }}</div>
-
 				<td style="width: 2%;border: 0; padding: 0 0 0 0.5em;">
-          <button type="button" data-formset-delete-button class="btn btn-default" onclick="deleteRow(this)" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="Remove">
+          <button type="button" class="btn btn-default" onclick="deleteRow(this)" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="Remove">
  <span class="fas fa-times-circle danger" aria-hidden="true"></span>
  </button>
 					
@@ -258,12 +257,14 @@
             let newForm = birdForm[0].cloneNode(true)
             let formRegex = RegExp(`form-(\\d){1}-`,'g')
 
+            formNum++
             newForm.innerHTML = newForm.innerHTML.replace(formRegex, `form-${formNum}-`)
             let nnn = addButtonDiv
             parentDiv.insertBefore(newForm, addButtonDiv)
-            totalForms.setAttribute('value', `${formNum++}`)
+           
+            
+            totalForms.setAttribute('value', `${formNum+1}`)
         }
-
 
 	function deleteRow(r) {
 
@@ -271,25 +272,10 @@
       var total = parseInt($('#id_form-TOTAL_FORMS').val());
       if (total > 1) {
           var i = r.parentNode.parentNode.rowIndex;
-          //document.getElementById("formtable").deleteRow(i);
-          document.getElementById("formtable").rows[i].style.display="none"
-          //document.getElementById("formtable").rows[i].find('input[type="checkbox"]').checked=True
-          $(this).find(':checkbox').attr('checked', true);
-         totalForms.setAttribute('value', `${formNum}`)
-         
-
+          document.getElementById("formtable").deleteRow(i);
+          totalForms.setAttribute('value', `${rowCount}`)
         }
       }
-
-
-      function updateForms() {
-    let bForm = document.querySelectorAll(".tablerow")
-    let count = 0;
-    for (let form of bForm) {
-        const formRegex = RegExp(`form-(\\d){1}-`, 'g');
-        form.innerHTML = form.innerHTML.replace(formRegex, `form-${count++}-`)
-    }
-}
     </script>
 <script>
    $('#add').click(function () {

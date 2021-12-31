@@ -82,8 +82,7 @@
                 <td>
                  
                 <strong>{{invoice.client.clientName}}</strong> <br />
-                {{invoice.client.address}}<br />
-                {{invoice.client.city}}, {{invoice.client.postalCode}} <br/ >
+                {{invoice.client.address}} - {{invoice.client.postalCode}} <br/ >
                <br/ > {{invoice.client.phoneNumber}}
                 <br />
                 <br />
@@ -179,7 +178,35 @@
         <tr class="total">
           <td></td>
 
-          <td colspan="3">Discount({{discount_percentage}})</td>
+          <td colspan="3">Discount({{discount_percentage}}%)</td>
+          <td class = "grand_total"><u><u>{{discount}}</u><u/></td>
+        </tr>
+
+        <tr class="total">
+          <td></td>
+
+          <td colspan="3">Grand Total:</td>
+          <td class = "grand_total"><u><u>{{invoiceGrandTotal}}</u><u/></td>
+        </tr>
+
+      
+         {% elif invoice.istaxable and invoice.apply_discount%}
+        <tr class="total">
+          <td></td>
+
+          <td colspan="3">Total</td>
+          <td class = "grand_total"><u><u>{{invoiceTotal}}</u><u/></td>
+        </tr>
+        <tr class="total">
+          <td></td>
+
+          <td colspan="3">VAT(16%)</td>
+          <td class = "grand_total"><u><u>{{tax}}</u><u/></td>
+        </tr>
+        <tr class="total">
+          <td></td>
+
+          <td colspan="3">Discount({{discount_percentage}}%)</td>
           <td class = "grand_total"><u><u>{{discount}}</u><u/></td>
         </tr>
 

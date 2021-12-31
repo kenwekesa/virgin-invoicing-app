@@ -44,7 +44,7 @@ def create_invoice(request):
 		product_formset = ProductFormSet(request.POST)
 		invoice_product_form = InvoiceProductForm()
 		if form.is_valid() and client_form.is_valid() and product_formset.is_valid():
-			client=client_form.save(commit=False)
+			client=client_form.save()
 			inv_prod = invoice_product_form.save(commit=False)
 			
 			
@@ -54,12 +54,10 @@ def create_invoice(request):
 			
 			
 			#for inv_prod in invoice_product_form:
-	
-			
-			client.save()
 			form.save()
-			
+			client.save()
 			slug=form.slug
+			
 			for f in product_formset: 
 				cd = f.cleaned_data
 				quantity = cd.get('quantity')
@@ -67,6 +65,7 @@ def create_invoice(request):
 				price = cd.get('price')
 				product= cd.get('product')
 				invoice = form
+				slug = invoice.slug
 				inv_prodd = InvoiceProduct(product=product,invoice = invoice,price=price, quantity=quantity,prod_description=description)
 				inv_prodd.save()
 
@@ -86,8 +85,6 @@ def create_invoice(request):
 		
 			
 			#InvoiceProduct.objects.create(product=product, order=form,quantity=quantity)
-			
-			
 			messages.success(request, f'Invoice created successfully')
 			return redirect('create-build-invoice',slug)
 		
@@ -190,7 +187,9 @@ def createBuildInvoice(request, slug):
 			itemtotals.append(y)
 	
 	tax = 0.16*invoiceTotal
-	grand_total = invoiceTotal+tax
+	sub_total = invoiceTotal+tax
+	discount=(float(invoice.discount))*0.01*sub_total
+	grand_total = sub_total-discount
 			
 
 
@@ -199,6 +198,8 @@ def createBuildInvoice(request, slug):
 	context['invoice'] = invoice
 	context['products'] = products
 	context['itemtotals']= itemtotals
+	context['discount']= discount
+	context['discount_percentage']= invoice.discount
 	context['invoiceGrandTotal'] = grand_total
 	context['invoiceTotal'] = "{:.2f}".format(invoiceTotal)
 	context['tax'] =  "{:.2f}".format(tax)
@@ -299,16 +300,18 @@ def pdfview(request,slug):
 	invoiceCurrency = ''
 	invoiceTotal = 0.0
 	itemtotals = []
+	tax=0
 	if len(products) > 0:
 		for x in invoiceproduct:
 			y = float(x.quantity) * float(x.price)
 			invoiceTotal += y
 			itemtotals.append(y)
-	
-	tax = 0.16*invoiceTotal
+	if(invoice.istaxable):
+		tax = 0.16*invoiceTotal
 	sub_total = invoiceTotal+tax
 	discount=(float(invoice.discount))*0.01*sub_total
-	grand_total = sub_total-tax
+	grand_total = sub_total
+	discounted_grand_total = sub_total-discount
 			
 
 
@@ -318,6 +321,7 @@ def pdfview(request,slug):
 	context['products'] = products
 	context['itemtotals']= itemtotals
 	context['discount']= discount
+	context['discounted_grand_total']= discounted_grand_total
 	context['discount_percentage']= invoice.discount
 	context['invoiceGrandTotal'] = grand_total
 	context['invoiceTotal'] = "{:.2f}".format(invoiceTotal)
