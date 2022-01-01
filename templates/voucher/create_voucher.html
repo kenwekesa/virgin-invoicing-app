@@ -47,10 +47,35 @@
         </div>
 
         <div class="form-row">
-        <div class="form-group col-2">
+        <div class="form-group col-9">
+          <table class="table-bordered col-md-10 ml-2">
+           <tr>
+               <th>Single</th>
+                <th>Double</th>
+                <th>Twin</th>
+               <th>Triple</th>
+               <th rowspan="2" style="vertical-align:top">Arrival</th>
+               <th rowspan="2" style="vertical-align:top">Departure</th>
+               <th rowspan="2" style="vertical-align:top">Total Number of nights</th>
+
+
+           </tr>
+           <tr style="height: 30px" class="accomodation">
+               <td><input type="checkbox"/></td>
+                <td><input type="checkbox"/></td>
+                <td><input type="checkbox"/></td>
+               <td><input type="checkbox"/></td>
+              
+
+
+           </tr>
+           <tr
+           ></tr>
+       </table>
           {{ form.accomodation|as_crispy_field }}
         </div>
-       
+       </div>
+            <div class="form-row">
         <div class="form-group col-2">{{ form.meal_plan|as_crispy_field }}</div>
          <div class="form-group col-2 ml-3">{{ form.reserver_name|as_crispy_field }}</div>
          <div class="form-group col-2">{{ form.reservation_date|as_crispy_field }}</div>
@@ -159,71 +184,16 @@
 </div>
 
 
+
 <script>
-        let birdForm = document.querySelectorAll(".tablerow")
-        let container = document.querySelector("#formtable")
-        let addButton = document.querySelector("#add-form")
-        let totalForms = document.querySelector("#id_form-TOTAL_FORMS")
-        let addButtonDiv = document.querySelector(".add-btn-div")
-        let rowCount = document.getElementById('formtable').rows.length-1;
-
-	     var parentDiv = addButtonDiv.parentNode;
-
-        let formNum = birdForm.length-1
-        addButton.addEventListener('click', addForm)
-
-        function addForm(e){
-            e.preventDefault()
-
-            let newForm = birdForm[0].cloneNode(true)
-            let formRegex = RegExp(`form-(\\d){1}-`,'g')
-
-            newForm.innerHTML = newForm.innerHTML.replace(formRegex, `form-${formNum}-`)
-            let nnn = addButtonDiv
-            parentDiv.insertBefore(newForm, addButtonDiv)
-            totalForms.setAttribute('value', `${formNum++}`)
-        }
-
-
-	function deleteRow(r) {
-
-      var i = r.parentNode.parentNode.rowIndex;
-      var total = parseInt($('#id_form-TOTAL_FORMS').val());
-      if (total > 1) {
-          var i = r.parentNode.parentNode.rowIndex;
-          //document.getElementById("formtable").deleteRow(i);
-          document.getElementById("formtable").rows[i].style.display="none"
-          //document.getElementById("formtable").rows[i].find('input[type="checkbox"]').checked=True
-          $(this).find(':checkbox').attr('checked', true);
-         totalForms.setAttribute('value', `${formNum}`)
-         
-
-        }
-      }
-
-
-      function updateForms() {
-    let bForm = document.querySelectorAll(".tablerow")
-    let count = 0;
-    for (let form of bForm) {
-        const formRegex = RegExp(`form-(\\d){1}-`, 'g');
-        form.innerHTML = form.innerHTML.replace(formRegex, `form-${count++}-`)
-    }
-}
-    </script>
-<script>
-   $('#add').click(function () {
-    var n = $('.roww').length + 1;
-    var temp = $('.roww:first').clone();
-    temp.attr('name', temp.attr('name') + n);
-    $('input:first', temp).attr('placeholder', 'Item #' + n)
-    $('.roww:last').after(temp);
+  
+$(".accomodationn :checkbox").click(function () {
+    if (this.checked) $(".discount_group").show();
+    else $(".discount_group").hide();
 });
 
-$(document).ready(function () {
-    $("#remove").click(function () {
-        $(".row:last").remove();
-    });
+$('.accomodation :checkbox"]').on('change', function() {
+   $('.accomodation :checkbox"]').not(this).prop('checked', false);
 });
 </script>
 {% endblock%}

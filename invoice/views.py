@@ -201,9 +201,9 @@ def createBuildInvoice(request, slug):
 	context['products'] = products
 	context['itemtotals']= itemtotals
 	context['discount']= discount
-	context['discounted_grand_total']= discounted_grand_total
+	context['discounted_grand_total']= "{:.2f}".format(discounted_grand_total)
 	context['discount_percentage']= invoice.discount
-	context['invoiceGrandTotal'] = grand_total
+	context['invoiceGrandTotal'] = "{:.2f}".format(grand_total)
 	context['invoiceTotal'] = "{:.2f}".format(invoiceTotal)
 	context['tax'] =  "{:.2f}".format(tax)
 	context['invoiceCurrency'] = invoiceCurrency
