@@ -40,7 +40,7 @@
 
        <div class="form-row discount_row">
         <div class="form-group col-2">{{ form.apply_discount|as_crispy_field }}</div>
-        <div class="form-group col-3 discount_group" style="visibility: hidden">Discount: {{ form.discount|as_crispy_field}}</div>
+        <div class="form-group col-3 discount_group">% Discount: {{ form.discount|as_crispy_field}}</div>
    
         
       </div>
@@ -294,9 +294,8 @@ $(document).ready(function () {
     });
 });
 
-
+$(".discount_group").hide();
 $(".discount_row :checkbox").click(function () {
-    var testVar = ".area" + this.value;
     if (this.checked) $(".discount_group").show();
     else $(".discount_group").hide();
 });
