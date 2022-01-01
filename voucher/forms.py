@@ -20,6 +20,19 @@ class VoucherForm(forms.ModelForm):
     ]
 
     istaxable = forms.BooleanField(label="Taxable", required=False)
+    ai = forms.BooleanField(label='', required=False)
+    hb = forms.BooleanField(label='', required=False)
+    bb = forms.BooleanField(label='', required=False)
+    fb = forms.BooleanField(label='', required=False)
+    single = forms.BooleanField(label='', required=False)
+    double = forms.BooleanField(label='', required=False)
+    twin = forms.BooleanField(label='', required=False)
+    triple = forms.BooleanField(label='', required=False)
+
+    arrival = forms.DateTimeField(required=False, Label='')
+    departure = forms.DateTimeField(required=False, Label='')
+    number_of_nights = forms.CharField(required=False, Label='')
+
     paymentTerms = forms.ChoiceField(
         choices=THE_OPTIONS,
         required=True,
@@ -58,8 +71,9 @@ class VoucherForm(forms.ModelForm):
     class Meta:
         model = Voucher
         fields = ['number', 'facility_name', 'number_of_adults',
-                  'number_of_children', 'children_age', 'infants', 'baby_cot', 'accomodation', 'meal_plan', 'extras_to', 'special_instructions',
-                  'reserver_name', 'reservation_date', 'client_name', 'client_email'
+                  'number_of_children', 'children_age', 'infants', 'baby_cot', 'extras_to', 'special_instructions',
+                  'reserver_name', 'reservation_date', 'client', 'double', 'single', 'twin', 'triple', 'hb', 'fb', 'bb', 'ai',
+                  'departure', 'arrival', 'number_of_nights'
                   ]
 
     def clean(self, *args, **kwargs):

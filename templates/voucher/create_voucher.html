@@ -48,23 +48,24 @@
 
         <div class="form-row">
         <div class="form-group col-9">
+        <h3>accomodation</h3>
           <table class="table-bordered col-md-10 ml-2">
            <tr>
                <th>Single</th>
                 <th>Double</th>
                 <th>Twin</th>
                <th>Triple</th>
-               <th rowspan="2" style="vertical-align:top">Arrival <input type ="date"/></th>
-               <th rowspan="2" style="vertical-align:top">Departure <input type="date"/></th>
-               <th rowspan="2" style="vertical-align:top">Total Number of nights <input type="text"/></th>
+               <th rowspan="2" style="vertical-align:top">Arrival {{ form.arrival|as_crispy_field }}</th>
+               <th rowspan="2" style="vertical-align:top">Departure {{ form.departure|as_crispy_field }}</th>
+               <th rowspan="2" style="vertical-align:top">Total Number of nights {{ form.number_of_nights|as_crispy_field }}</th>
 
 
            </tr>
            <tr style="height: 30px" class="accomodation">
-               <td style="text-align:center"><input type="checkbox"/></td>
-                <td style="text-align:center"><input type="checkbox"/></td>
-                <td style="text-align:center"><input type="checkbox"/></td>
-               <td style="text-align:center"><input type="checkbox"/></td>
+               <td style="text-align:center">{{ form.single|as_crispy_field }}</td>
+                <td style="text-align:center">{{ form.double|as_crispy_field }}</td>
+                <td style="text-align:center">{{ form.twin|as_crispy_field }}</td>
+               <td style="text-align:center">{{ form.triple|as_crispy_field }}</td>
               
 
 
@@ -72,11 +73,29 @@
            <tr
            ></tr>
        </table>
-          {{ form.accomodation|as_crispy_field }}
+          
         </div>
        </div>
-            <div class="form-row">
+            <div class="form-row meal_plan">
         <div class="form-group col-2">{{ form.meal_plan|as_crispy_field }}</div>
+        <h3>Meal Plan</h3>
+        <table class = " table-bordered">
+                  <tr> 
+                      <th>BB</th>
+                     <th>HB</th>
+                     <th>FB</th>
+                     <th>AI</th>
+                  </tr>
+                  <tr style="height: 12px">
+                      <td style="text-align:center">{{ form.bb|as_crispy_field }}</td>
+                      <td style="text-align:center">{{ form.hb|as_crispy_field }}</td>
+                      <td style="text-align:center">{{ form.fb|as_crispy_field }}</td>
+                      <td style="text-align:center">{{ form.ai|as_crispy_field }}</td>
+                  </tr>
+              </table>
+        </div>
+
+        <div class="form-row">
          <div class="form-group col-2 ml-3">{{ form.reserver_name|as_crispy_field }}</div>
          <div class="form-group col-2">{{ form.reservation_date|as_crispy_field }}</div>
         
@@ -193,6 +212,10 @@ $(".accomodationn :checkbox").click(function () {
 });
 
 $('.accomodation :checkbox').on('change', function() {
+   $('.accomodation :checkbox').not(this).prop('checked', false);
+});
+
+$('.meal_plan :checkbox').on('change', function() {
    $('.accomodation :checkbox').not(this).prop('checked', false);
 });
 </script>

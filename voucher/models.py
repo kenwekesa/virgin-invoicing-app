@@ -9,41 +9,9 @@ from uuid import uuid4
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator
 
+from invoice.models import Client
+
 # Create your models here.
-
-
-class Client(models.Model):
-
-    # Basic Fields.
-    clientName = models.CharField(null=True, blank=True, max_length=200)
-    address = models.CharField(null=True, blank=True, max_length=200)
-    postalCode = models.CharField(null=True, blank=True, max_length=10)
-    phoneNumber = models.CharField(null=True, blank=True, max_length=100)
-    emailAddress = models.CharField(null=True, blank=True, max_length=100)
-
-    # Utility fields
-    uniqueId = models.CharField(null=True, blank=True, max_length=100)
-    slug = models.SlugField(max_length=500, unique=True, blank=True, null=True)
-    date_created = models.DateTimeField(blank=True, null=True)
-    last_updated = models.DateTimeField(blank=True, null=True)
-
-    def __str__(self):
-        return '{} {}'.format(self.clientName, self.uniqueId)
-
-    def get_absolute_url(self):
-        return reverse('client-detail', kwargs={'slug': self.slug})
-
-    def save(self, *args, **kwargs):
-        if self.date_created is None:
-            self.date_created = timezone.localtime(timezone.now())
-        if self.uniqueId is None:
-            self.uniqueId = str(uuid4()).split('-')[4]
-            self.slug = slugify('{} {}'.format(self.clientName, self.uniqueId))
-
-        self.slug = slugify('{} {}'.format(self.clientName, self.uniqueId))
-        self.last_updated = timezone.localtime(timezone.now())
-
-        super(Client, self).save(*args, **kwargs)
 
 
 def increment_voucher_number():
@@ -82,20 +50,32 @@ class Voucher(models.Model):
     children_age = models.CharField(null=True, blank=True, max_length=500)
     infants = models.CharField(null=True, blank=True, max_length=500)
     baby_cot = models.CharField(null=True, blank=True, max_length=500)
-    accomodation = models.CharField(null=True, blank=True, max_length=500)
-    meal_plan = models.CharField(null=True, blank=True, max_length=500)
+
     extras_to = models.CharField(null=True, blank=True, max_length=500)
     special_instructions = models.CharField(
         null=True, blank=True, max_length=500)
     reserver_name = models.CharField(null=True, blank=True, max_length=500)
     reservation_date = models.DateField(null=True, blank=True, max_length=500)
 
-    client_name = models.CharField(null=True, blank=True, max_length=500)
-    client_email = models.CharField(null=True, blank=True, max_length=500)
+    arrival = models.DateTimeField(blank=True, null=True)
+    departure = models.DateTimeField(blank=True, null=True)
+    number_of_nights = models.CharField(blank=True, null=True)
+
+    # Accomodation
+    single = models.BooleanField()
+    double = models.BooleanField()
+    triple = models.BooleanField()
+    twin = models.BooleanField()
+
+    # Food plan
+    hb = models.BooleanField()
+    fb = models.BooleanField()
+    bb = models.BooleanField()
+    ai = models.BooleanField()
+
     # RELATED fields
-    """client = models.ForeignKey(
+    client = models.ForeignKey(
         Client, blank=True, null=True, on_delete=models.SET_NULL)
-    """
 
     # Utility fields
     uniqueId = models.CharField(null=True, blank=True, max_length=100)
