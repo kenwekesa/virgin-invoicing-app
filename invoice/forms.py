@@ -45,7 +45,7 @@ class InvoiceForm(forms.ModelForm):
         label='Invoice Due',
         widget=DateInput(attrs={'class': 'form-control mb-3'}),)
 
-    discont = forms.CharField(required=False, label='')
+    discount = forms.CharField(required=False, label='')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
