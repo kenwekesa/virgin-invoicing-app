@@ -65,6 +65,7 @@ class InvoiceForm(forms.ModelForm):
             Submit('submit', ' EDIT INVOICE '))
 
         self.fields['number'].widget.attrs['readonly'] = True
+        self.fields['discount'].widget.attrs['placeholder'] = "Enter percentage discount"
 
     class Meta:
         model = Invoice
