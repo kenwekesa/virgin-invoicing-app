@@ -90,14 +90,14 @@
          <td colspan="3"><h6>Group/Client</h6></td>
     </tr>
     <tr>
-        <td>NO of Adults: <input class ="input-sm" type="text" size="3" name="noofadults"/></td>
-        <td>NO of children <input class ="input-sm" type="text" size="3" name="noofchildren"s/></td>
-        <td>Infants <input class ="input-sm" type="text" size="10" name="infants"/></td>
+        <td>NO of Adults: {{voucher.number_of_adults}}</td>
+        <td>NO of children {{voucher.number_of_children}}</td>
+        <td>Infants {{voucher.infants}}</td>
     </tr>
     <tr>
         <td></td>
-        <td>Age: <input class ="input-sm" type="text" size="10" name="age"/></td>
-        <td>Baby Cot <input class ="input-sm" type="text" size="10" name="babycot"/></td>
+        <td>Age: {{voucher.age}}</td>
+        <td>Baby Cot {{voucher.babycot}}</td>
     </tr>
     </table>
        
@@ -115,17 +115,17 @@
                 <th>Double</th>
                 <th>Twin</th>
                <th>Triple</th>
-               <th rowspan="2" style="vertical-align:top">Arrival</th>
-               <th rowspan="2" style="vertical-align:top">Departure</th>
-               <th rowspan="2" style="vertical-align:top">Total Number of nights</th>
+               <th rowspan="2" style="vertical-align:top">Arrival {{voucher.arrival}}</th>
+               <th rowspan="2" style="vertical-align:top">Departure {{voucher.departure}}</th>
+               <th rowspan="2" style="vertical-align:top">Total Number of nights {{voucher.number_of_nights}}</th>
 
 
            </tr>
            <tr style="height: 30px">
-               <td></td>
-                <td></td>
-                <td></td>
-               <td></td>
+               <td>{%if voucher.single%} tick {%else%} {%endif%}</td>
+                <td>{%if voucher.double%} tick {%else%} {%endif%}</td>
+                <td>{%if voucher.twin%} tick {%else%} {%endif%}</td>
+               <td>{%if voucher.triple%} tick {%else%} {%endif%}</td>
               
 
 
@@ -151,15 +151,15 @@
               <table class = " table-bordered">
                   <tr> 
                       <th>BB</th>
-                     <th>hB</th>
+                     <th>HB</th>
                      <th>FB</th>
                      <th>AI</th>
                   </tr>
                   <tr style="height: 12px">
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
+                      <td> {%if voucher.bb%} tick {%else%} {%endif%}</td>
+                      <td>{%if voucher.hb%} tick {%else%} {%endif%}</td>
+                      <td>{%if voucher.fb%} tick {%else%} {%endif%}</td>
+                      <td>{%if voucher.ai%} tick {%else%} {%endif%}</td>
                   </tr>
               </table>
           </td>
@@ -180,32 +180,29 @@
      <br/>
      <br/>
     
+    <h6>RESERVATION MADE BY: </h6>
       <table class="reservation-table">
         <tr>
-      		<td>RESERVATION MADE BY: </td>
+      		<td>Name: </td>
       		<td> </td>
-		<th class="bordered">CONFIRMED NO. OF ROOMS</th>
+		
 	</tr>
 	<tr>
-      		<td>NAME <input type="text" size="20" name="name"/></td>
+      		<td>Date: </td>
       		<td></td>
-		<td class="bordered">Signed</td>
+		
 	</tr>
-	<tr>
-      		<td>DATE <input type="date" name ="date"/></td>
-      		<td></td>
-		<td class="bordered">Date</td>
-	</tr>
+
       </table>
 
 
    <br/><br/>
-      <div class="text-center">IMPORTANT: THIS VOUCHER MUST BE QUOTED ON YOUR INVOICE TO ENSURE PROMPT PAYMENT</div>
+      
       
   
   <br />
   <div class="text-center">
-    THANK YOU FOR YOUR BUSINESS
+    THANK YOU FOR YOUR CONTINUED PARTNERSHIP.
   </div>
   </div>
 </div>
