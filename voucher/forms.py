@@ -19,7 +19,6 @@ class VoucherForm(forms.ModelForm):
         ('PAID', 'PAID'),
     ]
 
-    istaxable = forms.BooleanField(label="Taxable", required=False)
     ai = forms.BooleanField(label='', required=False)
     hb = forms.BooleanField(label='', required=False)
     bb = forms.BooleanField(label='', required=False)
@@ -33,16 +32,7 @@ class VoucherForm(forms.ModelForm):
     departure = forms.DateTimeField(required=False, label='')
     number_of_nights = forms.CharField(required=False, label='')
 
-    paymentTerms = forms.ChoiceField(
-        choices=THE_OPTIONS,
-        required=True,
-        label='Payment Terms',
-        widget=forms.Select(attrs={'class': 'form-control mb-3'}),)
-    status = forms.ChoiceField(
-        choices=STATUS_OPTIONS,
-        required=True,
-        label='Invoice Status',
-        widget=forms.Select(attrs={'class': 'form-control mb-3'}),)
+   
 
     reservation_date = forms.DateField(
         required=True,
@@ -77,13 +67,13 @@ class VoucherForm(forms.ModelForm):
                   ]
 
     def clean(self, *args, **kwargs):
-        super(InvoiceForm, self).clean()
+        super(VoucherForm, self).clean()
 
         # getting username and password from cleaned_data
         number = self.cleaned_data.get('number')
         dueDate = self.cleaned_data.get('password')
 
         # validating the username and password
-        if 'VRG' not in number:
+        if 'VCH' not in number:
             self._errors['number'] = self.error_class(
-                ['Invalid invoice number'])
+                ['Invalid voucher number'])

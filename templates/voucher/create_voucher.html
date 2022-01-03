@@ -47,8 +47,9 @@
         </div>
 
         <div class="form-row">
-        <div class="form-group col-9">
-        <h3>accomodation</h3>
+        <br/>
+        <div class="form-group col-11">
+        <h5>Accomodation</h5>
           <table class="table-bordered col-md-10 ml-2">
            <tr>
                <th>Single</th>
@@ -76,10 +77,13 @@
           
         </div>
        </div>
+<br/>
             <div class="form-row meal_plan">
-        <div class="form-group col-2">{{ form.meal_plan|as_crispy_field }}</div>
-        <h3>Meal Plan</h3>
-        <table class = " table-bordered">
+      
+         <div class="form-group col-11">
+         
+       <h5>Meal Plan</h5>
+        <table class = " table-bordered col-8 ">
                   <tr> 
                       <th>BB</th>
                      <th>HB</th>
@@ -93,6 +97,7 @@
                       <td style="text-align:center">{{ form.ai|as_crispy_field }}</td>
                   </tr>
               </table>
+              </div>
         </div>
 
         <div class="form-row">
@@ -103,12 +108,21 @@
 
       <div class="form-row">
         
-        <div class="form-group col-3">{{ form.client_name|as_crispy_field }}</div>
+        <div class="form-group col-3">{{ client_form.clientName|as_crispy_field }}</div>
         <div class="form-group col-2">
-          {{ form.client_email|as_crispy_field }}
+          {{ client_form.emailAddress|as_crispy_field }}
         </div>
        
         
+        
+      </div>
+       <div class="form-row">
+        
+        <div class="form-group col-9">{{ form.special_instructions|as_crispy_field }}</div>
+      </div>
+       <div class="form-row">
+        
+        <div class="form-group col-9">{{ form.extras_to|as_crispy_field }}</div>      
         
       </div>
 
@@ -135,69 +149,8 @@
   </div>
   </div>
 
-  <!-- Modals Start Here -->
-  <div class="modal modal-sheet py-5" tabindex="-1" id="adroductModal">
-    <div class="modal-dialog">
-      <div class="modal-content rounded-6 shadow">
-        <form class="form-container" action="#" method="post" enctype="multipart/form-data">
-          {% csrf_token %}
-          <div class="modal-header border-bottom-0">
-            <h5 class="modal-title">Add Invoice Product</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body py-0">{{prod_form.as_p}}</div>
-          <div class="modal-footer flex-column border-top-0">
-            <button
-              type="submit"
-              class="btn btn-lg btn-primary w-100 mx-0 mb-2"
-            >
-              Save changes
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-  <!-- Modal -->
-  <div
-    class="modal fade"
-    id="addClientModal"
-    tabindex="-1"
-    role="dialog"
-    aria-labelledby="exampleModalCenterTitle"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <form class="" action="#" method="post" enctype="multipart/form-data">
-          {% csrf_token %}
-          <div class="modal-header border-bottom-0">
-            <h5 class="modal-title">Add Invoice Product</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body py-0">{{prod_form.as_p}}</div>
-          <div class="modal-footer flex-column border-top-0">
-            <button
-              type="submit"
-              class="btn btn-lg btn-primary w-100 mx-0 mb-2"
-            >
-              Save changes
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
+  
+  
   <!-- ========================= FOOTER END // ========================= -->
   {% endblock %}
 </div>
@@ -216,7 +169,7 @@ $('.accomodation :checkbox').on('change', function() {
 });
 
 $('.meal_plan :checkbox').on('change', function() {
-   $('.accomodation :checkbox').not(this).prop('checked', false);
+   $('.meal_plan :checkbox').not(this).prop('checked', false);
 });
 </script>
 {% endblock%}

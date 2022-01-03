@@ -61,6 +61,8 @@ class Voucher(models.Model):
     departure = models.DateTimeField(blank=True, null=True)
     number_of_nights = models.CharField(blank=True, null=True, max_length=12)
 
+    
+
     # Accomodation
     single = models.BooleanField()
     double = models.BooleanField()
