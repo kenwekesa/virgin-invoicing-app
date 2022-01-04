@@ -68,7 +68,7 @@
     
     
 
-      Please RESERVE the following accommodation for: {{voucher.accommodation_type}}
+      Please RESERVE the following accommodation for: <b>{{voucher.accommodation_type}}</b>
 
       
   
@@ -77,7 +77,7 @@
         <table class="col-md-5" style="height: 30px">
           <tr>
             <td>
-            NAME OF THE LODGE/HOTEL/CAMP: {{voucher.facility_name}}
+            NAME OF THE LODGE/HOTEL/CAMP: <b>{{voucher.facility_name}}</b>
             </td>
           </tr>
         </table>
@@ -90,14 +90,14 @@
          <td colspan="3"><h6>Group/Client</h6></td>
     </tr>
     <tr>
-        <td>NO of Adults: {{voucher.number_of_adults}}</td>
-        <td>NO of children {{voucher.number_of_children}}</td>
-        <td>Infants {{voucher.infants}}</td>
+        <td>NO of Adults: <b>{{voucher.number_of_adults}}</b>/td>
+        <td>NO of children <b>{{voucher.number_of_children}}</b></td>
+        <td>Infants <b>{{voucher.infants}}</b></td>
     </tr>
     <tr>
         <td></td>
-        <td>Age: {{voucher.children_age}}</td>
-        <td>Baby Cot {{voucher.baby_cot}}</td>
+        <td>Age: <b>{{voucher.children_age}}</b></td>
+        <td>Baby Cot <b>{{voucher.baby_cot}}</b></td>
     </tr>
     </table>
        
@@ -111,10 +111,10 @@
     <tr>
        <table class="table-bordered col-md-10 ml-2">
            <tr>
-               <th>Single</th>
-                <th>Double</th>
-                <th>Twin</th>
-               <th>Triple</th>
+               <td>Single</td>
+                <td>Double</td>
+                <td>Twin</td>
+               <td>Triple</td>
                <th rowspan="2" style="vertical-align:top">Arrival {{voucher.arrival}}</th>
                <th rowspan="2" style="vertical-align:top">Departure {{voucher.departure}}</th>
                <th rowspan="2" style="vertical-align:top">Total Number of nights {{voucher.number_of_nights}}</th>
@@ -150,10 +150,10 @@
           <td class="col-md-2">
               <table class = " table-bordered">
                   <tr> 
-                      <th>BB</th>
-                     <th>HB</th>
-                     <th>FB</th>
-                     <th>AI</th>
+                      <td>BB</td
+                     <td>HB</td>
+                     <td>FB</td
+                     <td>AI</td>
                   </tr>
                   <tr style="height: 12px">
                       <td> {%if voucher.bb%} <h6>&#10004</h6> {%else%} {%endif%}</td>

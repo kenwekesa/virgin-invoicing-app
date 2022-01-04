@@ -69,7 +69,7 @@ class Voucher(models.Model):
     accommodation_type = models.CharField(
         choices=types, default='RESIDENT', max_length=19)
     voucher_status = models.CharField(
-        choices=STATUS, default='NEW', max_length=19)
+        choices=STATUS, default='NEW', null = True, blank=True, max_length=19)
 
     
 
