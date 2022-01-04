@@ -38,7 +38,7 @@ class VoucherForm(forms.ModelForm):
     arrival = forms.DateTimeField(required=False, label='')
     departure = forms.DateTimeField(required=False, label='')
     number_of_nights = forms.CharField(required=False, label='')
-    voucher_status = models.CharField(required=False,
+    voucher_status = forms.CharField(required=False,
         max_length=19)
 
    
