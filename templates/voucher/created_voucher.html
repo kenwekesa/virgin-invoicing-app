@@ -58,7 +58,20 @@
               
             </td>
             <td class="col-md-5 text-center" style="width: 10%">
-              <h6>Date:</h6>
+             <table class = " table-bordered">
+                  <tr> 
+                      <td>BOOK</td
+                     <td>AMEND</td>
+                     <td>CANCEL</td>
+                     
+                  </tr>
+                  <tr style="height: 12px">
+                      <td> <h6>&#10004</h6></td>
+                      <td>{%if voucher.hb%} <h6>&#10004</h6> {%else%} {%endif%}</td>
+                      <td>{%if voucher.fb%} <h6>&#10004</h6> {%else%} {%endif%}</td>
+                      
+                  </tr>
+              </table>
              
             </td>
           </tr>

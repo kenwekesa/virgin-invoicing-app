@@ -35,8 +35,8 @@ class VoucherForm(forms.ModelForm):
     twin = forms.BooleanField(label='', required=False)
     triple = forms.BooleanField(label='', required=False)
 
-    arrival = forms.DateTimeField(required=False, label='')
-    departure = forms.DateTimeField(required=False, label='')
+    arrival = forms.DateTimeField(required=False, label='',widget=DateInput())
+    departure = forms.DateTimeField(required=False, label='',widget=DateInput())
     number_of_nights = forms.CharField(required=False, label='')
     voucher_status = forms.CharField(required=False,
         max_length=19)
