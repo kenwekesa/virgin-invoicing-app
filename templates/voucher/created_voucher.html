@@ -68,9 +68,9 @@
     
     
 
-      Please RESERVE the following accommodation for: 
+      Please RESERVE the following accommodation for: {{voucher.accommodation_type}}
 
-      <input type="checkbox" class="ml-4" name="pack" value = 'RESIDENT'/>  RESIDENT   <input type="checkbox" class="ml-4" name="pack" value="NON RESIDENT"/> NON RESIDENT
+      
   
 
     
@@ -122,10 +122,10 @@
 
            </tr>
            <tr style="height: 30px">
-               <td>{%if voucher.single%} <h4>&#10004</h4> {%else%} {%endif%}</td>
-                <td>{%if voucher.double%} <h4>&#10004</h4> {%else%} {%endif%}</td>
-                <td>{%if voucher.twin%} <h4>&#10004</h4> {%else%} {%endif%}</td>
-               <td>{%if voucher.triple%} <h4>&#10004</h4> {%else%} {%endif%}</td>
+               <td>{%if voucher.single%} <h6>&#10004</h6> {%else%} {%endif%}</td>
+                <td>{%if voucher.double%} <h6>&#10004</h6> {%else%} {%endif%}</td>
+                <td>{%if voucher.twin%} <h6>&#10004</h6> {%else%} {%endif%}</td>
+               <td>{%if voucher.triple%} <h6>&#10004</h6> {%else%} {%endif%}</td>
               
 
 
@@ -156,10 +156,10 @@
                      <th>AI</th>
                   </tr>
                   <tr style="height: 12px">
-                      <td> {%if voucher.bb%} <h4>&#10004</h4> {%else%} {%endif%}</td>
-                      <td>{%if voucher.hb%} <h4>&#10004</h4> {%else%} {%endif%}</td>
-                      <td>{%if voucher.fb%} <h4>&#10004</h4> {%else%} {%endif%}</td>
-                      <td>{%if voucher.ai%}<h4>&#10004</h4> {%else%} {%endif%}</td>
+                      <td> {%if voucher.bb%} <h6>&#10004</h6> {%else%} {%endif%}</td>
+                      <td>{%if voucher.hb%} <h6>&#10004</h6> {%else%} {%endif%}</td>
+                      <td>{%if voucher.fb%} <h6>&#10004</h6> {%else%} {%endif%}</td>
+                      <td>{%if voucher.ai%}<h6>&#10004</h46> {%else%} {%endif%}</td>
                   </tr>
               </table>
           </td>
@@ -169,9 +169,9 @@
   
 
     <br/>
-	 <span> Extras to: </span>
+	 <span> Extras to: <b>{{voucher.extras_to}}</b></span>
       <br/>
-    <span>Special Instructions</span>
+    <span>Special Instructions: <b>{{voucher.special_instructions}}</b></span>
       <br/>
 
     <br/>

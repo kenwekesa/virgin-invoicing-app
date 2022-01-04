@@ -1,5 +1,6 @@
 from crispy_forms.layout import Column, Layout, Row, Submit
 from django import forms
+from django.db.models.enums import Choices
 from django.forms.widgets import DateInput
 
 from voucher.models import Voucher
@@ -17,6 +18,12 @@ class VoucherForm(forms.ModelForm):
         ('CURRENT', 'CURRENT'),
         ('OVERDUE', 'OVERDUE'),
         ('PAID', 'PAID'),
+    ]
+
+    types = [
+        ('RESIDENT', 'RESIDENT'),
+        ('NON RESIDENT', 'NON RESIDENT'),
+        
     ]
 
     ai = forms.BooleanField(label='', required=False)
@@ -38,6 +45,13 @@ class VoucherForm(forms.ModelForm):
         required=True,
         label='Reservation Date',
         widget=DateInput(attrs={'class': 'form-control mb-3'}),)
+
+    accommodation_type = forms.ChoiceField(
+
+                        label='Accommodation for:',
+                        widget=forms.RadioSelect,
+                        choices=types
+                    )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -63,7 +77,7 @@ class VoucherForm(forms.ModelForm):
         fields = ['number', 'facility_name', 'number_of_adults',
                   'number_of_children', 'children_age', 'infants', 'baby_cot', 'extras_to', 'special_instructions',
                   'reserver_name', 'reservation_date', 'client', 'double', 'single', 'twin', 'triple', 'hb', 'fb', 'bb', 'ai',
-                  'departure', 'arrival', 'number_of_nights'
+                  'departure', 'arrival', 'number_of_nights','accommodation_type','voucher_status'
                   ]
 
     def clean(self, *args, **kwargs):

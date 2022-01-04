@@ -34,10 +34,15 @@ class Voucher(models.Model):
     ]
 
     STATUS = [
-        ('CURRENT', 'CURRENT'),
+        ('CANCELLED', 'CANCELLED'),
         ('EMAIL_SENT', 'EMAIL_SENT'),
-        ('OVERDUE', 'OVERDUE'),
-        ('PAID', 'PAID'),
+        ('MODIFIED', 'MODIFIED'),
+        
+    ]
+    types = [
+        ('RESIDENT', 'RESIDENT'),
+        ('NON RESIDENT', 'NON RESIDENT'),
+        
     ]
 
     number = models.CharField(
@@ -60,6 +65,11 @@ class Voucher(models.Model):
     arrival = models.DateTimeField(blank=True, null=True)
     departure = models.DateTimeField(blank=True, null=True)
     number_of_nights = models.CharField(blank=True, null=True, max_length=12)
+
+    accommodation_type = models.CharField(
+        choices=types, default='RESIDENT', max_length=19)
+    voucher_status = models.CharField(
+        choices=STATUS, default='NEW', max_length=19)
 
     
 
