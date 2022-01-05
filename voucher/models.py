@@ -37,6 +37,7 @@ class Voucher(models.Model):
         ('CANCELLED', 'CANCELLED'),
         ('EMAIL_SENT', 'EMAIL_SENT'),
         ('MODIFIED', 'MODIFIED'),
+        ('NEW','NEW')
         
     ]
     types = [

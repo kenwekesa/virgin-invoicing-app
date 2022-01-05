@@ -7,6 +7,9 @@ from voucher.models import Voucher
 from crispy_forms.helper import FormHelper
 
 
+class DateInput(forms.DateInput):
+    input_type = 'date'
+    
 class VoucherForm(forms.ModelForm):
     THE_OPTIONS = [
         ('Immediate', 'Immediate'),
@@ -44,6 +47,16 @@ class VoucherForm(forms.ModelForm):
    
 
     reservation_date = forms.DateField(
+        required=True,
+        label='Reservation Date',
+        widget=DateInput(attrs={'class': 'form-control mb-3'}),)
+
+    arrival = forms.DateField(
+        required=True,
+        label='Reservation Date',
+        widget=DateInput(attrs={'class': 'form-control mb-3'}),)
+
+    departure = forms.DateField(
         required=True,
         label='Reservation Date',
         widget=DateInput(attrs={'class': 'form-control mb-3'}),)
