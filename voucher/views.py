@@ -146,3 +146,39 @@ def list_vouchers(request):
 	context['vouchers'] = vouchers
 
 	return render(request, 'voucher/vouchers.html', context)
+
+
+
+
+def pdfview(request,slug):
+
+	try:
+		voucher = Voucher.objects.get(slug=slug)
+		pass
+	except:
+		messages.error(request, 'Something went wrong')
+		return redirect('vouchers')
+
+	
+
+
+
+	context = {}
+	context['voucher'] = voucher
+	
+	
+	
+
+	
+	html_string = render_to_string('voucher/voucher_template.html', context)
+
+	html = HTML(string=html_string, base_url=request.build_absolute_uri())
+	doc = html.render()
+	pdf =doc.write_pdf()
+	
+	
+
+	
+
+	
+   

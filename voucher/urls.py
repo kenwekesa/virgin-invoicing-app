@@ -35,6 +35,7 @@ urlpatterns = [
         path("view-voucher/<slug:slug>", voucher_views.view_voucher, name="view-voucher"),
         path("create-voucher/", voucher_views.create_voucher, name="create-voucher"),
         path("vouchers/", voucher_views.list_vouchers, name="list-vouchers" ),
+         path('voucher-pdf/<slug:slug>',voucher_views.pdfview, name='view-pdf'),
 
 
         

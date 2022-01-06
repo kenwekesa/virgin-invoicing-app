@@ -3,6 +3,25 @@
 <!--Some comments-->
 {% block content %} {% block css %}
 <link href="{% static 'assets/css/bootstrap.min.css' %}" rel="stylesheet" />
+
+<style>
+      .invoice-boxx {
+        max-width: 2400px;
+        width: 100%;
+        margin: auto;
+        padding: 30px;
+        border: 0px solid #eee;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+        font-size: 18px;
+        line-height: 24px;
+        font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+        color: #9C640C;       }
+
+        .invoice-box {
+
+        color: #9C640C; 
+         }
+</style>
 {% endblock %} {% block main %}
 
 <div
@@ -20,13 +39,13 @@
   "
   
 >
-<form method="post" action="{% url 'generate-voucher' %}" name="voucherform">
-{% csrf_token %}
+
+
   <div class="btn-toolbar mb-2 mb-md-0">
  
     <div class="btn-group me-2">
       
-        <button type="submit" class="btn btn-primary">Print</button>
+        <a href="{% url 'view-pdf' voucher.slug%}" class="btn btn-primary">Print</button>
       
     </div>
   </div>
@@ -66,9 +85,9 @@
                      
                   </tr>
                   <tr style="height: 12px">
-                      <td> <h6>&#10004</h6></td>
-                      <td>{%if voucher.hb%} <h6>&#10004</h6> {%else%} {%endif%}</td>
-                      <td>{%if voucher.fb%} <h6>&#10004</h6> {%else%} {%endif%}</td>
+                      <td> <h6 style="color: black;">&#10004</h6></td>
+                      <td>{%if voucher.hb%} <h6 style="color: black;">&#10004</h6> {%else%} {%endif%}</td>
+                      <td>{%if voucher.fb%} <h6 style="color: black;">&#10004</h6> {%else%} {%endif%}</td>
                       
                   </tr>
               </table>
@@ -81,14 +100,14 @@
     
     
 <br/>
-      Please RESERVE the following accommodation for: <b>{{voucher.accommodation_type}}</b>
+      Please RESERVE the following accommodation for: <b style="color: black;">{{voucher.accommodation_type}}</b>
 
       
     
         <table class="col-md-7" style="height: 30px">
           <tr>
             <td>
-            NAME OF THE LODGE/HOTEL/CAMP: <b>{{voucher.facility_name}}</b>
+            NAME OF THE LODGE/HOTEL/CAMP: <b style="color: black;">{{voucher.facility_name}}</b>
             </td>
           </tr>
         </table>
@@ -96,19 +115,20 @@
 
   
   <br/>
-      <table class="col-md-12">
+   <h6>Group/Client</h6>
+      <table class="col-md-7 ml-5">
       
-          <h6>Group/Client</h6>
+         
     
     <tr>
-        <td class="col-3">NO of Adults: <b>{{voucher.number_of_adults}}</b></td>
-        <td>NO of children <b>{{voucher.number_of_children}}</b></td>
-        <td>Infants <b>{{voucher.infants}}</b></td>
+        <td class="col-1 mr-0">NO of Adults: <b style="color: black;">{{voucher.number_of_adults}}</b></td>
+        <td class="col-1 pr-0" style="text-align:left">NO of children <b style="color: black;">{{voucher.number_of_children}}</b></td>
+        <td class="col-1 ml-0" style="text-align:left">Infants <b style="color: black;">{{voucher.infants}}</b></td>
     </tr>
     <tr>
-        <td class="col-3"></td>
-        <td>Age: <b>{{voucher.children_age}}</b></td>
-        <td>Baby Cot <b>{{voucher.baby_cot}}</b></td>
+        <td class="mr-0"></td>
+        <td  class="pr-0" style="text-align:left">Age: <b style="color: black;">{{voucher.children_age}}</b></td>
+        <td class="cmr-0">Baby Cot <b style="color: black;">{{voucher.baby_cot}}</b></td>
     </tr>
     </table>
        
@@ -126,17 +146,17 @@
                 <td>Double</td>
                 <td>Twin</td>
                <td>Triple</td>
-               <th rowspan="2" style="vertical-align:top">Arrival {{voucher.arrival}}</th>
-               <th rowspan="2" style="vertical-align:top">Departure {{voucher.departure}}</th>
-               <th rowspan="2" style="vertical-align:top">Total Number of nights {{voucher.number_of_nights}}</th>
+               <td rowspan="2" style="vertical-align:top; text-align: center">Arrival<br/> <b style="color: black;">{{voucher.arrival}}</b></td>
+               <td rowspan="2" style="vertical-align:top;text-align: center">Departure <br/><b style="color: black;">{{voucher.departure}}</b></td>
+               <td rowspan="2" style="vertical-align:top; text-align: center">Total Number of nights <br/><b style="color: black;">{{voucher.number_of_nights}}<b/></td>
 
 
            </tr>
            <tr style="height: 30px">
-               <td>{%if voucher.single%} <h6>&#10004</h6> {%else%} {%endif%}</td>
-                <td>{%if voucher.double%} <h6>&#10004</h6> {%else%} {%endif%}</td>
-                <td>{%if voucher.twin%} <h6>&#10004</h6> {%else%} {%endif%}</td>
-               <td>{%if voucher.triple%} <h6>&#10004</h6> {%else%} {%endif%}</td>
+               <td style="vertical-align:top; text-align: center">{%if voucher.single%} <h6 style="color: black;">&#10004</h6> {%else%} {%endif%}</td>
+                <td style="vertical-align:top; text-align: center">{%if voucher.double%} <h6 style="color: black;">&#10004</h6> {%else%} {%endif%}</td>
+                <td style="vertical-align:top; text-align: center">{%if voucher.twin%} <h6 style="color: black;">&#10004</h6> {%else%} {%endif%}</td>
+               <td style="vertical-align:top; text-align: center">{%if voucher.triple%} <h6 style="color: black;">&#10004</h6> {%else%} {%endif%}</td>
               
 
 
@@ -150,7 +170,7 @@
     </table>
        
             <br/>
-           <div>Payment will be done by: Virgin Africa Safaris Ltd.</div>
+           <div>Payment will be done by:<b style="color: black;"> Virgin Africa Safaris Ltd.</b></div>
            <br/>
 
     <table class="col-md-5">
@@ -161,16 +181,16 @@
           <td class="col-md-2">
               <table class = " table-bordered">
                   <tr> 
-                      <td>BB</td>
-                     <td>HB</td>
-                     <td>FB</td>
-                     <td>AI</td>
+                      <td style="vertical-align:top; text-align: center">BB</td>
+                     <td style="vertical-align:top; text-align: center">HB</td>
+                     <td style="vertical-align:top; text-align: center">FB</td>
+                     <td style="vertical-align:top; text-align: center">AI</td>
                   </tr>
                   <tr style="height: 12px">
-                      <td> {%if voucher.bb%} <h6>&#10004</h6> {%else%} {%endif%}</td>
-                      <td>{%if voucher.hb%} <h6>&#10004</h6> {%else%} {%endif%}</td>
-                      <td>{%if voucher.fb%} <h6>&#10004</h6> {%else%} {%endif%}</td>
-                      <td>{%if voucher.ai%}<h6>&#10004</h46> {%else%} {%endif%}</td>
+                      <td style="vertical-align:top; text-align: center"> {%if voucher.bb%} <h6 style="color: black;">&#10004</h6> {%else%} {%endif%}</td>
+                      <td style="vertical-align:top; text-align: center">{%if voucher.hb%} <h6 style="color: black;">&#10004</h6> {%else%} {%endif%}</td>
+                      <td style="vertical-align:top; text-align: center">{%if voucher.fb%} <h6 style="color: black;">&#10004</h6> {%else%} {%endif%}</td>
+                      <td style="vertical-align:top; text-align: center">{%if voucher.ai%}<h6 style="color: black;">&#10004</h46> {%else%} {%endif%}</td>
                   </tr>
               </table>
           </td>
@@ -180,9 +200,9 @@
   
 
     <br/>
-	 <span> Extras to: <b>{{voucher.extras_to}}</b></span>
+	 <span> Extras to: <b style="color: black;">{{voucher.extras_to}}</b></span>
       <br/>
-    <span>Special Instructions: <b>{{voucher.special_instructions}}</b></span>
+    <span>Special Instructions: <b style="color: black;">{{voucher.special_instructions}}</b></span>
       <br/>
 
     <br/>

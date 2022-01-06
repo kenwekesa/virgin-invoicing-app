@@ -175,139 +175,147 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
   <body>
-   <div
+  <div
   class="invoice-box"
   style="
     background: url({%static 'images/media/voucherback.png'%});
     background-size: cover;
   "
->
+> 
 
-        <table>
+        <table class = "header_table">
           <tr style = "color: #9C640C ">
-            <td class="title logo">
+            <td class="title col-md-4" style="width: 20%">
               <img
                 src="{% static 'images/logo.PNG' %}"
                 style="width: 100%; max-width: 200px"
                 alt="Logo"
               />
             </td>
-            <td class="address">
-              <h3>Virgin Africa Safaris Ltd.</h3>
-              <h5 class="mt-0">TSS Towers Nkrumah Road<br />
+            <td class="text-center col-md-5" style="width: 55%">
+              <h5>Virgin Africa Safaris Ltd.</h5>
+              <h6 class="mt-0">TSS Towers Nkrumah Road<br />
               P0 BOX 84845 - 80100 GPO,<br />
-              Mombasa Kenya.</h5>
+              Mombasa Kenya.</h6>
               <span class="details">Email: Admin@virginafricasafaris.com<br />
               Website: www.virginafricasafaris.com</span>
               
             </td>
-            <td class="date">
-              <h5>Date:</h5>
+            <td class="col-md-5 text-center" style="width: 10%">
+             <table class = " table-bordered">
+                  <tr> 
+                      <td>BOOK</td>
+                     <td>AMEND</td>
+                     <td>CANCEL</td>
+                     
+                  </tr>
+                  <tr style="height: 12px">
+                      <td> <h6 style="color: black;">&#10004</h6></td>
+                      <td>{%if voucher.hb%} <h6 style="color: black;">&#10004</h6> {%else%} {%endif%}</td>
+                      <td>{%if voucher.fb%} <h6 style="color: black;">&#10004</h6> {%else%} {%endif%}</td>
+                      
+                  </tr>
+              </table>
              
             </td>
           </tr>
         </table>
     
 
-    <br/>    <br/>    <br/>
-      
-   
-      
-      <br/>
-       <table>
-          <tr>
-     <td> Please RESERVE the following accommodation for:  <span style="color: black;">{%for pack in packs %} {{pack}}{%endfor%}</span></td> 
-
-     
-   
-</tr>
-</table>
-  
-
     
-        <table  style="height: 30px">
+    
+<br/>
+      Please RESERVE the following accommodation for: <b style="color: black;">{{voucher.accommodation_type}}</b>
+
+      
+    
+        <table class="col-md-7" style="height: 30px">
           <tr>
-            <td colspan="2">
-            NAME OF THE LODGE/HOTEL/CAMP:<span style="color: black"> {{lodgename}}</span>
+            <td>
+            NAME OF THE LODGE/HOTEL/CAMP: <b style="color: black;">{{voucher.facility_name}}</b>
             </td>
-            
           </tr>
         </table>
    
 
-
-     <br/>
-         <br/>
-      <table>
-      <tr>
-         <th colspan="3"><h6><b>Group/Client</b></h6></th>
+  
+  <br/>
+   <h6>Group/Client</h6>
+      <table class="col-md-7 ml-5">
+      
+         
+    
+    <tr>
+        <td class="col-1 mr-0">NO of Adults: <b style="color: black;">{{voucher.number_of_adults}}</b></td>
+        <td class="col-1 pr-0" style="text-align:left">NO of children <b style="color: black;">{{voucher.number_of_children}}</b></td>
+        <td class="col-1 ml-0" style="text-align:left">Infants <b style="color: black;">{{voucher.infants}}</b></td>
     </tr>
     <tr>
-        <td><form>NO of Adults: <span style="color: black;">{{noofadults}}</span> </form></td>
-        <td><form>NO of children: <span style="color: black;">{{noofchildren}}</span> </form></td>
-        <td><form>Infants: <span style="color: black;">{{infants}}</span></form></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td><form>Age: <span style="color: black;">{{age}}</span></form></td>
-        <td><form>Baby Cot:  <span style="color: black;">{{babycot}}</span></form></td>
+        <td class="mr-0"></td>
+        <td  class="pr-0" style="text-align:left">Age: <b style="color: black;">{{voucher.children_age}}</b></td>
+        <td class="cmr-0">Baby Cot <b style="color: black;">{{voucher.baby_cot}}</b></td>
     </tr>
     </table>
        
  
 
-      <br/>
-      <table>
+   
+      <table class="col-md-11 ml-1">
       <tr>
-         <td colspan="3"><h5><b>Accomodation</b></h5></td>
+         <td colspan="3"><h6>Accomodation</h6></td>
     </tr>
     <tr>
-       <table class="accomodation-table">
-           <tr >
-               <th>Single</th>
-                <th>Double</th>
-                <th>Twin</th>
-               <th>Triple</th>
-               <th rowspan="2" style="vertical-align:top">Arrival</th>
-               <th rowspan="2" style="vertical-align:top">Departure</th>
-               <th rowspan="2" style="vertical-align:top">Total Number of nights</th>
+       <table class="table-bordered col-md-10 ml-2">
+           <tr>
+               <td>Single</td>
+                <td>Double</td>
+                <td>Twin</td>
+               <td>Triple</td>
+               <td rowspan="2" style="vertical-align:top; text-align: center">Arrival<br/> <b style="color: black;">{{voucher.arrival}}</b></td>
+               <td rowspan="2" style="vertical-align:top;text-align: center">Departure <br/><b style="color: black;">{{voucher.departure}}</b></td>
+               <td rowspan="2" style="vertical-align:top; text-align: center">Total Number of nights <br/><b style="color: black;">{{voucher.number_of_nights}}<b/></td>
 
 
            </tr>
            <tr style="height: 30px">
-               <td></td>
-                <td></td>
-                <td></td>
-               <td></td>
+               <td style="vertical-align:top; text-align: center">{%if voucher.single%} <h6 style="color: black;">&#10004</h6> {%else%} {%endif%}</td>
+                <td style="vertical-align:top; text-align: center">{%if voucher.double%} <h6 style="color: black;">&#10004</h6> {%else%} {%endif%}</td>
+                <td style="vertical-align:top; text-align: center">{%if voucher.twin%} <h6 style="color: black;">&#10004</h6> {%else%} {%endif%}</td>
+               <td style="vertical-align:top; text-align: center">{%if voucher.triple%} <h6 style="color: black;">&#10004</h6> {%else%} {%endif%}</td>
               
 
 
            </tr>
-           <tr></tr>
+           <tr
+           ></tr>
        </table>
        
     </tr>
     
     </table>
        
-    <br/> 
+            <br/>
+           <div>Payment will be done by:<b style="color: black;"> Virgin Africa Safaris Ltd.</b></div>
+           <br/>
 
-    <div>Payment will be done by: Virgin Africa Safaris Ltd.</div>
-    <br/>
-    <table style="width: 50%">    
-      <tr>
-          <td >Meal Plan:</td>
-          <td>
-              <table class="table-meal">
+    <table class="col-md-5">
+  
+   
+      <tr class="col-md-4 mt-3">
+          <td class="col-md-2">Meal Plan</td>
+          <td class="col-md-2">
+              <table class = " table-bordered">
                   <tr> 
-                     <th>FB</th>
-                     <th>HB</th>
-                     <th>BB</th>
+                      <td style="vertical-align:top; text-align: center">BB</td>
+                     <td style="vertical-align:top; text-align: center">HB</td>
+                     <td style="vertical-align:top; text-align: center">FB</td>
+                     <td style="vertical-align:top; text-align: center">AI</td>
                   </tr>
-                  <tr style="height:30px;">
-                      <td></td>
-                      <td></td>
-                      <td></td>
+                  <tr style="height: 12px">
+                      <td style="vertical-align:top; text-align: center"> {%if voucher.bb%} <h6 style="color: black;">&#10004</h6> {%else%} {%endif%}</td>
+                      <td style="vertical-align:top; text-align: center">{%if voucher.hb%} <h6 style="color: black;">&#10004</h6> {%else%} {%endif%}</td>
+                      <td style="vertical-align:top; text-align: center">{%if voucher.fb%} <h6 style="color: black;">&#10004</h6> {%else%} {%endif%}</td>
+                      <td style="vertical-align:top; text-align: center">{%if voucher.ai%}<h6 style="color: black;">&#10004</h46> {%else%} {%endif%}</td>
                   </tr>
               </table>
           </td>
@@ -315,52 +323,43 @@
      
       </table>
   
-         <br/>    <br/>
-	 <div> Extras to: </div>
+
+    <br/>
+	 <span> Extras to: <b style="color: black;">{{voucher.extras_to}}</b></span>
       <br/>
-    <div>Special Instructions</div>
+    <span>Special Instructions: <b style="color: black;">{{voucher.special_instructions}}</b></span>
       <br/>
 
     <br/>
-      <p>Acknowledge receipt of this order by stating <b>CONFIRMED</b> below and retain the <b>TOP COPY FOR YOUR RECORDS</b></p>
+      <span>Acknowledge receipt of this order by stating CONFIRMED below and retain the TOP COPY FOR YOUR RECORDS</span>
 
      <br/>
      <br/>
     
-
-    
-    
+    <b><span>RESERVATION MADE BY:</span></b>
       <table class="reservation-table">
         <tr>
-      		<td>RESERVATION MADE BY: </td>
+      		<td>Name: </td>
       		<td> </td>
-		<th class="bordered">CONFIRMED NO. OF ROOMS</th>
+		
 	</tr>
 	<tr>
-      		<td>NAME: <span style="color: black;">{{name}}</span></td>
+      		<td>Date: </td>
       		<td></td>
-		<td class="bordered">Signed</td>
+		
 	</tr>
-	<tr>
-      		<td>DATE:  <span style="color: black;">{{date|date:"M d, Y"}}</span></td>
-      		<td></td>
-		<td class="bordered">Date</td>
-	</tr>
+
       </table>
 
 
-   <br />
-    <br/>
-     <br/>
-      <div style="text-align:center">IMPORTANT: THIS VOUCHER MUST BE QUOTED ON YOUR INVOICE TO ENSURE PROMPT PAYMENT</div>
+   <br/><br/>
+      
       
   
   <br />
-
-
-  <div style="text-align:center">
-    THANK YOU FOR YOUR BUSINESS
+  <div class="text-center">
+    THANK YOU FOR YOUR CONTINUED PARTNERSHIP.
   </div>
-</div>
+  </div>
   </body>
 </html>
