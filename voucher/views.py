@@ -175,6 +175,11 @@ def pdfview(request,slug):
 	html = HTML(string=html_string, base_url=request.build_absolute_uri())
 	doc = html.render()
 	pdf =doc.write_pdf()
+
+
+	response = HttpResponse(pdf, content_type='application/pdf')
+	#response['Content-Disposition'] = 'attachment; filename="mypdf.pdf"'
+	return response
 	
 	
 
