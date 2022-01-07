@@ -1,0 +1,182 @@
+{% extends 'index.html' %} {% load static %} {% load crispy_forms_tags %}
+
+<!--Some comments-->
+{% block content %} {% block css %}
+<link href="{% static 'assets/css/bootstrap.min.css' %}" rel="stylesheet" />
+{% endblock %} {% block main %}
+
+<!-- This is a comment too-->
+
+<!-- section-header.// -->
+<!--Login-->
+
+<div class="container py-5 create-form-box pl-5">
+  {% if prod_form.errors %} ddddes: {% for error in prod_form.errors %}
+  <!---->
+  {{ error | escape }} {% endfor %} {% endif %} {% if inv_prod_form.errors %}
+  ddddes: {% for error in inv_prod_form.errors %}
+  <!---->
+  {{ error | escape }} {% endfor %} {% endif %} {% if form.errors %} ddddes:
+  {%for error in form.errors %}
+  <!---->
+  {{ error | escape }} {% endfor %} {% endif %}
+  <h5>Editing Voucher</h5>
+  <br/>
+  <br/>
+  <div class="row">
+    <form method="POST" class="col-12">
+      {% csrf_token %}
+        
+      </div>
+
+
+       <div class="form-row">
+        <div class="form-group col-2">{{ form.number|as_crispy_field }}</div>
+         <div class="form-group col-3 ml-4">{{ form.accommodation_type|as_crispy_field }}</div>
+        </div>
+        <div class="form-row">
+
+        
+        <div class="form-group col-3">{{ form.facility_name|as_crispy_field }}</div>
+        
+       
+        <div class="form-group col-2">{{ form.number_of_adults|as_crispy_field }}</div>
+        
+        
+      </div>
+      <div class="form-row">
+        <div class="form-group col-2">{{ form.number_of_children|as_crispy_field }}</div>
+        <div class="form-group col-3">{{ form.children_age|as_crispy_field }}</div>
+       
+        
+        <div class="form-group col-2">{{ form.infants|as_crispy_field }}</div>
+        <div class="form-group col-3">{{ form.baby_cot|as_crispy_field }}</div>
+        </div>
+
+        <div class="form-row">
+        <br/>
+        <div class="form-group col-11">
+        <h5>Accomodation</h5>
+          <table class="table-bordered col-md-10 ml-2">
+           <tr>
+               <th>Single</th>
+                <th>Double</th>
+                <th>Twin</th>
+               <th>Triple</th>
+               <th rowspan="2" style="vertical-align:top">Arrival {{ form.arrival|as_crispy_field }}</th>
+               <th rowspan="2" style="vertical-align:top">Departure {{ form.departure|as_crispy_field }}</th>
+               <th rowspan="2" style="vertical-align:top">Total Number of nights {{ form.number_of_nights|as_crispy_field }}</th>
+
+
+           </tr>
+           <tr style="height: 30px" class="accomodation">
+               <td style="text-align:center">{{ form.single|as_crispy_field }}</td>
+                <td style="text-align:center">{{ form.double|as_crispy_field }}</td>
+                <td style="text-align:center">{{ form.twin|as_crispy_field }}</td>
+               <td style="text-align:center">{{ form.triple|as_crispy_field }}</td>
+              
+
+
+           </tr>
+           <tr
+           ></tr>
+       </table>
+          
+        </div>
+       </div>
+<br/>
+            <div class="form-row meal_plan">
+      
+         <div class="form-group col-11">
+         
+       <h5>Meal Plan</h5>
+        <table class = " table-bordered col-6 ">
+                  <tr> 
+                      <th style="text-align:center">BB</th>
+                     <th style="text-align:center">HB</th>
+                     <th style="text-align:center">FB</th>
+                     <th style="text-align:center">AI</th>
+                  </tr>
+                  <tr style="height: 12px" class="pt-4">
+                      <td style="text-align:center">{{ form.bb|as_crispy_field }}</td>
+                      <td style="text-align:center">{{ form.hb|as_crispy_field }}</td>
+                      <td style="text-align:center">{{ form.fb|as_crispy_field }}</td>
+                      <td style="text-align:center">{{ form.ai|as_crispy_field }}</td>
+                  </tr>
+              </table>
+              </div>
+        </div>
+
+        <div class="form-row">
+         <div class="form-group col-2 ml-3">{{ form.reserver_name|as_crispy_field }}</div>
+         <div class="form-group col-3 mr-2">{{ form.reservation_date|as_crispy_field }}</div>
+        
+      </div>
+
+      <div class="form-row">
+        
+        <div class="form-group col-3">{{ client_form.clientName|as_crispy_field }}</div>
+        <div class="form-group col-2">
+          {{ client_form.emailAddress|as_crispy_field }}
+        </div>
+       
+        
+        
+      </div>
+       <div class="form-row">
+        
+        <div class="form-group col-9">{{ form.special_instructions|as_crispy_field }}</div>
+      </div>
+       <div class="form-row">
+        
+        <div class="form-group col-9">{{ form.extras_to|as_crispy_field }}</div>      
+        
+      </div>
+
+     
+      <div class="form-row">
+        <!-- collapsible form -->
+        <div class="col-12">
+
+        
+
+ 
+  </div>
+  </div>
+        
+    
+      
+      <br />
+      <div class="row justify-content-center" style = "width: 100%">
+      <button class="btn btn-info col-2 mr-1" type="submit">Save</button>
+      
+      <a class =" col-2" href="{% url 'homepage'%}"><button class="btn btn-danger" type="button">Cancel</button></a>
+      </div>
+    </form>
+  </div>
+  </div>
+
+  
+  
+  <!-- ========================= FOOTER END // ========================= -->
+  {% endblock %}
+</div>
+
+
+
+<script>
+  
+$(".accomodationn :checkbox").click(function () {
+    if (this.checked) $(".discount_group").show();
+    else $(".discount_group").hide();
+});
+
+$('.accomodation :checkbox').on('change', function() {
+   $('.accomodation :checkbox').not(this).prop('checked', false);
+});
+
+$('.meal_plan :checkbox').on('change', function() {
+   $('.meal_plan :checkbox').not(this).prop('checked', false);
+});
+</script>
+{% endblock%}

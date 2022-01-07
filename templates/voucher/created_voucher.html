@@ -48,6 +48,16 @@
         <a href="{% url 'view-pdf' voucher.slug%}" target="_blank" class="btn btn-primary">Print</a>
       
     </div>
+     <div class="btn-group ml-2">
+      
+        <a href="{% url 'edit-voucher' voucher.slug%}" class="btn btn-secondary">Edit</a>
+      
+    </div>
+     <div class="btn-group ml-2">
+      
+        <a href="{% url 'view-pdf' voucher.slug%}" target="_blank" class="btn btn-warning">Sent Email</a>
+      
+    </div>
   </div>
 </div>
 <div
@@ -77,7 +87,10 @@
               
             </td>
             <td class="col-md-5 text-center" style="width: 10%">
+              <div><h6>Voucher No: {{voucher.number}}</h6></div>
+              <br/>
              <table class = " table-bordered">
+                 
                   <tr> 
                       <td>BOOK</td>
                      <td>AMEND</td>

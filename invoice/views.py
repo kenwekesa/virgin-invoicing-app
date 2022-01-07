@@ -34,6 +34,7 @@ import os
 def main(request):
 	return render(request, 'invoice/main.html')
 
+@login_required
 def create_invoice(request):
 	slug=''
 	if request.method == 'POST':
@@ -200,7 +201,7 @@ def createBuildInvoice(request, slug):
 	context['invoice'] = invoice
 	context['products'] = products
 	context['itemtotals']= itemtotals
-	context['discount']= discount
+	context['discount']= "{:.2f}".format(discount)
 	context['discounted_grand_total']= "{:.2f}".format(discounted_grand_total)
 	context['discount_percentage']= invoice.discount
 	context['invoiceGrandTotal'] = "{:.2f}".format(grand_total)
@@ -323,7 +324,7 @@ def pdfview(request,slug):
 	context['invoice'] = invoice
 	context['products'] = products
 	context['itemtotals']= itemtotals
-	context['discount']= discount
+	context['discount']= "{:.2f}".format(discount)
 	context['discounted_grand_total']= discounted_grand_total
 	context['discount_percentage']= invoice.discount
 	context['invoiceGrandTotal'] = grand_total
@@ -406,6 +407,7 @@ def viewDocumentInvoice(request, slug):
 	#Return
 	#return response
 """
+@login_required
 def edit_invoice(request, slug):
 	invoice = Invoice.objects.filter(slug=slug).first()
 	product = InvoiceProduct.objects.filter(invoice=invoice)
@@ -497,7 +499,7 @@ def edit_invoice(request, slug):
 			#InvoiceProduct.objects.create(product=product, order=form,quantity=quantity)
 			messages.success(request, f'Invoice successfully updated.')
 			return redirect('create-build-invoice',slug)
-	messages.error(request, f'Failed.')	
+	
 	return render(request=request, template_name="invoice/edit_invoice.html", context={"form":form, "client_form": client_form,"prod_form": product_form,"prod_formset":product_formset})
 
 def emailDocumentInvoice(request, slug):
