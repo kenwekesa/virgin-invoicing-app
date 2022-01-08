@@ -407,11 +407,17 @@ def viewDocumentInvoice(request, slug):
 	#Return
 	#return response
 """
+
+@login_required
+def edit_invoice(request, slug):
+	product=InvoiceProduct.objects.filter(id=id).first()
+	product.delete()
 @login_required
 def edit_invoice(request, slug):
 	invoice = Invoice.objects.filter(slug=slug).first()
 	product = InvoiceProduct.objects.filter(invoice=invoice)
 	clients = Client.objects.filter(invoice=invoice).first()
+	products -
 	form = InvoiceForm(instance=invoice)
 	client_form = ClientForm(instance=clients)
 	
@@ -428,18 +434,20 @@ def edit_invoice(request, slug):
 			'product':Product.objects.get(id=list.product_id),
 			'quantity': list.quantity,
 			'price': list.price,
-			'prod_description': list.prod_description
+			'prod_description': list.prod_description,
+			'id': list.id
 		}
 		data.append(lis_dict)
 	
 	
-	DummyFormset = formset_factory(InvoiceProductForm,
+	EditFormset = formset_factory(InvoiceProductForm,
 									 min_num=len(data), validate_min=True,
 									 max_num=len(data), validate_max=True,
 									 extra=0,can_delete=True)
 
 	#product_formset = ProductEditFormSet(queryset=product)
 	product_formset = DummyFormset(initial=data)
+	product_formset_modal = EditFormset()
 
 	if request.method == 'POST':
 		slug = ''
@@ -500,7 +508,7 @@ def edit_invoice(request, slug):
 			messages.success(request, f'Invoice successfully updated.')
 			return redirect('create-build-invoice',slug)
 	
-	return render(request=request, template_name="invoice/edit_invoice.html", context={"form":form, "client_form": client_form,"prod_form": product_form,"prod_formset":product_formset})
+	return render(request=request, template_name="invoice/edit_invoice.html", context={"product_list":data,"form":form, "client_form": client_form,"product_formset_modal": product_formset,"prod_form": product_form,"prod_formset":product_formset})
 
 def emailDocumentInvoice(request, slug):
 	#fetch that invoice
