@@ -409,15 +409,15 @@ def viewDocumentInvoice(request, slug):
 """
 
 @login_required
-def edit_invoice(request, slug):
+def delete_invoice_product(request, id):
 	product=InvoiceProduct.objects.filter(id=id).first()
 	product.delete()
+
 @login_required
 def edit_invoice(request, slug):
 	invoice = Invoice.objects.filter(slug=slug).first()
 	product = InvoiceProduct.objects.filter(invoice=invoice)
 	clients = Client.objects.filter(invoice=invoice).first()
-	products -
 	form = InvoiceForm(instance=invoice)
 	client_form = ClientForm(instance=clients)
 	
