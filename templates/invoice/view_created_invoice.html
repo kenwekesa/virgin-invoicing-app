@@ -26,16 +26,16 @@
     </div>
      <div class="btn-group ml-2">
       
-        <a href="{% url 'email-document-invoice' invoice.slug%}" class="btn btn-warning">Edit</a>
+        <a href="{% url 'edit-invoice' invoice.slug %}" class="btn btn-warning">Edit</a>
       
     </div>
-     <div class="btn-group ml-2">
+     <div class="btn-group ml-2 mr-2">
       
-        <a href="{% url 'edit-invoice' invoice.slug %}" target="_blank" class="btn btn-info">Email Invoice</a>
+        <a href="{% url 'email-document-invoice' invoice.slug%}"  class="btn btn-info">Email Invoice</a>
       
     </div>
               
-    <div class="btn-group me-2">
+    <div class="btn-group me-2 pull-right">
       <a href="{% url 'view-invoices' %}"
         ><button type="button" class="btn btn-primary">Go Back</button></a
       >
