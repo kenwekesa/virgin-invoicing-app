@@ -182,6 +182,7 @@ def createBuildInvoice(request, slug):
 	invoiceTotal = 0.0
 	itemtotals = []
 	tax=0
+	discount=0
 	if len(products) > 0:
 		for x in invoiceproduct:
 			y = float(x.quantity) * float(x.price)
@@ -190,7 +191,8 @@ def createBuildInvoice(request, slug):
 	if(invoice.istaxable):
 		tax = 0.16*invoiceTotal
 	sub_total = invoiceTotal+tax
-	discount=(float(invoice.discount))*0.01*sub_total
+	if(invoice.apply_discount):
+		discount=(float(invoice.discount))*0.01*sub_total
 	grand_total = sub_total
 	discounted_grand_total = sub_total-discount
 			
