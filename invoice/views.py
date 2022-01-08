@@ -446,14 +446,14 @@ def edit_invoice(request, slug):
 									 extra=0,can_delete=True)
 
 	#product_formset = ProductEditFormSet(queryset=product)
-	product_formset = DummyFormset(initial=data)
+	product_formset = EditFormset(initial=data)
 	product_formset_modal = EditFormset()
 
 	if request.method == 'POST':
 		slug = ''
 		form = InvoiceForm(request.POST, instance=invoice)
 		client_form = ClientForm(request.POST,instance=clients)
-		product_formset = DummyFormset(request.POST,initial=data)
+		product_formset = EditFormset(request.POST,initial=data)
 		invoice_product_form = InvoiceProductForm()
 
 		
