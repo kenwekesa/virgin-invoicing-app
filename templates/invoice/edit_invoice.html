@@ -219,18 +219,14 @@
         <td>{{product.product}}</td>
         <td>{{product.prod_description}}</td>
         <td>{{product.quantity}}</td>
-        <td><a href="{% url 'delete-product' product.id%}">Delete</a></td>
+        <td><a class="btn btn-danger btn-sm" href="{% url 'delete-product' product.id%}">Delete</a></td>
         <td>
           <a href="#" id="edit-1"></a>
         </td>
        <!-- <td>
           <a href="#"><button class="btn btn-danger btn-sm">DELETE</button></a>
         </td>-->
-        <td>
-          <a href="{% url 'create-build-invoice' invoice.slug %}"
-            ><button class="btn btn-primary btn-sm">VIEW</button></a
-          >
-        </td>
+        
       </tr>
       {% endfor %}
     </tbody>
