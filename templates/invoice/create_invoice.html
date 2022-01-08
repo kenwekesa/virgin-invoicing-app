@@ -275,9 +275,22 @@
       if (total > 1) {
           var i = r.parentNode.parentNode.rowIndex;
           document.getElementById("formtable").deleteRow(i);
-          totalForms.setAttribute('value', `${rowCount}`)
+          totalForms.setAttribute('value', `${formNum-1}`)
         }
+
+        updateForms()
       }
+
+      function updateForms() {
+    let bForm = document.querySelectorAll(".tablerow")
+    let count = 0;
+    for (let form of bForm) {
+        const formRegex = RegExp(`form-(\\d){1}-`, 'g');
+        form.innerHTML = form.innerHTML.replace(formRegex, `form-${count++}-`)
+        
+    }
+
+    
     </script>
 <script>
    $('#add').click(function () {

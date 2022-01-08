@@ -18,28 +18,23 @@
 >
   <div class="btn-toolbar mb-2 mb-md-0">
     <div class="col-lg-2" >
-              <a href="{% url 'viewpdf' invoice.slug%} " target="_blank"
-                ><button class="btn btn-success text-white">
-                  PRINT
-                </button></a
-              >
-            </div>
-            <div class="col-lg-4">
-              <a href="{% url 'email-document-invoice' invoice.slug%}"
-                ><button class="btn btn-warning text-white">
-                  EMAIL INVOICE
-                </button></a
-              >
-            </div>
-            
-            <div class="col-lg-2">
-              <a href="{% url 'edit-invoice' invoice.slug %}"
-              target="_blank"
-                ><button class="btn btn-info text-white">
-                  EDIT
-                </button></a
-              >
-            </div>
+
+             <div class="btn-group me-2">
+      
+        <a href="{% url 'viewpdf' invoice.slug%} " target="_blank" class="btn btn-primary">Print</a>
+      
+    </div>
+     <div class="btn-group ml-2">
+      
+        <a href="{% url 'edit-voucher' voucher.slug%}" class="btn btn-warning">Edit</a>
+      
+    </div>
+     <div class="btn-group ml-2">
+      
+        <a href="{% url 'edit-invoice' invoice.slug %}" target="_blank" class="btn btn-secondary">Email Invoice</a>
+      
+    </div>
+              
     <div class="btn-group me-2">
       <a href="{% url 'view-invoices' %}"
         ><button type="button" class="btn btn-primary">Go Back</button></a

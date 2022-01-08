@@ -123,7 +123,7 @@
                             </tr>
                              {% endfor %}
                             <tr class="add-btn-div">
-                              <td><input type='button' id='add-form' value='Add item' class="btn btn-secondary" /></td>
+                              <td><input type='button' id='dadd-form' value='Add item' class="btn btn-secondary" data-toggle="modal" data-target="#deleteItemModal"/></td>
                               <td><button type='button' id='delete-item' value='Delete Item' class="btn btn-danger" data-toggle="modal" data-target="#deleteItemModal">Delete Item</button></td>
                             </tr>
                          
@@ -215,7 +215,6 @@
      
       {% for product in product_list %}
       <tr onclick="getElementById('edit-1').click()" style="cursor: pointer">
-        <td id="invoicenumber">{{invoice.number}}</td>
         <td>{{product.product}}</td>
         <td>{{product.prod_description}}</td>
         <td>{{product.quantity}}</td>
@@ -234,15 +233,11 @@
           
           </div>
           <div class="modal-footer flex-column border-top-0">
+           
             <button
-              type="submit"
-              class="btn btn-lg btn-primary w-100 mx-0 mb-2"
-            >
-              Confirm
-            </button>
-            <button
-              type="submit"
-              class="btn btn-lg btn-primary w-100 mx-0 mb-2"
+              type="button"
+              class="btn  btn-primary mx-0 mb-2"
+              data-dismiss="modal" aria-label="Close"
             >
               Cancel
             </button>
@@ -323,17 +318,12 @@
                                 </td>
 
 				<td style="width: 2%;border: 0; padding: 0 0 0 0.5em;">
-          <button type="button" class="btn btn-default" onclick="deleteRow(this)" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="Remove">
- <span class="fas fa-times-circle danger" aria-hidden="true"></span>
- </button>
+          
 					
 				</td>
                             </tr>
                              {% endfor %}
-                            <tr class="add-btn-div">
-                              <td><input type='button' id='add-form' value='Add item' class="btn btn-secondary" /></td>
-                              <td><button type='button' id='delete-item' value='Delete Item' class="btn btn-danger" data-toggle="modal" data-target="#deleteItemModal">Delete Item</button></td>
-                            </tr>
+                            
                          
                         </table>
           
@@ -341,9 +331,16 @@
           <div class="modal-footer flex-column border-top-0">
             <button
               type="submit"
-              class="btn btn-lg btn-primary w-100 mx-0 mb-2"
+              class="btn btn-primary mx-0 mb-2"
             >
               Save changes
+            </button>
+             <button
+              type="button"
+              class="btn  btn-primary mx-0 mb-2"
+              data-dismiss="modal" aria-label="Close"
+            >
+              Cancel
             </button>
           </div>
         </form>
