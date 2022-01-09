@@ -55,9 +55,20 @@
     </div>
      <div class="btn-group ml-2">
       
-        <a href="{% url 'view-pdf' voucher.slug%}" target="_blank" class="btn btn-warning">Sent Email</a>
+        <a href="{% url 'email-voucher' voucher.slug%}" target="_blank" class="btn btn-warning">Sent Email</a>
       
     </div>
+    <div class="btn-group ml-2">
+      
+        <a href="{% url 'cancel-voucher' voucher.slug%}" target="_blank" class="btn btn-warning">Cancel</a>
+      
+    </div>
+    <div class="btn-group ml-2">
+      
+        <a href="{% url 'amend-voucher' voucher.slug%}" target="_blank" class="btn btn-warning">Amend</a>
+      
+    </div>
+   
   </div>
 </div>
 <div

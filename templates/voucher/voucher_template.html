@@ -212,9 +212,9 @@
                      
                   </tr>
                   <tr style="height: 12px">
-                      <td> <h6 style="color: black;">&#10004</h6></td>
-                      <td>{%if voucher.hb%} <h6 style="color: black;">&#10004</h6> {%else%} {%endif%}</td>
-                      <td>{%if voucher.fb%} <h6 style="color: black;">&#10004</h6> {%else%} {%endif%}</td>
+                      <td>{%if voucher.status == 'NEW'%} <h6 style="color: black;">&#10004</h6> {%else%} {%endif%}</td>
+                      <td>{%if voucher.status == 'MODIFIED'%} <h6 style="color: black;">&#10004</h6> {%else%} {%endif%}</td>
+                      <td>{%if voucher.status =='CANCELLED'%} <h6 style="color: black;">&#10004</h6> {%else%} {%endif%}</td>
                       
                   </tr>
               </table>

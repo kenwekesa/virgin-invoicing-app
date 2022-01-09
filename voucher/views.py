@@ -19,6 +19,8 @@ from voucher.forms import VoucherForm
 from invoice.forms import ClientForm
 
 
+from virginafrica.functions import emailVoucher
+
 def create_voucher(request):
 	slug=''
 	if request.method == 'POST':
@@ -222,7 +224,191 @@ def pdfview(request,slug):
 	
 	
 
-	
+
+
+def cancel_voucher(request, slug):
+	#fetch that invoice
+	try:
+		voucher = Voucher.objects.get(slug=slug)
+		pass
+	except:
+		messages.error(request, 'Something went wrong')
+		return redirect('vouchers')
 
 	
+			
+
+	voucher.status = 'CANCELLED'
+	voucher.save()
+
+	context = {}
+	context['voucher'] = voucher
+	
+	
+	#The name of your PDF file
+	filename = '{}.pdf'.format(voucher.uniqueId)
+	#HTML FIle to be converted to PDF - inside your Django directory
+	#template = get_template('invoice/pdf-template.html')
+	#Render the HTML
+	#html = template.render(context)
+	#Options - Very Important [Don't forget this]
+	options = {
+		  'encoding': 'UTF-8',
+		  'javascript-delay':'1000', #Optional
+		  'enable-local-file-access': None, #To be able to access CSS
+		  'page-size': 'A4',
+		  'custom-header' : [
+			  ('Accept-Encoding', 'gzip')
+		  ],
+	  }
+	  #Javascript delay is optional
+	#Remember that location to wkhtmltopdf
+	#Saving the File
+	filepath = os.path.join(settings.MEDIA_ROOT, 'client_vouchers')
+	os.makedirs(filepath, exist_ok=True)
+	
+	#Save the PDF
+	html_string = render_to_string('voucher/voucher_template.html', context)
+
+	html = HTML(string=html_string, base_url=request.build_absolute_uri())
+	doc = html.render()
+	pdf =doc.write_pdf()
+	pdf_save_path = filepath+filename
+
+
+	#pdfkit.from_string(html, pdf_save_path, configuration=config, options=options)
+	#send the emails to client
+	to_email = voucher.client.emailAddress
+	from_client = voucher.client.clientName
+	emailVoucher(pdf,to_email, from_client, filename)
+	
+	#Email was send, redirect back to view - invoice
+	messages.success(request, "Cancel mail sent to the client succesfully")
+	return redirect('view-voucher', slug=slug)
+	#view invoices here
+
+
+def email_voucher(request, slug):
+	#fetch that invoice
+	try:
+		voucher = Voucher.objects.get(slug=slug)
+		pass
+	except:
+		messages.error(request, 'Something went wrong')
+		return redirect('vouchers')
+
+	
+			
+
+
+
+	context = {}
+	context['voucher'] = voucher
+	
+	
+	#The name of your PDF file
+	filename = '{}.pdf'.format(voucher.uniqueId)
+	#HTML FIle to be converted to PDF - inside your Django directory
+	#template = get_template('invoice/pdf-template.html')
+	#Render the HTML
+	#html = template.render(context)
+	#Options - Very Important [Don't forget this]
+	options = {
+		  'encoding': 'UTF-8',
+		  'javascript-delay':'1000', #Optional
+		  'enable-local-file-access': None, #To be able to access CSS
+		  'page-size': 'A4',
+		  'custom-header' : [
+			  ('Accept-Encoding', 'gzip')
+		  ],
+	  }
+	  #Javascript delay is optional
+	#Remember that location to wkhtmltopdf
+	#Saving the File
+	filepath = os.path.join(settings.MEDIA_ROOT, 'client_vouchers')
+	os.makedirs(filepath, exist_ok=True)
+	
+	#Save the PDF
+	html_string = render_to_string('voucher/voucher_template.html', context)
+
+	html = HTML(string=html_string, base_url=request.build_absolute_uri())
+	doc = html.render()
+	pdf =doc.write_pdf()
+	pdf_save_path = filepath+filename
+
+
+	#pdfkit.from_string(html, pdf_save_path, configuration=config, options=options)
+	#send the emails to client
+	to_email = voucher.client.emailAddress
+	from_client = voucher.client.clientName
+	emailVoucher(pdf,to_email, from_client, filename)
+	#invoice.status = 'EMAIL_SENT'
+	#invoice.save()
+	#Email was send, redirect back to view - invoice
+	messages.success(request, "Email sent to the client succesfully")
+	return redirect('view-voucher', slug=slug)
+	#view invoices here
+
+	
+def amend_voucher(request, slug):
+	#fetch that invoice
+	try:
+		voucher = Voucher.objects.get(slug=slug)
+		pass
+	except:
+		messages.error(request, 'Something went wrong')
+		return redirect('vouchers')
+
+	
+			
+    voucher.status = 'MODIFIED'
+	voucher.save()
+
+
+	context = {}
+	context['voucher'] = voucher
+	
+	
+	#The name of your PDF file
+	filename = '{}.pdf'.format(voucher.uniqueId)
+	#HTML FIle to be converted to PDF - inside your Django directory
+	#template = get_template('invoice/pdf-template.html')
+	#Render the HTML
+	#html = template.render(context)
+	#Options - Very Important [Don't forget this]
+	options = {
+		  'encoding': 'UTF-8',
+		  'javascript-delay':'1000', #Optional
+		  'enable-local-file-access': None, #To be able to access CSS
+		  'page-size': 'A4',
+		  'custom-header' : [
+			  ('Accept-Encoding', 'gzip')
+		  ],
+	  }
+	  #Javascript delay is optional
+	#Remember that location to wkhtmltopdf
+	#Saving the File
+	filepath = os.path.join(settings.MEDIA_ROOT, 'client_vouchers')
+	os.makedirs(filepath, exist_ok=True)
+	
+	#Save the PDF
+	html_string = render_to_string('voucher/voucher_template.html', context)
+
+	html = HTML(string=html_string, base_url=request.build_absolute_uri())
+	doc = html.render()
+	pdf =doc.write_pdf()
+	pdf_save_path = filepath+filename
+
+
+	#pdfkit.from_string(html, pdf_save_path, configuration=config, options=options)
+	#send the emails to client
+	to_email = voucher.client.emailAddress
+	from_client = voucher.client.clientName
+	emailVoucher(pdf,to_email, from_client, filename)
+	#invoice.status = 'EMAIL_SENT'
+	#invoice.save()
+	#Email was send, redirect back to view - invoice
+	messages.success(request, "Amend mail sent to the client succesfully")
+	return redirect('view-voucher', slug=slug)
+	#view invoices here
    
