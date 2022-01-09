@@ -361,7 +361,7 @@ def amend_voucher(request, slug):
 
 	
 			
-    voucher.status = 'MODIFIED'
+	voucher.status = 'MODIFIED'
 	voucher.save()
 
 
