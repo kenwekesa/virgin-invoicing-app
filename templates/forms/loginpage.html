@@ -13,7 +13,7 @@
 
     align-items-center
     pt-3
-    pb-2
+    pb-5
     mb-3
     pr-2
     pl-2
@@ -28,10 +28,10 @@
 <div class="row justify-content-center" style>
 <img
                     src="{% static 'images/logo.PNG' %}"
-                    style="width: 100%; max-width: 200px"
+                    style="width: 100%; max-width: 250px"
                     alt="Logo"
                   />
-  <h1>Login</h1>
+
 
   </div>
   <div class="row justify-content-center">
@@ -46,12 +46,12 @@
         <div class="form-group col-12">{{ login_form.password|as_crispy_field }}</div>
        </div>
 	
-    <button class="btn btn-primary shadow-none col-7 align-center" type="submit"  style="outline: none !important;border-radius:0; background-color:purple">Login</button>
+    <button class="btn btn-primary shadow-none col-11 align-center" type="submit"  style="border: none !important;border-radius:0; background-color:purple">Login</button>
   </form>
   </div>
   <br />
-  <p class="text-center">Forgot your password? Contact the admin for help.</p>
+  <p class="text-center mt-5">Forgot your password? Contact the admin for help.</p>
 </div>
 </div>
-<!-- ========================= FOOTER END // ========================= -->
+<!-- ======================== FOOTER END // ========================= -->
 {% endblock content %}
