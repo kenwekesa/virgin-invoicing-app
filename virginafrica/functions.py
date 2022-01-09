@@ -14,7 +14,7 @@ def emailInvoiceClient(file,to_email, from_client, filename):
     message.send()
 
 
-    def emailVoucher(file,to_email, from_client, filename):
+def emailVoucher(file,to_email, from_client, filename):
     from_email = settings.EMAIL_HOST_USER
     subject = 'Voucher'
     body = 'Good day, Please find attached voucher for your immediate action. Regards, Virgin Africa Safaris Limited'
