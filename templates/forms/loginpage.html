@@ -33,11 +33,11 @@
 
     {% csrf_token %} 
 
-	 <div class="form-row col-9 justify-content-center">
-        <div class="form-group col-7">{{ login_form.username|as_crispy_field }}</div>
+	 <div class="form-row col-7 text-center">
+        <div class="form-group col-9">{{ login_form.username|as_crispy_field }}</div>
        </div>
-	<div class="form-row col-9">
-        <div class="form-group col-7">{{ login_form.password|as_crispy_field }}</div>
+	<div class="form-row col-7">
+        <div class="form-group col-9">{{ login_form.password|as_crispy_field }}</div>
        </div>
 	
     <button class="btn btn-primary shadow-none col-4" type="submit"  style="outline: none !important;border-radius:0; background-color:purple">Login</button>
