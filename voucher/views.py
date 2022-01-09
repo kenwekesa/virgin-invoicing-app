@@ -21,6 +21,39 @@ from invoice.forms import ClientForm
 
 from virginafrica.functions import emailVoucher
 
+
+
+
+from re import template
+from django.conf import settings
+from django.contrib.auth.decorators import login_required
+
+from django.shortcuts import render, redirect
+
+from django.urls.base import reverse, reverse_lazy
+from django.views.generic import TemplateView
+import json
+from django.http import HttpResponse, JsonResponse
+from django.conf import settings
+
+from django.forms.formsets import formset_factory
+
+import weasyprint
+
+from virginafrica.functions import emailInvoiceClient
+
+
+
+#from virginafrica.invoice.models import Settings
+from .forms import InvoiceForm, InvoiceProductForm, ProductEditFormSet, ProductForm, ClientForm,ClientSelectForm, ProductFormSet
+from django.contrib import messages
+
+
+from django.core.files.storage import FileSystemStorage
+
+from weasyprint import HTML
+import os
+
 def create_voucher(request):
 	slug=''
 	if request.method == 'POST':
