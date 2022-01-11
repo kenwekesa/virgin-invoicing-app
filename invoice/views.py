@@ -459,7 +459,7 @@ def edit_invoice(request, slug):
 		invoice_product_form = InvoiceProductForm()
 
 		
-		if form.is_valid() and client_form.is_valid() and product_formset.is_valid():
+		if form.is_valid() and client_form.is_valid():
 			client=client_form.save(commit=False)
 			
 			
