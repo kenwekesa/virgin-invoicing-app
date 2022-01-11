@@ -484,7 +484,7 @@ def edit_invoice(request, slug):
 				#if f['id'].value() not in [deleted_record['id'].value() for deleted_record in marked_for_delete]:
 				if f not in marked_for_delete:    
 					if f.is_valid():
-						cd = form.cleaned_data
+						cd = f.cleaned_data
 						quantity = cd.get('quantity')
 						price = cd.get('price')
 						product= cd.get('product')
