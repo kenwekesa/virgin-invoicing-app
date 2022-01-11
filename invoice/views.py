@@ -500,7 +500,7 @@ def edit_invoice(request, slug):
 				else:
 					pass
 
-				for deleted_f in marked_for_delete:
+				for deleted_f in product_formset.deleted_objects
 					deleted_f.delete()
 					
 				
