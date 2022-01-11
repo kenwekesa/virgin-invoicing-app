@@ -294,6 +294,7 @@
 				</td>
                             </tr>
                             {% for prod_form in product_formset_modal %}
+                            {{ prod_form.DELETE|add_class:"not_displayed" }}
                             <tr class="tablerow">
                                 <td style="border: 0; padding: 0 0.5em 0 0; width: 15%">
                                   
@@ -312,8 +313,10 @@
                                    {{ prod_form.prod_description|as_crispy_field }}
                                 </td>
 
-				<td style="width: 2%;border: 0; padding: 0 0 0 0.5em;">
-          
+						<td style="width: 2%;border: 0; padding: 0 0 0 0.5em;">
+          <button type="button" class="btn btn-default" onclick="deleteRow(this)" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="Remove">
+ <span class="fas fa-times-circle danger" aria-hidden="true"></span>
+ </button>
 					
 				</td>
                             </tr>
