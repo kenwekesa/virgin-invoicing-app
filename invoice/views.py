@@ -478,7 +478,7 @@ def edit_invoice(request, slug):
 			marked_for_delete = product_formset.deleted_forms
 			for f in product_formset.forms:
 				if f.is_valid():
-					if f.cleaned_data['DELETE']=="on":
+					if f.cleaned_data.get('DELETE')=="on":
 						#InvoiceProduct.objects.filter(id=form.pk).delete()
 						return HttpResponse(f.cleaned_data['DELETE'], content_type="text/plain")
 					else:
