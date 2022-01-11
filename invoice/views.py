@@ -482,7 +482,7 @@ def edit_invoice(request, slug):
 						#InvoiceProduct.objects.filter(id=form.pk).delete()
 						return HttpResponse(f.cleaned_data['DELETE'], content_type="text/plain")
 					else:
-						return HttpResponse("MARY HAD SOME KIND INFLUENCE ON JESUS", content_type="text/plain")
+						return HttpResponse(f.cleaned_data['DELETE'], content_type="text/plain")
 						"""cd = f.cleaned_data
 						quantity = cd.get('quantity')
 						price = cd.get('price')
