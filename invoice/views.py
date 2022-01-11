@@ -479,7 +479,7 @@ def edit_invoice(request, slug):
 			for f in product_formset.forms:
 				if f.is_valid():
 					if f.cleaned_data['DELETE']:
-						f.delete()
+						InvoiceProduct.objects.filter(id=form.pk).delete()
 					else:
 						cd = f.cleaned_data
 						quantity = cd.get('quantity')
