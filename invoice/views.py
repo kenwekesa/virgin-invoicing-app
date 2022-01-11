@@ -476,7 +476,7 @@ def edit_invoice(request, slug):
 
 
 			marked_for_delete = product_formset.deleted_forms
-			for f in formset.forms:
+			for f in product_formset.forms:
 				#Filtering out the deleted records, as the formset will not validate, for deleted records
 				# if we use form.instance.id or form.initial['id'] below it does not work. 
 				#for some reason it returns the id of the first available record in the data base. 
