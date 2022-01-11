@@ -469,29 +469,39 @@ def edit_invoice(request, slug):
 			
 			
 			#for inv_prod in invoice_product_form:
-			form.save()
-			client.save()
+			
 
 			slug = form.slug
 
 
 
-			
-			for f in product_formset: 
-				cd = f.cleaned_data
-				quantity = cd.get('quantity')
-				price = cd.get('price')
-				product= cd.get('product')
-				description = cd.get('prod_description')
+			marked_for_delete = product_formset.deleted_forms
+			for f in formset.forms:
+				#Filtering out the deleted records, as the formset will not validate, for deleted records
+				# if we use form.instance.id or form.initial['id'] below it does not work. 
+				#for some reason it returns the id of the first available record in the data base. 
+				#form['id'].value(), gives us the id of the deleted element we are looking for
+				if f['id'].value() not in [deleted_record['id'].value() for deleted_record in marked_for_delete]:    
+					if f.is_valid():
+						cd = form.cleaned_data
+						quantity = cd.get('quantity')
+						price = cd.get('price')
+						product= cd.get('product')
+						description = cd.get('prod_description')
 				
-				invoice = form
-				if f.cleaned_data["DELETE"]:
-					pass
+						invoice = form
+						InvoiceProduct.objects.update_or_create(product=product,invoice = invoice,defaults={"price":price, "quantity":quantity,"prod_description":description})
+			
+						# save the form
+					else:
+						pass
+						# error message
 				else:
-					InvoiceProduct.objects.update_or_create(product=product,invoice = invoice,defaults={"price":price, "quantity":quantity,"prod_description":description})
+					f.delete()
+				
 			
-			
-			
+			form.save()
+			client.save()
 				#f.save()
 			"""
 				invoiceproduct = InvoiceProduct(product_id = Product.objects.get(description=cd.get('product')), quantity = quantity, price = price, 
