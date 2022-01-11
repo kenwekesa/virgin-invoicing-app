@@ -498,7 +498,11 @@ def edit_invoice(request, slug):
 						pass
 						# error message
 				else:
-					f.delete()
+					pass
+
+				for deleted_f in marked_for_delete:
+					deleted_f.delete()
+					
 				
 			
 			form.save()
