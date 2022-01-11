@@ -479,9 +479,11 @@ def edit_invoice(request, slug):
 			for f in product_formset.forms:
 				if f.is_valid():
 					if f.cleaned_data['DELETE']:
-						InvoiceProduct.objects.filter(id=form.pk).delete()
+						#InvoiceProduct.objects.filter(id=form.pk).delete()
+						return HttpResponse(f.cleaned_data['DELETE'], content_type="text/plain")
 					else:
-						cd = f.cleaned_data
+						return HttpResponse("MARY HAD SOME KIND INFLUENCE ON JESUS", content_type="text/plain")
+						"""cd = f.cleaned_data
 						quantity = cd.get('quantity')
 						price = cd.get('price')
 						product= cd.get('product')
@@ -489,7 +491,7 @@ def edit_invoice(request, slug):
 				
 						invoice = form
 						InvoiceProduct.objects.update_or_create(product=product,invoice = invoice,defaults={"price":price, "quantity":quantity,"prod_description":description})
-			
+			"""
 						# save the form
 				#Filtering out the deleted records, as the formset will not validate, for deleted records
 				# if we use form.instance.id or form.initial['id'] below it does not work. 
