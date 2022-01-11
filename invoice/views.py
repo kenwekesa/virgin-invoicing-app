@@ -481,7 +481,8 @@ def edit_invoice(request, slug):
 				# if we use form.instance.id or form.initial['id'] below it does not work. 
 				#for some reason it returns the id of the first available record in the data base. 
 				#form['id'].value(), gives us the id of the deleted element we are looking for
-				if f['id'].value() not in [deleted_record['id'].value() for deleted_record in marked_for_delete]:    
+				#if f['id'].value() not in [deleted_record['id'].value() for deleted_record in marked_for_delete]:
+				if f not in marked_for_delete:    
 					if f.is_valid():
 						cd = form.cleaned_data
 						quantity = cd.get('quantity')
