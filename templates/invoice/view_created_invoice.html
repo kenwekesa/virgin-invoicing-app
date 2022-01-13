@@ -34,7 +34,13 @@
         <a href="{% url 'email-document-invoice' invoice.slug%}"  class="btn btn-info">Email Invoice</a>
       
     </div>
-              
+
+     <div class="btn-group ml-2 mr-2">
+      
+        <a class="btn btn-sm btn-danger" href="#" data-toggle="modal" data-target="#deleteConfirmModal">Email Invoice</a>
+      
+    </div>
+    
     <div class="btn-group me-2 pull-right">
       <a href="{% url 'view-invoices' %}"
         ><button type="button" class="btn btn-primary">Go Back</button></a
@@ -243,6 +249,34 @@
 </div>
 
 <!-- MODALS MODALS -->
+
+
+
+       <!--Delete confirmation modal-->
+       <!-- Modal -->
+    <div class="modal fade" id="deleteConfirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Are you sure you want to delete the invoice: <b>{{invoice.number}}?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <a class="btn btn-sm btn-danger" href="{% url 'delete-invoice' invoice.slug %}">Delete</a>
+          </div>
+        </div>
+      </div>
+    </div>
+       <!-- Delete confirmation modal end-->
+
+
+
 <!-- Modals Start Here -->
 <div class="modal modal-sheet py-5" tabindex="-1" id="addProductModal">
   <div class="modal-dialog">

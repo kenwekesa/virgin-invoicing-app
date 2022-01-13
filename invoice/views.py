@@ -410,6 +410,14 @@ def viewDocumentInvoice(request, slug):
 	#return response
 """
 
+
+@login_required
+def delete_invoice(request, slug):
+	invoicee=Invoice.objects.filter(slug=slug).first()
+	invoicee.delete()
+	return redirect('invoices')
+
+
 @login_required
 def delete_invoice_product(request, id):
 	product=InvoiceProduct.objects.filter(id=id).first()
@@ -498,39 +506,14 @@ def edit_invoice(request, slug):
 				#form['id'].value(), gives us the id of the deleted element we are looking for
 				#if f['id'].value() not in [deleted_record['id'].value() for deleted_record in marked_for_delete]:
 				
-				"""if f not in marked_for_delete:    
-					if f.is_valid():
-						cd = f.cleaned_data
-						quantity = cd.get('quantity')
-						price = cd.get('price')
-						product= cd.get('product')
-						description = cd.get('prod_description')
 				
-						invoice = form
-						InvoiceProduct.objects.update_or_create(product=product,invoice = invoice,defaults={"price":price, "quantity":quantity,"prod_description":description})
-			
-						# save the form
-					else:
-						pass
-						# error message
-				else:
-					
-					f.delete()"""
 					
 				
 			
 			form.save()
 			client.save()
 				#f.save()
-			"""
-				invoiceproduct = InvoiceProduct(product_id = Product.objects.get(description=cd.get('product')), quantity = quantity, price = price, 
-				invoice_id=form.pk)
-				invoiceproduct.save()"""
-				
-			"""inv_prod = invoice_product_form.save(commit=False)
-			inv_prod.invoice_id = form.pk
-			inv_prod.product_id = product.pk
-			inv_prod.save()"""
+			
 			
 			
 		
