@@ -37,7 +37,7 @@
 
      <div class="btn-group ml-2 mr-2">
       
-        <a class="btn btn-sm btn-danger" href="#" data-toggle="modal" data-target="#deleteConfirmModal">Delete Invoice</a>
+        <a class="btn btn-danger" href="#" data-toggle="modal" data-target="#deleteConfirmModal">Delete Invoice</a>
       
     </div>
     
@@ -254,7 +254,7 @@
 
        <!--Delete confirmation modal-->
        <!-- Modal -->
-    <div class="modal fade" id="deleteConfirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal modal-dialog-centered" id="deleteConfirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -267,8 +267,8 @@
             <p>Are you sure you want to delete the invoice: <b>{{invoice.number}}?
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <a class="btn btn-sm btn-danger" href="{% url 'delete-invoice' invoice.slug %}">Delete</a>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <a class="btn btn-danger" href="{% url 'delete-invoice' invoice.slug %}">Delete</a>
           </div>
         </div>
       </div>
