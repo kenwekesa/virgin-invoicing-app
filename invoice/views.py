@@ -478,12 +478,11 @@ def edit_invoice(request, slug):
 			marked_for_delete = product_formset.deleted_forms
 			for f in product_formset.forms:
 				if f.is_valid():
-					if f.cleaned_data.get('DELETpE')==True:
-						#InvoiceProduct.objects.filter(id=form.pk).delete()
-						return HttpResponse(f.cleaned_data['DELETE'], content_type="text/plain")
+					if f.cleaned_data.get('DELETE')==True:
+						InvoiceProduct.objects.filter(product=f.cleaned_data.get('product')).filter(invoice=invoice).delete()
+						
 					else:
-						return HttpResponse(f.cleaned_data['DELETE'], content_type="text/plain")
-						"""cd = f.cleaned_data
+						cd = f.cleaned_data
 						quantity = cd.get('quantity')
 						price = cd.get('price')
 						product= cd.get('product')
@@ -491,13 +490,14 @@ def edit_invoice(request, slug):
 				
 						invoice = form
 						InvoiceProduct.objects.update_or_create(product=product,invoice = invoice,defaults={"price":price, "quantity":quantity,"prod_description":description})
-			"""
-						# save the form
+			
+				# save the form
 				#Filtering out the deleted records, as the formset will not validate, for deleted records
 				# if we use form.instance.id or form.initial['id'] below it does not work. 
 				#for some reason it returns the id of the first available record in the data base. 
 				#form['id'].value(), gives us the id of the deleted element we are looking for
 				#if f['id'].value() not in [deleted_record['id'].value() for deleted_record in marked_for_delete]:
+				
 				"""if f not in marked_for_delete:    
 					if f.is_valid():
 						cd = f.cleaned_data
