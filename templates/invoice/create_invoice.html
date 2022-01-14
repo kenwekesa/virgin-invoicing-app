@@ -113,12 +113,15 @@
                                    {{ prod_form.prod_description|as_crispy_field }}
                                 </td>
 
-				<td style="width: 2%;border: 0; padding: 0 0 0 0.5em;">
+
+
+			<!--	-===================For formset removal===============
+      <td style="width: 2%;border: 0; padding: 0 0 0 0.5em;">
           <button type="button" class="btn btn-default" onclick="deleteRow(this)" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="Remove">
  <span class="fas fa-times-circle danger" aria-hidden="true"></span>
  </button>
 					
-				</td>
+				</td>-->
                             </tr>
                              {% endfor %}
                             <tr class="add-btn-div">
@@ -279,7 +282,6 @@
           totalForms.setAttribute('value', `${formNum-1}`)
         }
 
-       
       }
 
       function updateForms() {

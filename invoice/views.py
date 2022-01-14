@@ -414,7 +414,9 @@ def viewDocumentInvoice(request, slug):
 @login_required
 def delete_invoice(request, slug):
 	invoicee=Invoice.objects.filter(slug=slug).first()
+	number=invoicee.number
 	invoicee.delete()
+	messages.success(request, "Invoice #"+number+" deleted")
 	return redirect('view-invoices')
 
 
