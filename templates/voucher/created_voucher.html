@@ -55,8 +55,14 @@
     </div>
      <div class="btn-group ml-2">
       
-        <a href="{% url 'email-voucher' voucher.slug%}" target="_blank" class="btn btn-warning">Sent Email</a>
-      
+        <a href="#" class="btn btn-warning dropdown-toggle btn-sm" data-toggle = "dropdown">Sent Email</a>
+        
+                <ul class = "dropdown-menu" role = "menu">
+                  <li><a href = "{% url 'email-voucher' voucher.slug%}">Email</a></li>
+                  <li><a href = "#">Another action</a></li>
+                  <li><a href = "#">Something else here</a></li>
+                  <li><a href = "#">Separated link</a></li>
+              </ul>
     </div>
     <div class="btn-group ml-2">
       
