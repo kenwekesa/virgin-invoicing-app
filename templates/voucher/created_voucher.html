@@ -55,7 +55,9 @@
     </div>
      <div class="btn-group ml-2">
       
-        <a href="#" class="btn btn-warning dropdown-toggle" data-toggle = "dropdown">Mails</a>
+        <a href="#" class="btn btn-warning dropdown-toggle" data-toggle = "dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false">Mails</a>
         
                 <ul class = "dropdown-menu" role = "menu">
                   <li><a href = "{% url 'email-voucher' voucher.slug%}">Email</a></li>
