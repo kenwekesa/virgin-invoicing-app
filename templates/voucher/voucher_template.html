@@ -9,11 +9,18 @@
     <style>
       @page {
         size: A4;
-        background: url('{% static "images/media/voucherback.png" %}') no-repeat;
-        background-size: cover;
-        margin: 0in 0.84in 0.2in 0.44in;
+        margin: 0;
        
       }
+
+
+          body {
+    background-image:  url('{% static "images/media/voucherback.png"%}');
+    background-size:   cover;                      /* <------ */
+    background-repeat: no-repeat;
+    background-position: center center;            /* optionally, center the image */
+    padding: 25px 10px 10px 10px;
+}
          table{
          color: #9C640C;
          }
