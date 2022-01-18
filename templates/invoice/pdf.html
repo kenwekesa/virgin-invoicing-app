@@ -95,14 +95,14 @@
     .payment_column {
   float: left;
   font-size: 8px !important;
-  white-space: nowrap;
+  width: max-content;
   padding: 1px;
  
 }
  .payment_column_right {
   float: right;
   font-size: 8px !important;
-  white-space: nowrap;
+  width: max-content;
   padding: 5px;
  
 }
@@ -116,7 +116,7 @@
  .payment_main_column {
   float: left;
   font-size: 8px !important;
-  width: 48%;
+  width: max-content;
   padding: 10px;
   height: 300px; /* Should be removed. Only for demonstration */
 }
@@ -157,12 +157,12 @@
 
       .policy_menu
       {
-      font-size: 9px;
+      font-size: 8px;
       }
 
 
       
-   .policy_menu li:after { content: " \00b7"; }
+   .policy_menu li:after { content: " \25CF"; }
   .policy_menu li:last-child:after { content: none; }
 
     .policy_menu li 
@@ -305,7 +305,7 @@
 
       <table cellpadding="0" cellspacing="0">
 <tr>
-  <td style="width: 58%">
+  <td style="width: max-content">
   <div class="payment_row">
 
   <div class="payment_column">
@@ -354,7 +354,11 @@
   </div>
 </div>
 </td>
+<td  style = "width: 40%; text-align: left; ">
 
+  <h3>CANCELLATION AFTER CONFIRMATION</h3>
+
+</td>
 </tr>
 </table>
 <div>
