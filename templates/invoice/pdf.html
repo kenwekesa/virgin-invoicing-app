@@ -92,7 +92,7 @@
 
     }
 
-    .payment_column {
+    /*.payment_column {
   float: left;
   font-size: 8px !important;
   width: max-content;
@@ -106,20 +106,32 @@
   padding: 5px;
  
 }
+*/
 
-/* Clear floats after the columns */
+/* Clear floats after the columns 
 .payment_row:after {
   content: "";
   display: table;
   clear: both;
-}
- .payment_main_column {
-  float: left;
-  font-size: 8px !important;
-  width: max-content;
+}*/
+.payment_row{
+
+
+     display: grid;
+  grid-template-columns: max-content max-content 1fr;
+  grid-gap: 5px;
+  box-sizing: border-box;
+  height: 200px;
+  width: 100%;
+  background-color: #8cffa0;
   padding: 10px;
-  height: 300px; /* Should be removed. Only for demonstration */
 }
+
+.payment_column
+{
+  padding: 3px;
+}
+  }
 .bottom_row
 {
    box-sizing: border-box;
@@ -157,12 +169,12 @@
 
       .policy_menu
       {
-      font-size: 8px;
+      font-size: 7px;
       }
 
 
       
-   .policy_menu li:after { content: " \25CF"; }
+   .policy_menu li:after { content: " \25CF"; padding: 2px }
   .policy_menu li:last-child:after { content: none; }
 
     .policy_menu li 
@@ -328,7 +340,7 @@
          
         ACCOUNT NO:<br/>
         </div>
-  <div class="payment_column_right" style="margin-left:0">
+  <div class="payment_column">
   
      
           VIRGIN AFRICA SAFARIS LIMITED<br/>
@@ -354,11 +366,7 @@
   </div>
 </div>
 </td>
-<td  style = "width: 40%; text-align: left; ">
 
-  <h3>CANCELLATION AFTER CONFIRMATION</h3>
-
-</td>
 </tr>
 </table>
 <div>
