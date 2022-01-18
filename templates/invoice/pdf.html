@@ -182,6 +182,27 @@
  
   
 }
+
+
+
+
+
+.formm {
+    display: table;
+    border-collapse: collapse;
+    padding: 0;
+    margin: 0;
+}
+.formm > li {
+    display: table-row;
+}
+.formm > li > div {
+    display: table-cell;
+    padding-bottom: 5px;
+}
+.formm > li > div:first-child {
+    padding-right: 10px;
+}
     </style>
   </head>
 
@@ -316,7 +337,22 @@
 <tr>
   <td style="width: max-content">
   <div class="payment_row">
+    <ul class="formm">
+    <li>
+        <div><label>First name:</label></div>
+        <div>John</div>
+    </li>
+    <li>
+        <div><label>Last name:</label></div>
+        <div>Doe</div>
+    </li>
+    <li>
+        <div><label>Gender:</label></div>
+        <div>Male</div>
+    </li>
+</ul>
 
+    <!--
   <div class="payment_column">
          ACCOUNT NAME:<br/>
           BANK:</br>
@@ -361,6 +397,7 @@
           0766279956
         
   </div>
+  -->
 </div>
 </td>
 
