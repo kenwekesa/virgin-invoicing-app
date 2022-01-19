@@ -384,11 +384,13 @@
             let newForm = birdForm[0].cloneNode(true)
             let formRegex = RegExp(`form-(\\d){1}-`,'g')
 
+            formNum++
             newForm.innerHTML = newForm.innerHTML.replace(formRegex, `form-${formNum}-`)
             let nnn = addButtonDiv
             parentDiv.insertBefore(newForm, addButtonDiv)
-            totalForms.setAttribute('value', `${formNum++}`)
-            updateForms()
+           
+            
+            totalForms.setAttribute('value', `${formNum+1}`)
         }
 
 

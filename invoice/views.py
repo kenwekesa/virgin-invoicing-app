@@ -1,3 +1,4 @@
+import datetime
 from re import template
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
@@ -42,6 +43,9 @@ def create_invoice(request):
 		form = InvoiceForm(request.POST)
 		client_form = ClientForm(request.POST)
 		product_form = ProductForm()
+
+		
+
 		product_formset = ProductFormSet(request.POST)
 		invoice_product_form = InvoiceProductForm()
 		if form.is_valid() and client_form.is_valid() and product_formset.is_valid():
@@ -53,7 +57,15 @@ def create_invoice(request):
 			form = form.save(commit=False)
 			form.client = client
 			
+			period= form.paymentTerms
+			if period == 'Immediate':
+				form.dueDate=datetime.datetime.now() + datetime.timedelta(days=0)
 			
+			elif period=='15 days':
+				form.dueDate=datetime.datetime.now() + datetime.timedelta(days=15)
+
+			elif period == '30 days':
+				form.dueDate=datetime.datetime.now() + datetime.timedelta(days=30)
 			#for inv_prod in invoice_product_form:
 			form.save()
 			client.save()

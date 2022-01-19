@@ -40,10 +40,7 @@ class InvoiceForm(forms.ModelForm):
         label='Invoice Status',
         widget=forms.Select(attrs={'class': 'form-control mb-3'}),)
 
-    dueDate = forms.DateField(
-        required=True,
-        label='Invoice Due',
-        widget=DateInput(attrs={'class': 'form-control mb-3'}),)
+  
 
     discount = forms.CharField(required=False, label='')
 

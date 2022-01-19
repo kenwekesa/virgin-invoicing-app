@@ -187,7 +187,7 @@
           <td></td>
 
           <td colspan="3">Grand Total:</td>
-          <td class = "grand_total"><u><u>{{invoiceGrandTotal}}</u><u/></td>
+          <td class = "grand_total"><u><u>{{discounted_grand_total}}</u><u/></td>
         </tr>
 
       
@@ -201,12 +201,6 @@
         <tr class="total">
           <td></td>
 
-          <td colspan="3">VAT(16%)</td>
-          <td class = "grand_total"><u><u>{{tax}}</u><u/></td>
-        </tr>
-        <tr class="total">
-          <td></td>
-
           <td colspan="3">Discount({{discount_percentage}}%)</td>
           <td class = "grand_total"><u><u>{{discount}}</u><u/></td>
         </tr>
@@ -215,7 +209,7 @@
           <td></td>
 
           <td colspan="3">Grand Total:</td>
-          <td class = "grand_total"><u><u>{{invoiceGrandTotal}}</u><u/></td>
+          <td class = "grand_total"><u><u>{{discounted_grand_total}}</u><u/></td>
         </tr>
 
         {%else%}
