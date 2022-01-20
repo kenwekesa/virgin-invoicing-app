@@ -36,7 +36,7 @@ class Voucher(models.Model):
     STATUS = [
         ('CANCELLED', 'CANCELLED'),
         ('EMAIL_SENT', 'EMAIL_SENT'),
-        ('MODIFIED', 'MODIFIED'),
+        ('AMMENDED', 'AMMENDED'),
         ('NEW','NEW')
         
     ]

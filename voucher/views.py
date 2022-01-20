@@ -123,6 +123,48 @@ def edit_voucher(request, slug):
 	
 	return render(request, 'voucher/edit_voucher.html', context={"form": form, "client_form": client_form})
 
+
+
+
+@login_required
+def ammended_voucher(request, slug):
+	voucher = Voucher.objects.filter(slug=slug).first()
+	clients = Client.objects.filter(voucher=voucher).first()
+	form = VoucherForm(instance=voucher)
+	client_form = ClientForm(instance=clients)
+	
+	
+
+
+	if request.method == 'POST':
+		slug = ''
+		form = VoucherForm(request.POST,instance=voucher)
+		client_form = ClientForm(request.POST, instance=clients)
+		
+		if form.is_valid() and client_form.is_valid():
+			client=client_form.save()	
+			
+			#quantity = inv_prod.quantity
+			form = form.save(commit=False)
+			form.client = client
+			form.status = "AMMENDED"
+			
+			
+			#for inv_prod in invoice_product_form:
+			form.save()
+			client.save()
+			slug=form.slug
+			
+			#InvoiceProduct.objects.create(product=product, order=form,quantity=quantity)
+			messages.success(request, f'Voucher updated successfully')
+			return redirect('view-voucher',slug)
+		
+	
+	
+	return render(request, 'voucher/edit_voucher.html', context={"form": form, "client_form": client_form})
+
+
+
 @login_required
 def view_voucher(request,slug):
 
@@ -393,7 +435,7 @@ def amend_voucher(request, slug):
 
 	
 			
-	voucher.status = 'MODIFIED'
+	voucher.status = 'AMMENDED'
 	voucher.save()
 
 

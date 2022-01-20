@@ -40,6 +40,7 @@ urlpatterns = [
          path('amend-voucher/<slug:slug>',voucher_views.amend_voucher, name='amend-voucher'),
          path('email-voucher/<slug:slug>',voucher_views.email_voucher, name='email-voucher'),
          path('vouchers/edit-voucher/<slug:slug>',voucher_views.edit_voucher, name='edit-voucher'),
+         path('vouchers/ammended-voucher/<slug:slug>',voucher_views.ammended_voucher, name='ammended-voucher'),
 
 
         
