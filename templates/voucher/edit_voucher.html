@@ -24,7 +24,7 @@
   <br/>
   <br/>
   <div class="row">
-    <form method="POST" class="col-12" id="voucher_form" onsubmit="DoSubmit();">
+    <form method="POST" class="col-12" id="voucher_form">
       {% csrf_token %}
         
 
@@ -172,8 +172,8 @@
             <p> Voucher was edited, do you wish to mark it as ammended?
           </div>
           <div class="modal-footer">
-            <button onClick="form_submit('update')"  class="btn btn-secondary" data-dismiss="modal">Just update and save.</button>
-             <button onClick="form_submit('ammend')"   class="btn btn-secondary" data-dismiss="modal">Amend the voucher.</button>
+            <button onClick="form_submit('update')"  class="btn btn-primary" data-dismiss="modal">Just update and save.</button>
+             <button onClick="form_submit('ammend')"   class="btn btn-info" data-dismiss="modal">Ammend the voucher.</button>
             
           </div>
         </div>
@@ -215,14 +215,16 @@ $('.meal_plan :checkbox').on('change', function() {
 
 
   function form_submit(updatetype) {
-    updatetypee = updatetype
-    document.getElementById("voucher_form").submit();
+    document.getElementById("update_type").value=updatetype;
+    DoSubmit()
+   
    }    
 
    function DoSubmit(){
 
-  document.getElementById("update_type").value=updatetypee;
-  return false;
+  
+   document.getElementById("voucher_form").submit();
+  
 }
   
 </script>
