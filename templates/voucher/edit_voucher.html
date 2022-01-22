@@ -24,11 +24,11 @@
   <br/>
   <br/>
   <div class="row">
-    <form method="POST" class="col-12" id="voucher_form">
+    <form method="POST" class="col-12" id="voucher_form" onsubmit="DoSubmit();">
       {% csrf_token %}
         
 
-        <input type="hidden" name= 'update_type' id='update_type' value="" />
+        <input type="hidden" name='update_type' id='update_type' value="" />
       </div>
 
 
@@ -199,7 +199,7 @@
 
 
 <script>
-  
+  let updatetypee =""
 $(".accomodationn :checkbox").click(function () {
     if (this.checked) $(".discount_group").show();
     else $(".discount_group").hide();
@@ -215,9 +215,15 @@ $('.meal_plan :checkbox').on('change', function() {
 
 
   function form_submit(updatetype) {
-    document.getElementById("update_type").value=updatetype
+    updatetypee = updatetype
     document.getElementById("voucher_form").submit();
    }    
+
+   function DoSubmit(){
+
+  document.getElementById("update_type").value=updatetypee;
+  return true;
+}
   
 </script>
 {% endblock%}
