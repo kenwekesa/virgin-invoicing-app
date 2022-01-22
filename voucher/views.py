@@ -95,7 +95,7 @@ def edit_voucher(request, slug):
 	client_form = ClientForm(instance=clients)
 	
 	
-
+	type=""
 
 	if request.method == 'POST':
 		slug = ''
@@ -137,7 +137,7 @@ def edit_voucher(request, slug):
 			
 			
 			#InvoiceProduct.objects.create(product=product, order=form,quantity=quantity)
-			messages.success(request, f'Voucher updated successfully')
+			messages.success(request, f'Voucher updated '+type+' successfully')
 			return redirect('view-voucher',slug)
 		
 	
