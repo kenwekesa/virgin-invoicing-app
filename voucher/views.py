@@ -104,16 +104,37 @@ def edit_voucher(request, slug):
 		
 		if form.is_valid() and client_form.is_valid():
 			client=client_form.save()	
+			type= form.cleaned_data.get("update_type")
+
+			if type == "ammend":
+				v=Voucher.objects.get(slug=slug).voucher_status="AMMENDED"
+				v.save()
+
+
 			
 			#quantity = inv_prod.quantity
 			form = form.save(commit=False)
+
+			
 			form.client = client
+
+			
+
+			
+
 			
 			
 			#for inv_prod in invoice_product_form:
 			form.save()
 			client.save()
+
 			slug=form.slug
+
+			v=Voucher.objects.get(slug=slug).voucher_status="AMMENDED"
+			v.save()
+
+			
+			
 			
 			#InvoiceProduct.objects.create(product=product, order=form,quantity=quantity)
 			messages.success(request, f'Voucher updated successfully')
