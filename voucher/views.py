@@ -129,8 +129,8 @@ def edit_voucher(request, slug):
 			client.save()
 
 			slug=form.slug
-
-			v=Voucher.objects.get(slug=slug).voucher_status="AMMENDED"
+            v=Voucher.objects.get(slug=slug)
+			v.voucher_status="AMMENDED"
 			v.save()
 
 			
