@@ -95,13 +95,13 @@ def edit_voucher(request, slug):
     client_form = ClientForm(instance=clients)
     
     
-    type=""
+    
 
     if request.method == 'POST':
         slug = ''
         form = VoucherForm(request.POST,instance=voucher)
         client_form = ClientForm(request.POST, instance=clients)
-        
+        type= ""
         if form.is_valid() and client_form.is_valid():
             client=client_form.save()	
             type= form.cleaned_data.get("update_type")
