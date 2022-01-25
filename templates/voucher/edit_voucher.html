@@ -28,7 +28,7 @@
       {% csrf_token %}
         
 
-        <input type="hidden" name='update_type' id='update_type' value="" />
+        <!--<input type="hidden" name='update_type' id='update_type' value="" />-->
     
 
 
@@ -216,14 +216,20 @@ $('.meal_plan :checkbox').on('change', function() {
 
   function form_submit(updatetype) {
     document.getElementById("update_type").value=updatetype;
-    DoSubmit()
+    var input = document.createElement('input');//prepare a new input DOM el
+    input.setAttribute('name', 'update_type');//set the param name
+    input.setAttribute('value', updatetype);//set the value
+    input.setAttribute('type', 'hidden')//set the type, like "hidden" or other
+
+    document.getElementById("voucher_form").appendChild(input);//append the input to the form
+    document.getElementById("voucher_form").submit();
    
    }    
 
    function DoSubmit(){
 
   
-   document.getElementById("voucher_form").submit();
+   //document.getElementById("voucher_form").submit();
   
 }
   
