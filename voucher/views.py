@@ -151,9 +151,9 @@ def delete_voucher(request, slug):
     voucher = Voucher.objects.filter(slug=slug).first()
     clients = Client.objects.filter(voucher=voucher).first()
     number=voucher.number
-	voucher.delete()
-	messages.success(request, "Voucher #"+number+" deleted")
-	return redirect('list-vouchers')
+    voucher.delete()
+    messages.success(request, "Voucher #"+number+" deleted")
+    return redirect('list-vouchers')
     
 
 
