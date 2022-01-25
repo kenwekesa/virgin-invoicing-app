@@ -101,10 +101,9 @@ def edit_voucher(request, slug):
         slug = ''
         form = VoucherForm(request.POST,instance=voucher)
         client_form = ClientForm(request.POST, instance=clients)
-        type= ""
+        type=request.POST.get('update_type')
         if form.is_valid() and client_form.is_valid():
             client=client_form.save()	
-            type= form.cleaned_data.get("update_type")
 
             if type == "ammend":
                 v=Voucher.objects.get(slug=slug).voucher_status="AMMENDED"
