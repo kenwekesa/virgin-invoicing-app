@@ -127,7 +127,8 @@ def edit_voucher(request, slug):
 
             slug=form.slug
             if type == "ammend":
-                v=Voucher.objects.get(slug=slug).voucher_status="AMMENDED"
+                v=Voucher.objects.get(slug=slug)
+                v.voucher_status="AMMENDED"
                 v.save()
 
             
