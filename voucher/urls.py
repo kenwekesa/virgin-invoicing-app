@@ -37,6 +37,7 @@ urlpatterns = [
         path("vouchers/", voucher_views.list_vouchers, name="list-vouchers" ),
          path('voucher-pdf/<slug:slug>',voucher_views.pdfview, name='view-pdf'),
          path('cancel-voucher/<slug:slug>',voucher_views.cancel_voucher, name='cancel-voucher'),
+         path('cancel-voucher/<slug:slug>',voucher_views.delete_voucher, name='delete-voucher'),
          path('amend-voucher/<slug:slug>',voucher_views.amend_voucher, name='amend-voucher'),
          path('email-voucher/<slug:slug>',voucher_views.email_voucher, name='email-voucher'),
          path('vouchers/edit-voucher/<slug:slug>',voucher_views.edit_voucher, name='edit-voucher'),

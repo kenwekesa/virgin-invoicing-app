@@ -149,11 +149,19 @@
     
       
       <br />
+      {%if voucher.voucher_status == 'EMAIL_SENT'%}
+      <div class="row justify-content-center" style = "width: 100%">
+      <a href="#" class="btn btn-info col-2 mr-1" data-toggle="modal" data-target="#emailsentModal">Save</button>
+      
+      <a class =" col-2" href="{% url 'homepage'%}"><button class="btn btn-danger" type="button">Cancel</button></a>
+      </div>
+      {% else%}
       <div class="row justify-content-center" style = "width: 100%">
       <a href="#" class="btn btn-info col-2 mr-1" data-toggle="modal" data-target="#ammendModal">Save</button>
       
       <a class =" col-2" href="{% url 'homepage'%}"><button class="btn btn-danger" type="button">Cancel</button></a>
       </div>
+      {%endif%}
 
 
 
@@ -163,7 +171,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Confirm deletion!</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Confirm voucher update!</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -179,7 +187,34 @@
         </div>
       </div>
     </div>
+       <!-- Email Sent modal end-->
+
+
+            <!--Amend confirmation modal-->
+       <!-- Modal -->
+    <div class="modal fade" id="emailsentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Confirm voucher ammend!</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p> This voucher has already been sent to the client, you can only mark it as ammended, do you wish to amend?
+          </div>
+          <div class="modal-footer">
+            <button onClick="form_submit('ammend')"  class="btn btn-primary" data-dismiss="modal">Yes, Ammend.</button>
+             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            
+          </div>
+        </div>
+      </div>
+    </div>
        <!-- Ammend confirmation modal end-->
+
+
     </form>
   </div>
   </div>

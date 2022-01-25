@@ -68,12 +68,12 @@
     </div>
     <div class="btn-group ml-2">
       
-        <a href="{% url 'cancel-voucher' voucher.slug%}" target="_blank" class="btn btn-warning">Cancel</a>
+        <a href="#" class="btn btn-warning" data-toggle="modal" data-target="#vouchercancelModal">Cancel</a>
       
     </div>
     <div class="btn-group ml-2">
       
-        <a href="{% url 'amend-voucher' voucher.slug%}" target="_blank" class="btn btn-warning">Amend</a>
+        <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#voucherdeleteModal">Delete</a>
       
     </div>
    
@@ -268,6 +268,56 @@
     THANK YOU FOR YOUR CONTINUED PARTNERSHIP.
   </div>
   </div>
+
+   <!--Amend confirmation modal-->
+       <!-- Modal -->
+    <div class="modal fade" id="vouchercancelModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Confirm voucher cancellation!</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+             <p> Are you sure you want to delete the voucher number: <b>{{voucher.number}}</b> for client <b>{{voucher.client.clientName}}</b>?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">No.</button>
+            <a class="btn btn-info" href="{% url 'cancel-voucher' voucher.slug %}">Yes, Cancel.</a>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+       <!-- Ammend confirmation modal end-->
+
+
+
+        <!--Amend confirmation modal-->
+       <!-- Modal -->
+    <div class="modal fade" id="voucherdeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Confirm Deletion!</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p> Are you sure you want to delete the voucher number: <b>{{voucher.number}}</b> for client <b>{{voucher.client.clientName}}</b>?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <a class="btn btn-danger" href="{% url 'delete-voucher' voucher.slug %}">Yes, Delete</a>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+       <!-- Ammend confirmation modal end-->
 </div>
 <script>
      $('input[type=checkbox]').on('change', function (e) {

@@ -139,8 +139,22 @@ def edit_voucher(request, slug):
         
     
     
-    return render(request, 'voucher/edit_voucher.html', context={"form": form, "client_form": client_form})
+    return render(request, 'voucher/edit_voucher.html', context={"form": form, "client_form": client_form,"voucher":voucher})
 
+
+
+
+
+
+@login_required
+def delete_voucher(request, slug):
+    voucher = Voucher.objects.filter(slug=slug).first()
+    clients = Client.objects.filter(voucher=voucher).first()
+    number=voucher.number
+	voucher.delete()
+	messages.success(request, "Voucher #"+number+" deleted")
+	return redirect('list-vouchers')
+    
 
 
 
