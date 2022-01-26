@@ -53,13 +53,13 @@ class VoucherForm(forms.ModelForm):
 
     arrival = forms.DateField(
         required=True,
-        label='Reservation Date',
-        widget=DateInput(attrs={'class': 'form-control mb-3'}),)
+        label='',
+        widget=DateInput(attrs={'class': 'no-border form-control mb-3'}),)
 
     departure = forms.DateField(
         required=True,
-        label='Reservation Date',
-        widget=DateInput(attrs={'class': 'form-control mb-3'}),)
+        label='',
+        widget=DateInput(attrs={'class': 'form-control mb-3 no-border'}),)
 
     accommodation_type = forms.ChoiceField(
 
