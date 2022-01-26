@@ -55,20 +55,13 @@
     </div>
      <div class="btn-group ml-2">
       
-        <a href="#" class="btn btn-warning dropdown-toggle mr-4" data-toggle = "dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false">Mails</a>
+        <a href="#" class="btn btn-info" data-toggle="modal" data-target="#emailvoucherModal">Mail the voucher</a>
         
-                <ul class = "dropdown-menu" role = "menu">
-                  <li><a href = "{% url 'email-voucher' voucher.slug%}">Email</a></li>
-                  <li><a href = "#">Another action</a></li>
-                  <li><a href = "#">Something else here</a></li>
-                  <li><a href = "#">Separated link</a></li>
-              </ul>
+        
     </div>
     <div class="btn-group ml-2">
       
-        <a href="#" class="btn btn-warning" data-toggle="modal" data-target="#vouchercancelModal">Cancel</a>
+        <a href="#" class="btn btn-warning" data-toggle="modal" data-target="#vouchercancelModal">Cancel voucher</a>
       
     </div>
     <div class="btn-group ml-2">
@@ -117,9 +110,9 @@
                      
                   </tr>
                   <tr style="height: 12px">
-                      <td>{%if voucher.status == 'NEW'%} <h6 style="color: black;">&#10004</h6> {%else%} {%endif%}</td>
-                      <td>{%if voucher.status == 'MODIFIED'%} <h6 style="color: black;">&#10004</h6> {%else%} {%endif%}</td>
-                      <td>{%if voucher.status == 'CANCELLED'%} <h6 style="color: black;">&#10004</h6> {%else%} {%endif%}</td>
+                      <td>{%if voucher.voucher_status == 'NEW' or voucher.voucher_status == 'EMAIL_SENT'%} <h6 style="color: black; vertical-align:top; text-align: center">&#10004</h6> {%else%} {%endif%}</td>
+                      <td>{%if voucher.voucher_status == 'AMMENDED'%} <h6 style="color: black; vertical-align:top; text-align: center">&#10004</h6> {%else%} {%endif%}</td>
+                      <td>{%if voucher.voucher_status == 'CANCELLED'%} <h6 style="color: black;vertical-align:top; text-align: center">&#10004</h6> {%else%} {%endif%}</td>
                       
                   </tr>
               </table>
@@ -318,6 +311,30 @@
       </div>
     </div>
        <!-- Ammend confirmation modal end-->
+
+        <!--Email confirmation modal-->
+       <!-- Modal -->
+    <div class="modal fade" id="emailvoucherModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Confirm Mailing!</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p> Are you sure you want send the email for voucher <b>{{voucher.number}}</b> to <b>{{voucher.client.clientName}}</b>?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <a class="btn btn-info" href="{% url 'email-voucher' voucher.slug %}">Yes, Send mail.</a>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+       <!-- Email confirmation modal end-->
 </div>
 <script>
      $('input[type=checkbox]').on('change', function (e) {

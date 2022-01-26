@@ -135,7 +135,7 @@ def edit_voucher(request, slug):
             
             
             #InvoiceProduct.objects.create(product=product, order=form,quantity=quantity)
-            messages.success(request, f'Voucher updated '+str(type)+' successfully')
+            messages.success(request, f'Voucher updated successfully')
             return redirect('view-voucher',slug)
         
     
