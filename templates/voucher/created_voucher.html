@@ -53,12 +53,24 @@
         <a href="{% url 'edit-voucher' voucher.slug%}" class="btn btn-secondary">Edit</a>
       
     </div>
+
+    {%if voucher.voucher_status == 'EMAIL_SENT'%}
      <div class="btn-group ml-2">
+      
+        <a href="#" class="btn btn-info" data-toggle="modal" data-target="#emailsentvoucherModal">Mail the voucher</a>
+        
+        
+    </div>
+    {%else%}
+
+    <div class="btn-group ml-2">
       
         <a href="#" class="btn btn-info" data-toggle="modal" data-target="#emailvoucherModal">Mail the voucher</a>
         
         
     </div>
+    {%endif%}
+
     <div class="btn-group ml-2">
       
         <a href="#" class="btn btn-warning" data-toggle="modal" data-target="#vouchercancelModal">Cancel voucher</a>
@@ -67,6 +79,12 @@
     <div class="btn-group ml-2">
       
         <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#voucherdeleteModal">Delete</a>
+      
+    </div>
+
+     <div class="btn-group ml-2">
+      
+        <a href="{% url 'list-vouchers' %}" class="btn btn-light ml-5">Go back</a>
       
     </div>
    
@@ -262,7 +280,7 @@
   </div>
   </div>
 
-   <!--Amend confirmation modal-->
+   <!--Cancel confirmation modal-->
        <!-- Modal -->
     <div class="modal fade" id="vouchercancelModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
@@ -288,7 +306,7 @@
 
 
 
-        <!--Amend confirmation modal-->
+        <!--Delete confirmation modal-->
        <!-- Modal -->
     <div class="modal fade" id="voucherdeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
@@ -335,6 +353,34 @@
       </div>
     </div>
        <!-- Email confirmation modal end-->
+
+
+       <!--Email confirmation modal-->
+       <!-- Modal -->
+    <div class="modal fade" id="emailsentvoucherModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Logical error!</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p> The voucher # <b>{{voucher.number}}</b> is already mailed to the client <b>{{voucher.client.clientName}}</b>.
+            Unless you are sending a Cancellation or Ammended voucher, go back to main menu, emmend/cancel the voucher and resend.
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <a class="btn btn-info" href="{% url 'email-voucher' voucher.slug %}">Yes, Send mail.</a>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+       <!-- Email confirmation modal end-->
+
+
 </div>
 <script>
      $('input[type=checkbox]').on('change', function (e) {
