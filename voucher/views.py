@@ -40,7 +40,7 @@ from django.forms.formsets import formset_factory
 
 import weasyprint
 
-from virginafrica.functions import emailInvoiceClient
+from virginafrica.functions import emailInvoiceClient, email_ammend_Voucher, email_cancel_Voucher
 
 
 
