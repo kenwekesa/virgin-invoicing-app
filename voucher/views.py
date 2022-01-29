@@ -385,6 +385,7 @@ def cancel_voucher(request, slug):
 
     #pdfkit.from_string(html, pdf_save_path, configuration=config, options=options)
     #send the emails to client
+    voucher_number= voucher.number
     to_email = voucher.client.emailAddress
     from_client = voucher.client.clientName
     email_cancel_Voucher(pdf,to_email, from_client, filename,voucher_number)
