@@ -577,7 +577,7 @@ def emailDocumentInvoice(request, slug):
 	context['invoiceproduct'] = invoiceproduct
 	
 	#The name of your PDF file
-	filename = '{}.pdf'.format(invoice.uniqueId)
+	filename = '{}.pdf'.format(invoice.number)
 	#HTML FIle to be converted to PDF - inside your Django directory
 	#template = get_template('invoice/pdf-template.html')
 	#Render the HTML

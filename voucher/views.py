@@ -345,7 +345,7 @@ def cancel_voucher(request, slug):
     
             
 
-    voucher.status = 'CANCELLED'
+    voucher.voucher_status = 'CANCELLED'
     voucher.save()
 
     context = {}
@@ -353,7 +353,7 @@ def cancel_voucher(request, slug):
     
     
     #The name of your PDF file
-    filename = '{}.pdf'.format(voucher.uniqueId)
+    filename = '{}.pdf'.format(voucher.number)
     #HTML FIle to be converted to PDF - inside your Django directory
     #template = get_template('invoice/pdf-template.html')
     #Render the HTML
@@ -415,7 +415,7 @@ def email_voucher(request, slug):
     
     
     #The name of your PDF file
-    filename = '{}.pdf'.format(voucher.uniqueId)
+    filename = '{}.pdf'.format(voucher.number)
     #HTML FIle to be converted to PDF - inside your Django directory
     #template = get_template('invoice/pdf-template.html')
     #Render the HTML
