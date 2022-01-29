@@ -348,6 +348,8 @@ def cancel_voucher(request, slug):
     voucher.voucher_status = 'CANCELLED'
     voucher.save()
 
+    voucher = Voucher.objects.get(slug=slug)
+
     context = {}
     context['voucher'] = voucher
     
