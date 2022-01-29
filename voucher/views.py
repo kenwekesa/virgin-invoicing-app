@@ -450,16 +450,22 @@ def email_voucher(request, slug):
     to_email = voucher.client.emailAddress
     from_client = voucher.client.clientName
     voucher_number= voucher.number
+    
+    mail_message=" "
 
     if voucher.voucher_status=='AMMENDED':
         email_ammend_Voucher(pdf,to_email, from_client, filename, voucher_number)
+        mail_message= "Voucher ammend email sent to the client succesfully"
     
     else:
         emailVoucher(pdf,to_email, from_client, filename)
+        voucher.voucher_status = 'EMAIL_SENT'
+        voucher.save()
+        mail_message= "Email sent to the client succesfully"
     #invoice.status = 'EMAIL_SENT'
     #invoice.save()
     #Email was send, redirect back to view - invoice
-    messages.success(request, "Email sent to the client succesfully")
+    messages.success(request, mail_message)
     return redirect('view-voucher', slug=slug)
     #view invoices here
 
@@ -475,7 +481,7 @@ def amend_voucher(request, slug):
 
     
             
-    voucher.status = 'AMMENDED'
+    voucher.voucher_status = 'AMMENDED'
     voucher.save()
 
 
