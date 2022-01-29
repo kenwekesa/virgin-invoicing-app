@@ -317,7 +317,7 @@ def pdfview(request,slug):
     
     
 
-    
+    voucher_number = voucher.number
     html_string = render_to_string('voucher/voucher_template.html', context)
 
     html = HTML(string=html_string, base_url=request.build_absolute_uri())
@@ -387,7 +387,7 @@ def cancel_voucher(request, slug):
     #send the emails to client
     to_email = voucher.client.emailAddress
     from_client = voucher.client.clientName
-    emailVoucher(pdf,to_email, from_client, filename)
+    email_cancel_Voucher(pdf,to_email, from_client, filename,voucher_number)
     
     #Email was send, redirect back to view - invoice
     messages.success(request, "Cancel mail sent to the client succesfully")
@@ -448,7 +448,13 @@ def email_voucher(request, slug):
     #send the emails to client
     to_email = voucher.client.emailAddress
     from_client = voucher.client.clientName
-    emailVoucher(pdf,to_email, from_client, filename)
+    voucher_number= voucher.number
+
+    if voucher.voucher_status=='AMMENDED':
+        email_ammend_Voucher(pdf,to_email, from_client, filename, voucher_number)
+    
+    else:
+        emailVoucher(pdf,to_email, from_client, filename)
     #invoice.status = 'EMAIL_SENT'
     #invoice.save()
     #Email was send, redirect back to view - invoice
