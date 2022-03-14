@@ -148,13 +148,12 @@
       <!-- Page Content  -->
       <div id="content">
         <div class="span4 offset4 ml-5 mr-5 mt-4">
-          {% if messages %} {% for message in messages%}
-          <!---->
-          {% ifequal message.tags "error" %}
+          {% if messages %} {% for message in messages %}
+          {% if message.tags == "error" %}
           <div class="alert alert-danger">{{ message }}</div>
           {% else %}
           <div class="alert alert-{{ message.tags }}">{{ message }}</div>
-          {% endifequal %} {% endfor%} {% endif %}
+          {% endif %} {% endfor %} {% endif %}
         </div>
         <nav class="navbar navbar-expand-lg navbar-light">
           <div class="container-fluid">

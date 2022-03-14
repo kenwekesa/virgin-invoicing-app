@@ -13,6 +13,9 @@ from django.conf import settings
 
 from django.forms.formsets import formset_factory
 
+import os
+os.add_dll_directory(r"C:\Program Files\GTK3-Runtime Win64\bin")
+
 import weasyprint
 
 from virginafrica.functions import emailInvoiceClient
@@ -27,7 +30,7 @@ from invoice.models import Invoice,Product,Client,InvoiceProduct
 from django.core.files.storage import FileSystemStorage
 
 from weasyprint import HTML
-import os
+
 
 
 
