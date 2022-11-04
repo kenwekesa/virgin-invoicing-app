@@ -9,8 +9,17 @@
     <style>
       @page {
         size: A4;
-        margin: 0.1in 0.1in 0.1in 0.1in;
+        margin:0;
       }
+
+      
+      body {
+    background-image:  url('{% static "images/media/voucherback.png"%}');
+    background-size:   cover;                      /* <------ */
+    background-repeat: no-repeat;
+    background-position: center center;            /* optionally, center the image */
+    padding: 25px 20px 10px 20px;
+}
 
       .invoice-box {
         max-width: 800px;
@@ -56,7 +65,7 @@
       }
 
       .invoice-box table tr.heading td {
-        background: #eee;
+        background-color: maroon;
         border-bottom: 1px solid #ddd;
         font-weight: bold;
       }
@@ -129,7 +138,7 @@
 {
   padding: 3px;
 }
-  }
+  
 .bottom_row
 {
    box-sizing: border-box;
@@ -213,24 +222,24 @@
     
 
       <div class="invoice-box">
-       <center><h1 style="align:center">INVOICE</h1></center>
-   
-      <table cellpadding="0" cellspacing="0">
-        <tr class="top">
-          <td colspan="2">
-            <table>
-              <tr>
-                <td class="title">
-                  <img
+        
+        <table cellpadding="0" cellspacing="0">
+          <tr class="top">
+            <td colspan="2">
+              <table>
+                <tr>
+                  <td class="title">
+                    <img
                     src="{% static 'images/logo.PNG' %}"
                     style="width: 100%; max-width: 200px"
                     alt="Logo"
-                  />
-                </td>
-                 <td class="mr-3">
-                      
-                 </td>
-                <td>
+                    />
+                  </td>
+                  <td class="mr-3">
+                    
+                  </td>
+                  <td>
+                  <h1 style="align:center;color:maroon">INVOICE</h1>
                    Invoice #: <strong>{{invoice.number}}</strong><br />
                 Created: {{invoice.date_created|date}}<br />
                 Due: {{invoice.dueDate}}
@@ -246,7 +255,7 @@
               <tr>
                 <td>
                  
-                <strong>{{invoice.client.clientName}}</strong> <br />
+                Invoice to: <strong>{{invoice.client.clientName}}</strong> <br />
                 
                 </td>
 
@@ -260,7 +269,7 @@
 
        <tr>
        <table style="border-collapse: collapse;">
-        <tr class="heading">
+        <tr class="heading" style="background-color: maroon !important;color: white;">
           <td>Item</td>
           <td style="padding-right: 10px;">Qty(Pax)</td>
           <td class="pl-3">Description</td>
