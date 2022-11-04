@@ -20,7 +20,7 @@ class InvoiceForm(forms.ModelForm):
         ('Immediate', 'Immediate'),
         ('15 days', '15 days'),
         ('30 days', '30 days'),
-        ('60 days', '60 days'),
+        
     ]
     STATUS_OPTIONS = [
         ('CURRENT', 'CURRENT'),

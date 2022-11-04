@@ -58,6 +58,7 @@ class Invoice(models.Model):
         ('Immediate', 'Immediate'),
         ('15 days', '15 days'),
         ('30 days', '30 days'),
+        
 
     ]
 

@@ -498,7 +498,15 @@ def edit_invoice(request, slug):
 
 			slug = form.slug
 
+			period= form.paymentTerms
+			if period == 'Immediate':
+				form.dueDate=datetime.datetime.now() + datetime.timedelta(days=0)
+			
+			elif period=='15 days':
+				form.dueDate=datetime.datetime.now() + datetime.timedelta(days=15)
 
+			elif period == '30 days':
+				form.dueDate=datetime.datetime.now() + datetime.timedelta(days=30)
 
 			marked_for_delete = product_formset.deleted_forms
 			for f in product_formset.forms:

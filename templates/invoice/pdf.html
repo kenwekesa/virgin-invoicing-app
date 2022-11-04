@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <title>Invoice</title>
-
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300&family=Poppins:ital,wght@0,100;1,200&display=swap" rel="stylesheet">
     <style>
       @page {
         size: A4;
@@ -19,6 +19,7 @@
     background-repeat: no-repeat;
     background-position: center center;            /* optionally, center the image */
     padding: 25px 20px 10px 20px;
+    font-family: 'Poppins', sans-serif;
 }
 
       .invoice-box {
@@ -48,6 +49,10 @@
 
       .invoice-box table tr td:nth-child(2) {
         text-align: right;
+        padding-right: 4px;
+      }
+      .invoice-box table tr {
+        padding-left: 8px;
       }
 
       .invoice-box table tr.top table td {
@@ -201,7 +206,8 @@
     border-collapse: collapse;
     padding: 0;
     margin: 0;
-    font-size: 8px;
+    font-size: 10px;
+    line-height: 12px;
 }
 .formm > li {
     display: table-row;
@@ -213,7 +219,7 @@
     padding: 0;
 }
 .formm > li > div:first-child {
-    padding-right: 10px;
+    padding-right: 18px;
 }
     </style>
   </head>
@@ -304,25 +310,74 @@
 
        
 
-    {%if invoice.istaxable%}
+        {%if invoice.istaxable and not invoice.apply_discount%}
         <tr class="total">
           <td></td>
 
           <td colspan="3">Total</td>
-          <td class = "grand_total">{{invoiceTotal}}</td>
+          <td class = "grand_total"><u><u>{{invoiceTotal}}</u><u/></td>
         </tr>
         <tr class="total">
           <td></td>
 
           <td colspan="3">VAT(16%)</td>
-          <td class = "grand_total">{{tax}}</td>
+          <td class = "grand_total"><u><u>{{tax}}</u><u/></td>
         </tr>
 
         <tr class="total">
           <td></td>
 
           <td colspan="3">Grand Total:</td>
-          <td class = "grand_total"><u>{{invoiceGrandTotal}}</u></td>
+          <td class = "grand_total"><u><u>{{invoiceGrandTotal}}</u><u/></td>
+        </tr>
+
+        {% elif invoice.istaxable and invoice.apply_discount%}
+        <tr class="total">
+          <td></td>
+
+          <td colspan="3">Total</td>
+          <td class = "grand_total"><u><u>{{invoiceTotal}}</u><u/></td>
+        </tr>
+        <tr class="total">
+          <td></td>
+
+          <td colspan="3">VAT(16%)</td>
+          <td class = "grand_total"><u><u>{{tax}}</u><u/></td>
+        </tr>
+        <tr class="total">
+          <td></td>
+
+          <td colspan="3">Discount({{discount_percentage}}%)</td>
+          <td class = "grand_total"><u><u>{{discount}}</u><u/></td>
+        </tr>
+
+        <tr class="total">
+          <td></td>
+
+          <td colspan="3">Grand Total:</td>
+          <td class = "grand_total"><u><u>{{discounted_grand_total}}</u><u/></td>
+        </tr>
+
+      
+         {% elif not invoice.istaxable and invoice.apply_discount%}
+        <tr class="total">
+          <td></td>
+
+          <td colspan="3">Total</td>
+          <td class = "grand_total"><u><u>{{invoiceTotal}}</u><u/></td>
+        </tr>
+        <tr class="total">
+          <td></td>
+
+          <td colspan="3">Discount({{discount_percentage}}%)</td>
+          <td class = "grand_total"><u><u>{{discount}}</u><u/></td>
+        </tr>
+
+        <tr class="total">
+          <td></td>
+
+          <td colspan="3">Grand Total:</td>
+          <td class = "grand_total"><u><u>{{discounted_grand_total}}</u><u/></td>
         </tr>
 
         {%else%}
@@ -330,10 +385,11 @@
           <td></td>
 
           <td colspan="3">Grand Total:</td>
-          <td class = "grand_total"><u>{{invoice.grand_total}}</u></td>
+          <td class = "grand_total"><u><u>{{invoice.grand_total}}</u><u/></td>
         </tr>
 
         {%endif%}
+
 
       </table>
       </tr>
@@ -349,7 +405,7 @@
     <ul class="formm">
     <li>
        <div><lable>ACCOUNT NAME:</label></div>
-       <div> VIRGIN AFRICA SAFARIS LIMITED<</div>
+       <div> VIRGIN AFRICA SAFARIS LIMITED</div>
        </li>
        <li>
            <div><lable>BANK: </label></div>
