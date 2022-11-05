@@ -30,12 +30,12 @@
       {% csrf_token %}
       <div class="form-row">
         <div class="form-group col-2">{{ form.number|as_crispy_field }}</div>
-        <div class="form-group col-3">{{ form.dueDate|as_crispy_field }}</div>
-        <div class="form-group col-2">
+        <!--<div class="form-group col-3">{{ form.dueDate|as_crispy_field }}</div>-->
+        <div class="form-group col-3">
           {{ form.paymentTerms|as_crispy_field }}
         </div>
        
-        <div class="form-group col-2">{{ form.status|as_crispy_field }}</div>
+        <div class="form-group col-3">{{ form.status|as_crispy_field }}</div>
          <div class="form-group col-2 ml-3">{{ form.istaxable|as_crispy_field }}</div>
         
       </div>
