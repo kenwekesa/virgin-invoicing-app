@@ -8,13 +8,15 @@ from django.template.loader import render_to_string
 from django.urls.base import reverse, reverse_lazy
 from django.views.generic import TemplateView
 import json
+import sys
 from django.http import HttpResponse, JsonResponse
 from django.conf import settings
 
 from django.forms.formsets import formset_factory
 
 import os
-os.add_dll_directory(r"C:\Program Files\GTK3-Runtime Win64\bin")
+#if sys.version_info[:2] >= (3, 8):
+	#os.add_dll_directory(r"C:\Program Files\GTK3-Runtime Win64\bin")
 
 import weasyprint
 
